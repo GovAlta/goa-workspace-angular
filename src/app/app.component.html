@@ -1,0 +1,37 @@
+<div class="app-layout">
+  <goabx-work-side-menu
+    url="/"
+    heading="Workspace Demo Application"
+    userName="Edna Mode"
+    userSecondaryText="edna.mode@example.com"
+    [open]="menuOpen"
+    (onToggle)="onMenuToggle()"
+    [primaryContent]="primaryNav"
+    [secondaryContent]="secondaryNav"
+    [accountContent]="accountNav"
+  />
+
+  <div class="content-area">
+    <router-outlet />
+  </div>
+</div>
+
+<ng-template #primaryNav>
+  <goabx-work-side-menu-item icon="grid" label="Dashboard" url="/" />
+  <goabx-work-side-menu-item icon="search" label="Search" url="/search" />
+  <goabx-work-side-menu-item icon="list" label="Cases" url="/cases" />
+  <goabx-work-side-menu-item icon="document" label="Documents" type="success" badge="New" url="/documents">
+    <goabx-work-side-menu-item label="Sub menu item 1" url="/documents/sub1" />
+    <goabx-work-side-menu-item label="Sub menu item 2" url="/documents/sub2" />
+    <goabx-work-side-menu-item label="Sub menu item 3" url="/documents/sub3" />
+  </goabx-work-side-menu-item>
+</ng-template>
+
+<ng-template #secondaryNav>
+  <goabx-work-side-menu-item badge="Pending" type="emergency" icon="notifications" label="Notifications" url="/notifications" />
+</ng-template>
+
+<ng-template #accountNav>
+  <goabx-work-side-menu-item icon="settings" label="Settings" url="/settings" />
+  <goabx-work-side-menu-item icon="log-out" label="Log out" url="/logout" />
+</ng-template>
