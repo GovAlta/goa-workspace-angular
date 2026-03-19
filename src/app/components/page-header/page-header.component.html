@@ -1,0 +1,47 @@
+<div [class]="headerClasses">
+  <div class="page-header__content">
+    <div class="page-header__title-container">
+      @if (viewport.isMobile()) {
+        <goab-icon-button
+          icon="menu"
+          size="medium"
+          variant="dark"
+          (onClick)="openMenu()"
+          ariaLabel="Open menu"
+        />
+      }
+      @if (title) {
+        <goab-text
+          tag="h1"
+          [size]="
+            isCollapsed
+              ? 'heading-s'
+              : viewport.isMobile()
+                ? 'heading-m'
+                : 'heading-l'
+          "
+          mt="none"
+          mb="none"
+        >
+          {{ title }}
+        </goab-text>
+      }
+    </div>
+    @if (!viewport.isMobile()) {
+      <div class="page-header__spacer"></div>
+    }
+    <div class="page-header__actions">
+      <ng-content select="[actions]" />
+    </div>
+  </div>
+  @if (hasTabs) {
+    <div class="page-header__tabs" style="--goa-tabs-margin-bottom: 0">
+      <ng-content select="[tabs]" />
+    </div>
+  }
+  @if (hasToolbar) {
+    <div class="page-header__toolbar page-header__toolbar--expanded">
+      <ng-content select="[toolbar]" />
+    </div>
+  }
+</div>

@@ -1,0 +1,28 @@
+@if (hasChips) {
+  <div class="chips-container">
+    <goab-icon
+      type="filter-lines"
+      size="small"
+      fillColor="var(--goa-color-text-secondary)"
+      mr="2xs"
+    />
+
+    @for (chip of searchChips; track chip) {
+      <goabx-filter-chip
+        [content]="chip"
+        (onClick)="removeSearchChip.emit(chip)"
+      />
+    }
+
+    @for (chip of filterChips; track chip.category + "-" + chip.value) {
+      <goabx-filter-chip
+        [content]="chip.label"
+        (onClick)="onRemoveFilter(chip.category, chip.value)"
+      />
+    }
+
+    <goabx-link color="dark" size="small">
+      <a href="#" (click)="onClearAll($event)">Clear all</a>
+    </goabx-link>
+  </div>
+}

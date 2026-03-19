@@ -1,0 +1,14 @@
+<div class="empty-state">
+  @if (illustration) {
+    <img
+      class="empty-state__illustration"
+      [src]="'assets/' + illustration + '.svg'"
+      alt=""
+    />
+  }
+  <div class="empty-state__heading">{{ heading }}</div>
+  @if (subline) {
+    <div class="empty-state__subline">{{ subline }}</div>
+  }
+  <ng-content />
+</div>

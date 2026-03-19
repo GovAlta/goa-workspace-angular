@@ -1,0 +1,39 @@
+<div class="case-detail-header__tombstone">
+  <!-- Status Badges -->
+  <div class="case-detail-header__badges">
+    @if (isLoading) {
+      <div class="case-detail-header__skeleton-row">
+        <goab-skeleton type="text" maxWidth="70px" />
+        <goab-skeleton type="text" maxWidth="70px" />
+      </div>
+    } @else {
+      @for (status of statuses; track $index) {
+        <goabx-badge
+          [content]="status.label"
+          [type]="status.type"
+          [emphasis]="status.emphasis"
+        />
+      }
+    }
+  </div>
+
+  <!-- Phone Number Section -->
+  <div class="case-detail-header__id">
+    @if (isLoading) {
+      <goab-skeleton type="text" maxWidth="140px" />
+    } @else {
+      <goab-text mb="none" mt="none">
+        {{ phoneNumber }}
+      </goab-text>
+      <goab-tooltip [content]="getCopyTooltip('phoneNumber')">
+        <goab-icon-button
+          icon="copy"
+          ariaLabel="Copy Phone Number"
+          variant="dark"
+          size="small"
+          (onClick)="handleCopy(phoneNumber, 'phoneNumber')"
+        />
+      </goab-tooltip>
+    }
+  </div>
+</div>

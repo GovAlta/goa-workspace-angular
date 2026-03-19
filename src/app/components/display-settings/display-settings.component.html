@@ -1,0 +1,190 @@
+<!-- Target template for popover -->
+<ng-template #popoverTarget>
+  @if (isCompact) {
+    <goab-icon-button
+      icon="settings"
+      size="medium"
+      variant="dark"
+      ariaLabel="Settings"
+    />
+  } @else {
+    <goabx-button type="tertiary" size="compact" trailingIcon="chevron-down">
+      Settings
+    </goabx-button>
+  }
+</ng-template>
+
+<!-- TODO: Remove .settings-popover-align wrapper when #3643 is resolved -->
+<div class="settings-popover-align">
+  <goab-popover
+    [padded]="false"
+    maxWidth="280px"
+    position="below"
+    [target]="popoverTarget"
+  >
+    <!-- Popover content -->
+    @switch (screen) {
+      @case ("layout") {
+        <!-- Layout screen -->
+        <div class="settings-popover__content">
+          <div class="settings-popover__header">
+            <button class="settings-popover__back" (click)="navigateTo('main')">
+              <goab-icon type="chevron-back" size="small" />
+              <span>Layout</span>
+            </button>
+            <goab-icon-button
+              icon="close"
+              size="small"
+              variant="dark"
+              action="close"
+              ariaLabel="Close settings"
+            />
+          </div>
+
+          <div class="settings-popover__options">
+            <goabx-radio-group
+              name="layout"
+              [value]="settings.layout"
+              (onChange)="handleLayoutChange($event)"
+            >
+              @for (option of layoutOptions; track option.value) {
+                <goab-radio-item
+                  [value]="option.value"
+                  [label]="getLayoutRadioLabel(option)"
+                />
+              }
+            </goabx-radio-group>
+          </div>
+        </div>
+      }
+      @case ("columns") {
+        <!-- Columns screen -->
+        <div class="settings-popover__content">
+          <div class="settings-popover__header">
+            <button class="settings-popover__back" (click)="navigateTo('main')">
+              <goab-icon type="chevron-back" size="small" />
+              <span>Columns</span>
+            </button>
+            <goab-icon-button
+              icon="close"
+              size="small"
+              variant="dark"
+              action="close"
+              ariaLabel="Close settings"
+            />
+          </div>
+
+          <div class="settings-popover__options">
+            @for (column of columnOptions; track column.key) {
+              <goabx-checkbox
+                [name]="'column-' + column.key"
+                [text]="column.label"
+                [checked]="isColumnChecked(column.key)"
+                [disabled]="isColumnDisabled(column.key)"
+                (onChange)="handleColumnToggle(column.key)"
+              />
+            }
+          </div>
+        </div>
+      }
+      @case ("grouping") {
+        <!-- Grouping screen -->
+        <div class="settings-popover__content">
+          <div class="settings-popover__header">
+            <button class="settings-popover__back" (click)="navigateTo('main')">
+              <goab-icon type="chevron-back" size="small" />
+              <span>Group</span>
+            </button>
+            <goab-icon-button
+              icon="close"
+              size="small"
+              variant="dark"
+              action="close"
+              ariaLabel="Close settings"
+            />
+          </div>
+
+          <div class="settings-popover__options">
+            <goabx-radio-group
+              name="groupBy"
+              [value]="getRadioGroupValue()"
+              (onChange)="handleGroupByChange($event)"
+            >
+              @for (
+                option of groupingOptions;
+                track getGroupingOptionValue(option.value)
+              ) {
+                <goab-radio-item
+                  [value]="getGroupingOptionValue(option.value)"
+                  [label]="option.label"
+                />
+              }
+            </goabx-radio-group>
+          </div>
+        </div>
+      }
+      @default {
+        <!-- Main screen -->
+        <div class="settings-popover__content">
+          <div class="settings-popover__header">
+            <span class="settings-popover__title">View settings</span>
+            <goab-icon-button
+              icon="close"
+              size="small"
+              variant="dark"
+              action="close"
+              ariaLabel="Close settings"
+            />
+          </div>
+
+          <div class="settings-popover__menu">
+            <button
+              class="settings-popover__menu-item"
+              (click)="navigateTo('layout')"
+            >
+              <goab-icon [type]="currentLayoutIcon" size="small" />
+              <span class="settings-popover__menu-label">Layout</span>
+              <span class="settings-popover__menu-value">{{
+                layoutLabel
+              }}</span>
+              <goab-icon type="chevron-forward" size="small" />
+            </button>
+
+            <!-- Only show columns option when layout is table and not mobile -->
+            @if (settings.layout === "table" && !isMobile) {
+              <button
+                class="settings-popover__menu-item"
+                (click)="navigateTo('columns')"
+              >
+                <goab-icon type="eye" size="small" />
+                <span class="settings-popover__menu-label">Columns</span>
+                <span class="settings-popover__menu-value">{{
+                  settings.visibleColumns.length
+                }}</span>
+                <goab-icon type="chevron-forward" size="small" />
+              </button>
+            }
+
+            <button
+              class="settings-popover__menu-item"
+              (click)="navigateTo('grouping')"
+            >
+              <goab-icon type="layers" size="small" />
+              <span class="settings-popover__menu-label">Group</span>
+              <span class="settings-popover__menu-value">{{
+                groupByLabel
+              }}</span>
+              <goab-icon type="chevron-forward" size="small" />
+            </button>
+          </div>
+
+          <div class="settings-popover__reset">
+            <goabx-link color="dark">
+              <a href="#" (click)="onResetClick($event)">Reset</a>
+            </goabx-link>
+          </div>
+        </div>
+      }
+    }
+  </goab-popover>
+</div>

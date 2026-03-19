@@ -1,0 +1,551 @@
+@import "@abgov/web-components/index.css";
+@import "@abgov/design-tokens/dist/tokens.css";
+
+/* To override styles of GoA components (goa-*, goabx-*), define CSS here in global
+   styles. Angular view encapsulation prevents component-scoped CSS from styling them. */
+.cases-search-group goabx-form-item {
+  flex: 1;
+  min-width: 0;
+  display: block;
+}
+
+.cases-search-group goabx-form-item goa-form-item {
+  display: block;
+  width: 100%;
+}
+
+.cases-toolbar-tabs goabx-tabs {
+  flex-shrink: 0;
+  display: block;
+}
+
+/* Ensure goa-input inside form-item takes full width */
+.cases-search-group goa-input {
+  width: 100%;
+}
+
+
+/* ============================================================================
+   TABLE CELL UTILITIES
+   ============================================================================ */
+
+.goa-table-cell--nowrap {
+  white-space: nowrap;
+}
+
+.goa-table-cell--capitalize {
+  text-transform: capitalize;
+}
+
+.goa-table-cell--notes {
+  white-space: nowrap;
+  min-width: 200px;
+}
+
+/* Checkbox in table cells - vertical alignment and margin fix */
+.goa-table-cell--checkbox {
+  vertical-align: middle;
+}
+
+.goa-table-cell--checkbox goa-checkbox {
+  margin-bottom: 0;
+}
+
+/* ============================================================================
+   LINK UTILITIES
+   ============================================================================ */
+
+/* Button styled as link - for semantic actions that look like links */
+.link-button {
+  background: none;
+  border: none;
+  padding: 0;
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+}
+
+/* Clickable table rows - link styling */
+.table-row-link,
+.table-row-link:visited {
+  color: var(--goa-color-text-default);
+  text-decoration: none;
+  font-weight: var(--goa-font-weight-semi-bold, 600);
+}
+
+.table-row-link:hover,
+.table-row-link:visited:hover {
+  text-decoration: underline;
+  color: var(--goa-color-text-default);
+}
+
+.table-row-link:focus-visible {
+  outline: var(--goa-border-width-l) solid var(--goa-color-interactive-focus);
+  outline-offset: var(--goa-border-width-l);
+  border-radius: var(--goa-border-radius-s);
+}
+
+/* Clear all link button styled like GoabLink color="dark" size="small" */
+.clear-all-link {
+  background: none;
+  border: none;
+  color: var(--goa-color-text-default);
+  font: var(--goa-typography-body-s);
+  cursor: pointer;
+  text-decoration: underline;
+  padding: 0;
+  margin-left: var(--goa-space-2xs);
+}
+
+.clear-all-link:hover {
+  color: var(--goa-color-interactive-hover);
+}
+
+/* ============================================================================
+   SHARED LAYOUT UTILITIES
+   ============================================================================ */
+
+/* Content padding - responsive left/right padding */
+.content-padding {
+  container-type: inline-size;
+  padding-left: var(--goa-space-m);
+  padding-right: var(--goa-space-m);
+}
+
+@media (min-width: 624px) {
+  .content-padding {
+    padding-left: var(--goa-space-xl);
+    padding-right: var(--goa-space-xl);
+  }
+}
+
+/* Filter chips container */
+.chips-container {
+  display: flex;
+  align-items: center;
+  gap: var(--goa-space-s);
+  margin-top: 0;
+  margin-bottom: var(--goa-space-m);
+}
+
+/* Card grid layout */
+.card-grid {
+  display: flex;
+  flex-direction: column;
+  gap: var(--goa-space-s);
+  position: relative;
+}
+
+/* Ensure GoA web component host elements take full width in card/list layouts */
+.card-grid > div,
+.list-view > div {
+  width: 100%;
+}
+
+goa-data-grid {
+  display: block;
+  width: 100%;
+}
+
+/* Override goa-container max-width when Angular wrapper passes width="full".
+   The Angular wrapper defaults width="full" which the web component interprets
+   as a fixed max-width. React doesn't pass this attribute, so no constraint.
+   Apply globally to match React behavior. */
+goa-container {
+  max-width: 100% !important;
+}
+
+/* Ensure GoabDataGrid keyboard navigation indicator is not clipped in card view */
+.content-padding goa-data-grid {
+  overflow: visible;
+}
+
+/* Table wrapper - uses margin for scroll container compatibility */
+.table-wrapper {
+  margin-left: var(--goa-space-m);
+  margin-right: var(--goa-space-m);
+}
+
+@media (min-width: 624px) {
+  .table-wrapper {
+    margin-left: var(--goa-space-xl);
+    margin-right: var(--goa-space-xl);
+  }
+}
+
+/* ============================================================================
+   DATA CARD STYLES - Shared card layout for list/card views
+   ============================================================================ */
+
+.data-card__title {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--goa-space-s);
+  flex-wrap: wrap;
+  padding: var(--goa-space-xs) 0;
+}
+
+.data-card__title goa-checkbox {
+  margin-bottom: 0;
+  margin-top: -3px;
+  margin-right: -8px;
+  flex-shrink: 0;
+}
+
+.data-card__name {
+  font: var(--goa-typography-heading-s);
+  color: var(--goa-color-interactive-default);
+  text-decoration: none;
+}
+
+.data-card__name:hover {
+  text-decoration: underline;
+}
+
+.data-card__actions {
+  display: flex;
+  align-items: center;
+  gap: var(--goa-space-m);
+}
+
+.data-card__actions goa-link {
+  white-space: nowrap;
+}
+
+.data-card__body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--goa-space-l);
+}
+
+.data-card__sections {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--goa-space-l);
+}
+
+.data-card__section {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.data-card__section-heading {
+  font: var(--goa-typography-heading-2xs);
+  color: var(--goa-color-greyscale-600);
+  padding-bottom: var(--goa-space-xs);
+  border-bottom: var(--goa-border-width-s) solid var(--goa-color-greyscale-400);
+  margin-bottom: var(--goa-space-s);
+}
+
+.data-card__section-fields {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--goa-space-m) var(--goa-space-xl);
+}
+
+.data-card__label {
+  font: var(--goa-typography-heading-2xs);
+  color: var(--goa-color-text-secondary);
+}
+
+.data-card__value {
+  font: var(--goa-typography-body-s);
+  color: var(--goa-color-text-default);
+}
+
+.data-card--skeleton {
+  pointer-events: none;
+}
+
+
+/* ============================================================================
+   ROW ACTION MENU - Fix popover in table cells
+   ============================================================================ */
+
+.row-action-wrapper {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.row-action-trigger {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  border: none;
+  border-radius: var(--goa-border-radius-m);
+  background: transparent;
+  cursor: pointer;
+  color: var(--goa-color-text-secondary);
+}
+
+.row-action-trigger:hover {
+  background: var(--goa-color-greyscale-100);
+  color: var(--goa-color-text-default);
+}
+
+.row-action-trigger:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px var(--goa-color-interactive-focus);
+}
+
+.row-action-menu {
+  display: flex;
+  flex-direction: column;
+  gap: var(--goa-space-2xs);
+  margin: calc(-1 * var(--goa-space-m));
+  padding: var(--goa-space-xs);
+  width: max-content;
+}
+
+.row-action-menu__item {
+  display: flex;
+  align-items: center;
+  gap: var(--goa-space-s);
+  width: 100%;
+  padding: var(--goa-space-s) var(--goa-space-m);
+  border: none;
+  border-radius: var(--goa-border-radius-m);
+  background: transparent;
+  font: var(--goa-typography-body-m);
+  color: var(--goa-color-text-default);
+  cursor: pointer;
+  text-align: left;
+}
+
+.row-action-menu__item:hover,
+.row-action-menu__item:focus-visible {
+  background: var(--goa-dropdown-item-color-bg-hover);
+  color: var(--goa-dropdown-item-color-text-hover);
+  outline: none;
+}
+
+.row-action-menu__item:focus-visible {
+  box-shadow: 0 0 0 var(--goa-border-width-l) var(--goa-color-interactive-focus);
+}
+
+.row-action-menu__item--destructive {
+  color: var(--goa-input-color-text-error);
+}
+
+.row-action-menu__item--destructive:hover,
+.row-action-menu__item--destructive:focus-visible {
+  background: var(--goa-color-emergency-background);
+  color: var(--goa-input-color-text-error);
+}
+
+/* ============================================================================
+   BUTTON-STYLE TABS - Tabs styled like a button group (toggle pills)
+   ============================================================================ */
+
+.tabs--button-style goa-tabs {
+  --goa-tabs-margin-bottom: 0;
+}
+
+.tabs--button-style goa-tabs::part(tabs),
+.tabs--button-style [role="tablist"] .tabs {
+  border-bottom: none;
+  gap: var(--goa-space-xs);
+}
+
+.tabs--button-style [role="tab"] {
+  border-bottom: none !important;
+  border: 1px solid var(--goa-color-interactive-default);
+  border-radius: var(--goa-border-radius-m);
+  background: transparent;
+  padding: var(--goa-space-xs) var(--goa-space-m);
+  font: var(--goa-typography-body-s);
+  font-weight: var(--goa-font-weight-regular);
+  color: var(--goa-color-interactive-default);
+  transition:
+    background-color 0.15s ease,
+    color 0.15s ease,
+    border-color 0.15s ease;
+}
+
+.tabs--button-style [role="tab"]::after {
+  display: none !important;
+}
+
+.tabs--button-style [role="tab"]:hover:not([aria-selected="true"]) {
+  background: var(--goa-color-interactive-hover);
+  border-color: var(--goa-color-interactive-hover);
+  color: white;
+}
+
+.tabs--button-style [role="tab"][aria-selected="true"] {
+  background: var(--goa-color-interactive-default);
+  border-color: var(--goa-color-interactive-default);
+  color: white;
+  font-weight: var(--goa-font-weight-bold);
+}
+
+.tabs--button-style [role="tab"]:focus-visible {
+  outline: var(--goa-border-width-l) solid var(--goa-color-interactive-focus);
+  outline-offset: 2px;
+}
+
+.tabs--button-style [role="tab"] goa-badge {
+  vertical-align: middle;
+}
+
+@media (max-width: 623px) {
+  .tabs--button-style goa-tabs::part(tabs),
+  .tabs--button-style [role="tablist"] .tabs {
+    flex-direction: row;
+    flex-wrap: wrap;
+    border-left: none;
+    padding-bottom: 0;
+  }
+
+  .tabs--button-style [role="tab"] {
+    border-left: none !important;
+    border: 1px solid var(--goa-color-interactive-default);
+    white-space: nowrap;
+  }
+
+  .tabs--button-style [role="tab"][aria-selected="true"] {
+    background: var(--goa-color-interactive-default);
+    border-left: none;
+  }
+}
+
+
+
+/* ============================================================================
+   EXPANDABLE LIST VIEW - Accordion-style rows with expand/collapse
+   (Copied from React: ExpandableListView.css)
+   ============================================================================ */
+
+.expandable-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--goa-space-xs);
+}
+
+.expandable-list__item {
+  background: white;
+  border: var(--goa-border-width-s) solid var(--goa-color-greyscale-200);
+  border-radius: var(--goa-border-radius-xl);
+  overflow: hidden;
+}
+
+.expandable-list__header {
+  display: flex;
+  align-items: center;
+  padding: var(--goa-space-xs) var(--goa-space-l) var(--goa-space-xs)
+    var(--goa-space-s);
+  gap: var(--goa-space-2xs);
+  background-color: var(--goa-color-greyscale-100);
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+}
+
+.expandable-list__header:hover {
+  background-color: var(--goa-color-greyscale-150);
+}
+
+.expandable-list__toggle {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: var(--goa-space-xs);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--goa-border-radius-s);
+}
+
+.expandable-list__toggle:focus-visible {
+  outline: var(--goa-border-width-l) solid var(--goa-color-interactive-focus);
+  outline-offset: 2px;
+}
+
+.expandable-list__heading-group {
+  display: flex;
+  align-items: center;
+  gap: var(--goa-space-m);
+  flex-wrap: wrap;
+  padding: var(--goa-space-xs) 0;
+}
+
+.expandable-list__title {
+  font-weight: var(--goa-font-weight-bold);
+  flex-shrink: 0;
+}
+
+.expandable-list__name {
+  font: var(--goa-typography-heading-xs);
+}
+
+@media (max-width: 623px) {
+  .expandable-list__heading-group {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--goa-space-xs);
+  }
+}
+
+.expandable-list__right-group {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: var(--goa-space-s);
+}
+
+.expandable-list__secondary {
+  display: flex;
+  align-items: center;
+  gap: var(--goa-space-s);
+}
+
+.expandable-list__actions {
+  flex-shrink: 0;
+}
+
+.expandable-list__header-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--goa-space-m);
+}
+
+.expandable-list__header-actions goa-link {
+  white-space: nowrap;
+}
+
+.expandable-list__content {
+  padding: var(--goa-space-m) var(--goa-space-l) var(--goa-space-l)
+    var(--goa-space-l);
+  border-top: var(--goa-border-width-s) solid var(--goa-color-greyscale-200);
+}
+
+.expandable-list__details {
+  display: flex;
+  flex-direction: column;
+  gap: var(--goa-space-m);
+}
+
+.expandable-list__detail-row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--goa-space-l);
+}
+
+.expandable-list__detail-item {
+  display: flex;
+  flex-direction: column;
+  gap: var(--goa-space-2xs);
+}
+
+.expandable-list__detail-label {
+  font: var(--goa-typography-body-xs);
+  color: var(--goa-color-text-secondary);
+}
+
+.expandable-list__detail-value {
+  font: var(--goa-typography-body-s);
+  color: var(--goa-color-text-default);
+}

@@ -1,0 +1,70 @@
+<div class="search-header-filters">
+  <div class="search-header-filters__search">
+    <goabx-input
+      name="searchText"
+      [value]="filters.searchText"
+      (onChange)="onSearchChange($event)"
+      (onKeyPress)="onSearchKeydown($event)"
+      [placeholder]="
+        isMobile ? 'Search...' : 'Search by name, staff, or file number...'
+      "
+      leadingIcon="search"
+      size="compact"
+      width="100%"
+    />
+  </div>
+
+  <div class="search-header-filters__dropdowns">
+    <goabx-dropdown
+      [value]="filters.entity"
+      (onChange)="onEntityChange($event)"
+      placeholder="All types"
+      size="compact"
+      width="120px"
+    >
+      <goabx-dropdown-item value="all" label="All types" />
+      <goabx-dropdown-item value="client" label="Clients" />
+      <goabx-dropdown-item value="case" label="Cases" />
+      <goabx-dropdown-item value="application" label="Applications" />
+      <goabx-dropdown-item value="document" label="Documents" />
+    </goabx-dropdown>
+
+    <goabx-dropdown
+      [value]="filters.status"
+      (onChange)="onStatusChange($event)"
+      placeholder="All statuses"
+      size="compact"
+      width="150px"
+      maxHeight="70vh"
+    >
+      <goabx-dropdown-item value="all" label="All statuses" />
+      @for (status of statusOptions; track status) {
+        <goabx-dropdown-item [value]="status" [label]="status" />
+      }
+    </goabx-dropdown>
+
+    <goabx-menu-button
+      size="compact"
+      type="tertiary"
+      [leadingIcon]="getViewIcon()"
+      [text]="getViewLabel()"
+      (onAction)="onViewAction($event)"
+    >
+      <goabx-menu-action
+        text="Table"
+        action="table"
+        [icon]="selectedView === 'table' ? 'checkmark' : undefined"
+      />
+      <goabx-menu-action
+        text="Card"
+        action="card"
+        [icon]="selectedView === 'card' ? 'checkmark' : undefined"
+      />
+      <goabx-menu-action
+        text="List"
+        action="list"
+        [icon]="selectedView === 'list' ? 'checkmark' : undefined"
+      />
+    </goabx-menu-button>
+  </div>
+</div>

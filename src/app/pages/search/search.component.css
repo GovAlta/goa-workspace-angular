@@ -1,0 +1,9 @@
+.cell-nowrap {
+  white-space: nowrap;
+}
+
+.search-content {
+  max-width: 100%;
+  overflow: hidden;
+  padding-bottom: 32px;
+}

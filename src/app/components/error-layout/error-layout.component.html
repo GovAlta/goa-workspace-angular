@@ -1,0 +1,24 @@
+<div class="error-page">
+  <div class="error-page-content">
+    <div class="error-page-icon-wrapper">
+      <goab-icon [type]="icon" size="xlarge" />
+    </div>
+    @if (label) {
+      <goab-text size="body-m" mt="m" mb="none" color="secondary">
+        {{ label }}
+      </goab-text>
+      <div class="error-page-underline"></div>
+    }
+    <goab-text tag="h1" size="heading-l" mt="xl" mb="none">
+      {{ heading }}
+    </goab-text>
+    <div class="error-page-description">
+      <goab-text size="body-m" mt="l" mb="none">
+        {{ description }}
+      </goab-text>
+    </div>
+    <div class="error-page-action">
+      <ng-content />
+    </div>
+  </div>
+</div>

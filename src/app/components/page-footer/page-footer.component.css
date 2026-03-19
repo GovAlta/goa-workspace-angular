@@ -1,0 +1,61 @@
+/* ============================================================================
+   PAGE FOOTER
+   ============================================================================ */
+
+.page-footer {
+  position: sticky;
+  bottom: 0;
+  z-index: 100;
+  background-color: white;
+  border-top: var(--goa-border-width) solid var(--goa-color-greyscale-150);
+  padding: var(--goa-space-s) var(--goa-space-xl);
+  transition: border-color 0.1s ease-out;
+}
+
+.page-footer--atbottom,
+.page-footer--noscroll {
+  border-top-color: transparent;
+  padding-bottom: var(--goa-space-l);
+}
+
+@media (max-width: 623px) {
+  .page-footer {
+    padding: var(--goa-space-s) var(--goa-space-m);
+  }
+}
+
+/* Footer scroll shadow */
+.page-footer::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 8px;
+  transform: translateY(-100%);
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.08), transparent);
+  pointer-events: none;
+  opacity: 0;
+  visibility: hidden;
+  transition:
+    opacity 0.1s ease-out,
+    visibility 0.1s ease-out;
+}
+
+.page-footer--attop::before,
+.page-footer--middle::before {
+  opacity: 1;
+  visibility: visible;
+}
+
+.page-footer--atbottom::before,
+.page-footer--noscroll::before {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.page-footer__content {
+  display: flex;
+  align-items: center;
+  gap: var(--goa-space-m);
+}

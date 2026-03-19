@@ -1,0 +1,68 @@
+<div class="app-layout">
+  <goabx-work-side-menu
+    url="/"
+    heading="Workspace Demo Application"
+    userName="Edna Mode"
+    userSecondaryText="edna.mode@example.com"
+    [open]="viewport.menuOpen()"
+    (onToggle)="viewport.toggleMenu()"
+    (onNavigate)="onNavigate($event)"
+    [primaryContent]="primaryNav"
+    [secondaryContent]="secondaryNav"
+    [accountContent]="accountNav"
+  />
+
+  <app-workspace-layout />
+</div>
+
+<ng-template #primaryNav>
+  <goabx-work-side-menu-item icon="grid" label="Dashboard" url="/" />
+  <goabx-work-side-menu-item icon="search" label="Search" url="/search" />
+  <goabx-work-side-menu-item icon="list" label="Cases" url="/cases" />
+  <goabx-work-side-menu-group icon="document" heading="Documents">
+    <goabx-work-side-menu-item label="Sub menu item 1" url="/documents/sub1" />
+    <goabx-work-side-menu-item label="Sub menu item 2" url="/documents/sub2" />
+    <goabx-work-side-menu-item label="Sub menu item 3" url="/documents/sub3" />
+  </goabx-work-side-menu-group>
+</ng-template>
+
+<ng-template #secondaryNav>
+  <goabx-work-side-menu-item
+    icon="notifications"
+    label="Notifications"
+    url="#"
+    [badge]="
+      notifications.unreadCount() > 0
+        ? '' + notifications.unreadCount()
+        : undefined
+    "
+    [type]="notifications.unreadCount() > 0 ? 'emergency' : undefined"
+    [popoverContent]="notificationPanel"
+  />
+</ng-template>
+
+<ng-template #notificationPanel>
+  <goabx-work-side-notification-panel
+    heading="Notifications"
+    activeTab="unread"
+    (onMarkAllRead)="notifications.markAllAsRead()"
+    (onViewAll)="onViewAllNotifications()"
+  >
+    @for (notif of notifications.allNotifications(); track notif.id) {
+      <goabx-work-side-notification-item
+        [title]="notif.title"
+        [description]="notif.description"
+        [timestamp]="notif.timestamp"
+        [type]="notif.type"
+        [readStatus]="notif.readStatus"
+        [priority]="notif.priority"
+        (onClick)="onNotificationClick(notif.id)"
+      />
+    }
+  </goabx-work-side-notification-panel>
+</ng-template>
+
+<ng-template #accountNav>
+  <goabx-work-side-menu-item icon="settings" label="Settings" url="/settings" />
+  <goabx-work-side-menu-item icon="log-out" label="Log out" url="/logout" />
+</ng-template>

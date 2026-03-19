@@ -1,0 +1,113 @@
+<ng-template #cardTitle>
+  <div class="data-card__title">
+    @if (activeTab === "all") {
+      <goabx-checkbox
+        [name]="'select-card-' + caseItem.id"
+        [checked]="caseItem.selected"
+        (onChange)="onSelectChange()"
+        [ariaLabel]="'Select ' + caseItem.name"
+      />
+    }
+    <goab-text size="heading-xs" mt="none" mb="none" data-grid="cell-1">
+      {{ caseItem.name }}
+    </goab-text>
+    <goabx-badge
+      data-grid="cell-2"
+      [type]="caseItem.status"
+      [content]="caseItem.statusText"
+      [icon]="true"
+      emphasis="subtle"
+    />
+  </div>
+</ng-template>
+
+<ng-template #cardActions>
+  <div data-grid="cell-3" class="data-card__actions">
+    @if (commentCount > 0) {
+      <goabx-link leadingIcon="chatbox" size="small" color="dark">
+        <button class="link-button" (click)="onCommentClick()">
+          {{ commentCount }} comment{{ commentCount === 1 ? "" : "s" }}
+        </button>
+      </goabx-link>
+    }
+    @if (activeTab === "all") {
+      <goabx-menu-button
+        leadingIcon="ellipsis-horizontal:filled"
+        size="compact"
+        (onAction)="onMenuAction($event, caseItem.id)"
+      >
+        <goabx-menu-action text="View" action="view" />
+        <goabx-menu-action text="Assign me" action="assign" />
+      </goabx-menu-button>
+    } @else if (activeTab === "todo") {
+      <goabx-button type="tertiary" size="compact" (onClick)="onStartClick()">
+        Start
+      </goabx-button>
+    } @else {
+      <goabx-menu-button
+        leadingIcon="ellipsis-horizontal:filled"
+        size="compact"
+        (onAction)="onMenuAction($event, caseItem.id)"
+      >
+        <goabx-menu-action text="Continue" action="continue" />
+        <goabx-menu-action text="Unassign me" action="unassign" />
+        <goabx-menu-action text="Mark as complete" action="complete" />
+      </goabx-menu-button>
+    }
+  </div>
+</ng-template>
+
+<goab-container
+  accent="thick"
+  type="non-interactive"
+  padding="compact"
+  mb="none"
+  data-grid="row"
+  [title]="cardTitle"
+  [actions]="cardActions"
+>
+  <div class="data-card__body">
+    <div class="data-card__sections">
+      <div class="data-card__section">
+        <div class="data-card__section-heading">Identification</div>
+        <div class="data-card__section-fields">
+          <goab-block direction="column" gap="xs" data-grid="cell-4">
+            <span class="data-card__label">File number</span>
+            <span class="data-card__value">{{
+              caseItem.fileNumber || "\u2014"
+            }}</span>
+          </goab-block>
+          <goab-block direction="column" gap="xs" data-grid="cell-5">
+            <span class="data-card__label">Jurisdiction</span>
+            <span class="data-card__value">{{
+              caseItem.jurisdiction || "\u2014"
+            }}</span>
+          </goab-block>
+        </div>
+      </div>
+      <div class="data-card__section">
+        <div class="data-card__section-heading">Assignment</div>
+        <div class="data-card__section-fields">
+          <goab-block direction="column" gap="xs" data-grid="cell-6">
+            <span class="data-card__label">Assigned to</span>
+            <span class="data-card__value">{{
+              caseItem.staff || "\u2014"
+            }}</span>
+          </goab-block>
+          <goab-block direction="column" gap="xs" data-grid="cell-7">
+            <span class="data-card__label">Due date</span>
+            <span class="data-card__value">{{
+              caseItem.dueDate || "\u2014"
+            }}</span>
+          </goab-block>
+          <goab-block direction="column" gap="xs" data-grid="cell-8">
+            <span class="data-card__label">Category</span>
+            <span class="data-card__value">{{
+              categoryLabel(caseItem.category)
+            }}</span>
+          </goab-block>
+        </div>
+      </div>
+    </div>
+  </div>
+</goab-container>

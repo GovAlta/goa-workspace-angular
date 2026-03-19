@@ -1,0 +1,23 @@
+.app-layout {
+  display: flex;
+  height: 100vh;
+  overflow: hidden;
+  background-color: #f8f8f8;
+}
+
+/* Angular component host element needs to pass flex layout through to .card-container.
+   In React, WorkspaceLayout renders without a host element so .card-container is a
+   direct child of .app-layout. In Angular, this host element bridges the gap. */
+app-workspace-layout {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* Mobile breakpoint — must match MOBILE_BREAKPOINT in viewport.service.ts */
+@media (max-width: 623px) {
+  .app-layout {
+    display: block;
+  }
+}

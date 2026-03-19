@@ -1,0 +1,16 @@
+<a [routerLink]="'/case/' + item.caseId" class="dashboard-activity-item">
+  <div class="dashboard-activity-item__icon">
+    <goab-icon
+      [type]="item.icon"
+      size="small"
+      fillColor="var(--goa-color-text-secondary)"
+    ></goab-icon>
+  </div>
+  <div class="dashboard-activity-item__content">
+    <span class="dashboard-activity-item__time">{{
+      item.timestamp | relativeTime
+    }}</span>
+    <span class="dashboard-activity-item__action">{{ item.action }}</span>
+    <span class="dashboard-activity-item__case">{{ item.caseName }}</span>
+  </div>
+</a>

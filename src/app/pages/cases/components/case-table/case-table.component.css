@@ -1,0 +1,32 @@
+:host {
+  display: contents;
+}
+
+/* CaseTable styles - matches React CasesPage.css table-related styles */
+
+/* Table group row styling */
+.table-group-row td {
+  background-color: var(--goa-color-greyscale-150) !important;
+  padding: var(--goa-space-s) var(--goa-space-m) !important;
+  border-bottom: 1px solid var(--goa-color-greyscale-200) !important;
+}
+
+.table-group-row:hover td {
+  background-color: var(--goa-color-greyscale-200) !important;
+}
+
+.table-group-row__content {
+  display: flex;
+  align-items: center;
+  gap: var(--goa-space-s);
+}
+
+.table-group-row__label {
+  font: var(--goa-typography-body-m);
+  font-weight: 600;
+  color: var(--goa-color-text-default);
+}
+
+.clickable-row {
+  cursor: pointer;
+}

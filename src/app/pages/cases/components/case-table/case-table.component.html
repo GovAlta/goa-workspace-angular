@@ -1,0 +1,179 @@
+@if (groupedCases) {
+  <!-- Grouped table view -->
+  <div class="table-wrapper">
+    <goabx-table width="100%" variant="normal" [striped]="true">
+      <thead>
+        <tr>
+          @for (column of columns; track column.key) {
+            <th>
+              @if (column.headerTemplate) {
+                <ng-container
+                  [ngTemplateOutlet]="column.headerTemplate"
+                ></ng-container>
+              } @else if (column.header) {
+                {{ column.header }}
+              }
+            </th>
+          }
+        </tr>
+      </thead>
+      @for (group of groupedCases; track group.key) {
+        <tbody>
+          <tr
+            class="table-group-row"
+            (click)="onToggleGroup(group.key)"
+            class="clickable-row"
+          >
+            <td [attr.colspan]="columns.length">
+              <div class="table-group-row__content">
+                <goab-icon
+                  [type]="
+                    expandedGroups.has(group.key)
+                      ? 'chevron-down'
+                      : 'chevron-forward'
+                  "
+                  size="small"
+                />
+                <span class="table-group-row__label">{{ group.label }}</span>
+                <goabx-badge
+                  type="default"
+                  [content]="'' + group.cases.length"
+                  emphasis="subtle"
+                />
+              </div>
+            </td>
+          </tr>
+          @if (expandedGroups.has(group.key)) {
+            @for (caseItem of group.cases; track caseItem.id) {
+              <tr
+                [attr.aria-selected]="caseItem.selected ? 'true' : undefined"
+                (click)="onRowClick(caseItem, $event)"
+                class="clickable-row"
+              >
+                @for (column of columns; track column.key) {
+                  <td>
+                    @if (column.cellTemplate) {
+                      <ng-container
+                        [ngTemplateOutlet]="column.cellTemplate"
+                        [ngTemplateOutletContext]="{
+                          $implicit: caseItem,
+                          index: 0,
+                        }"
+                      ></ng-container>
+                    }
+                  </td>
+                }
+              </tr>
+            }
+          }
+        </tbody>
+      }
+    </goabx-table>
+  </div>
+} @else {
+  <!-- Flat table view with DataTable-like layout -->
+  <app-scroll-container>
+    <div class="table-wrapper">
+      <goab-data-grid keyboardNav="table" keyboardIconPosition="right">
+        <goabx-table
+          width="100%"
+          (onMultiSort)="onMultiSort($event)"
+          sortMode="multi"
+          variant="normal"
+          [striped]="true"
+        >
+          <thead>
+            <tr data-grid="row">
+              @for (column of columns; track column.key) {
+                <th data-grid="cell" [class]="getCellClassName(column.type)">
+                  @if (column.headerTemplate) {
+                    <ng-container
+                      [ngTemplateOutlet]="column.headerTemplate"
+                    ></ng-container>
+                  } @else if (column.sortable && column.header && sortConfig) {
+                    <goabx-table-sort-header
+                      [name]="column.key"
+                      [direction]="getColumnSortDirection(column.key)"
+                      [sortOrder]="getColumnSortOrder(column.key)"
+                    >
+                      {{ column.header }}
+                    </goabx-table-sort-header>
+                  } @else if (column.header) {
+                    {{ column.header }}
+                  }
+                </th>
+              }
+            </tr>
+          </thead>
+          <tbody>
+            @if (isLoading) {
+              @for (row of skeletonRows; track $index) {
+                <tr data-grid="row">
+                  @for (column of columns; track column.key) {
+                    <td
+                      data-grid="cell"
+                      [class]="getCellClassName(column.type)"
+                    >
+                      @if (isSkeletonThumbnail(column.type)) {
+                        <goab-skeleton type="thumbnail" size="1" />
+                      } @else {
+                        <goab-skeleton
+                          type="text"
+                          [maxWidth]="getSkeletonMaxWidth(column.type, $index)"
+                        />
+                      }
+                    </td>
+                  }
+                </tr>
+              }
+            } @else if (filteredCases.length === 0 && showEmptyState) {
+              <tr>
+                <td
+                  [attr.colspan]="columns.length"
+                  class="clients-empty-state-cell"
+                >
+                  <ng-content select="[emptyState]"></ng-content>
+                </td>
+              </tr>
+            } @else {
+              @for (
+                caseItem of filteredCases;
+                track caseItem.id;
+                let i = $index
+              ) {
+                <tr
+                  data-grid="row"
+                  [attr.aria-selected]="caseItem.selected ? 'true' : undefined"
+                  (click)="onRowClick(caseItem, $event)"
+                  [style.cursor]="'pointer'"
+                >
+                  @for (column of columns; track column.key) {
+                    <td
+                      data-grid="cell"
+                      [class]="getCellClassName(column.type)"
+                      [style.white-space]="
+                        column.type === 'text' || column.type === 'link'
+                          ? 'nowrap'
+                          : null
+                      "
+                    >
+                      @if (column.cellTemplate) {
+                        <ng-container
+                          [ngTemplateOutlet]="column.cellTemplate"
+                          [ngTemplateOutletContext]="{
+                            $implicit: caseItem,
+                            index: i,
+                          }"
+                        ></ng-container>
+                      }
+                    </td>
+                  }
+                </tr>
+              }
+            }
+          </tbody>
+        </goabx-table>
+      </goab-data-grid>
+    </div>
+  </app-scroll-container>
+}

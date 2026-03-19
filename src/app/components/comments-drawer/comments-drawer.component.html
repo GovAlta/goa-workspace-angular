@@ -1,0 +1,157 @@
+<goabx-drawer
+  [maxSize]="drawerMaxSize"
+  position="right"
+  [open]="isOpen"
+  (onClose)="onClose()"
+  [heading]="drawerHeading"
+>
+  <div class="page__comments">
+    <!-- Add Comment Section -->
+    <div class="page__comments_form">
+      @if (isCompletedCase) {
+        <div class="page__comments_form_disabled">
+          <goab-text size="body-s" mt="none" mb="none" color="secondary">
+            Adding comments is not available once the entry is completed.
+          </goab-text>
+        </div>
+      } @else {
+        <div class="page__comments_form_heading">
+          <goab-text size="heading-xs" mt="none" mb="none">
+            Add comment
+          </goab-text>
+          <goab-button-group alignment="end">
+            <goabx-button
+              type="tertiary"
+              size="compact"
+              [disabled]="isCommentEmpty"
+              (onClick)="handleClearComment()"
+            >
+              Clear
+            </goabx-button>
+            <goabx-button
+              type="primary"
+              size="compact"
+              [disabled]="isCommentEmpty"
+              (onClick)="handleSaveComment()"
+            >
+              Save
+            </goabx-button>
+          </goab-button-group>
+        </div>
+        <goab-form-item
+          helpText="Add a comment for updates related to the case."
+        >
+          <goab-textarea
+            name="comment"
+            countBy="character"
+            [maxCount]="200"
+            [rows]="textareaRows"
+            [value]="commentText"
+            (onChange)="onCommentChange($event)"
+          />
+        </goab-form-item>
+      }
+    </div>
+
+    <!-- Comments List -->
+    <div class="page__comments_list">
+      @for (comment of sortedComments; track comment.id) {
+        <div class="page__comments_single">
+          <div class="page__comments_single_heading">
+            <div>
+              <div class="page__comments_single_author">
+                {{ comment.author }}
+              </div>
+              <div class="page__comments_single_date">
+                {{ comment.timestamp }}
+              </div>
+            </div>
+            @if (
+              !isCompletedCase &&
+              comment.isOwned &&
+              editingCommentId !== comment.id
+            ) {
+              <goabx-menu-button
+                type="tertiary"
+                leadingIcon="ellipsis-vertical:filled"
+                text=""
+                size="compact"
+                ariaLabel="Options"
+                (onAction)="onCommentMenuAction($event, comment.id)"
+              >
+                <goabx-menu-action icon="pencil" text="Edit" action="edit" />
+                <goabx-menu-action icon="trash" text="Delete" action="delete" />
+              </goabx-menu-button>
+            }
+          </div>
+          <div class="page__comments_single_content">
+            @if (editingCommentId === comment.id) {
+              <div class="page__comments_single_content_editing">
+                <goab-form-item>
+                  <goab-textarea
+                    [name]="'edit-comment-' + comment.id"
+                    [value]="editingCommentText"
+                    countBy="character"
+                    (onChange)="onEditCommentChange($event)"
+                    [maxCount]="200"
+                  />
+                </goab-form-item>
+                <goab-button-group alignment="end">
+                  <goabx-button
+                    type="tertiary"
+                    size="compact"
+                    (onClick)="handleCancelEditComment()"
+                  >
+                    Cancel
+                  </goabx-button>
+                  <goabx-button
+                    type="primary"
+                    size="compact"
+                    (onClick)="handleSaveEditComment()"
+                  >
+                    Save
+                  </goabx-button>
+                </goab-button-group>
+              </div>
+            } @else {
+              <goab-text size="body-s" mb="none" mt="none" color="secondary">
+                {{ comment.text }}
+              </goab-text>
+            }
+          </div>
+        </div>
+      }
+    </div>
+  </div>
+</goabx-drawer>
+
+<!-- Delete Comment Modal -->
+<ng-template #modalActions>
+  <goab-button-group alignment="end">
+    <goabx-button
+      type="secondary"
+      size="compact"
+      (onClick)="cancelDeleteComment()"
+    >
+      Cancel
+    </goabx-button>
+    <goabx-button
+      type="primary"
+      size="compact"
+      variant="destructive"
+      (onClick)="confirmDeleteComment()"
+    >
+      Delete comment
+    </goabx-button>
+  </goab-button-group>
+</ng-template>
+
+<goabx-modal
+  heading="Delete comment"
+  [open]="showDeleteCommentModal"
+  [actions]="modalActions"
+>
+  <goab-text mt="none" mb="none">
+    Are you sure you want to delete this comment? This action cannot be undone.
+  </goab-text>
+</goabx-modal>

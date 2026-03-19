@@ -1,0 +1,855 @@
+<goab-button
+  type="tertiary"
+  size="compact"
+  mb="m"
+  (onClick)="onExpandOrCollapseAll()"
+>
+  {{ expandedAll ? "Hide all sections" : "Show all sections" }}
+</goab-button>
+
+<ng-template #primaryApplicantHeading>
+  <goabx-badge [type]="primaryApplicantBadge.type" emphasis="subtle" [content]="primaryApplicantBadge.content" />
+</ng-template>
+
+<!-- 1. Primary applicant -->
+<goab-accordion
+  [open]="isExpanded(1)"
+  headingSize="medium"
+  heading="Primary applicant"
+  [headingContent]="primaryApplicantHeading"
+  mb="m"
+>
+  <app-primary-application-form
+    [formData]="primaryFormData"
+    (formDataChange)="primaryFormDataChange.emit($event)"
+  />
+</goab-accordion>
+
+<ng-template #personalHeading>
+  <goabx-badge [type]="personalBadge.type" emphasis="subtle" [content]="personalBadge.content" />
+</ng-template>
+
+<!-- 2. Personal -->
+<goab-accordion
+  [open]="isExpanded(2)"
+  headingSize="medium"
+  heading="Personal"
+  [headingContent]="personalHeading"
+  mb="m"
+>
+  <div>
+    <goab-text size="heading-xs" color="secondary" mb="s">
+      ID numbers
+    </goab-text>
+    <goab-divider mb="xl" />
+
+    <div class="data-card data-card--3col">
+      <div class="data-card_info">
+        <span class="data-card__label">HS ID (Mobius ID)</span>
+        <span class="data-card__value case-detail-header__id">
+          {{ getCaseField("hsId") }}
+          <goab-tooltip [content]="getCopyTooltip('hsId')">
+            <goab-icon-button
+              icon="copy"
+              ariaLabel="Copy HS ID"
+              variant="dark"
+              size="small"
+              (onClick)="onCopy(getCaseField('hsId'), 'hsId')"
+            />
+          </goab-tooltip>
+        </span>
+      </div>
+
+      <div class="data-card_info">
+        <span class="data-card__label">PID</span>
+        <span class="data-card__value case-detail-header__id">
+          {{ getCaseField("pid") }}
+          <goab-tooltip [content]="getCopyTooltip('pid')">
+            <goab-icon-button
+              icon="copy"
+              ariaLabel="Copy PID"
+              variant="dark"
+              size="small"
+              (onClick)="onCopy(getCaseField('pid'), 'pid')"
+            />
+          </goab-tooltip>
+        </span>
+      </div>
+
+      <div class="data-card_info">
+        <span class="data-card__label">SIN</span>
+        <span class="data-card__value case-detail-header__id">
+          {{ getCaseField("sin") }}
+          <goab-tooltip [content]="getCopyTooltip('sin')">
+            <goab-icon-button
+              icon="copy"
+              ariaLabel="Copy SIN"
+              variant="dark"
+              size="small"
+              (onClick)="onCopy(getCaseField('sin'), 'sin')"
+            />
+          </goab-tooltip>
+        </span>
+      </div>
+
+      <div class="data-card_info">
+        <span class="data-card__label">Application date</span>
+        <span class="data-card__value">
+          {{ getCaseField("applicationDate") }}
+        </span>
+      </div>
+
+      <div class="data-card_info">
+        <span class="data-card__label">Status date</span>
+        <span class="data-card__value">
+          {{ getCaseField("statusDate") }}
+        </span>
+      </div>
+
+      <div class="data-card_info">
+        <span class="data-card__label">Assignment date</span>
+        <span class="data-card__value">
+          {{ getCaseField("assignmentDate") }}
+        </span>
+      </div>
+
+      <div class="data-card_info">
+        <span class="data-card__label">Due date</span>
+        <span class="data-card__value">-</span>
+      </div>
+    </div>
+
+    <goab-text size="heading-xs" color="secondary" mb="s" mt="2xl">
+      Other
+    </goab-text>
+    <goab-divider mb="xl" />
+
+    <div class="data-card data-card--2col">
+      <div class="data-card_info">
+        <span class="data-card__label">Municipality</span>
+        <span class="data-card__value">
+          {{ getCaseField("municipality") }}
+        </span>
+      </div>
+
+      <div class="data-card_info">
+        <span class="data-card__label">Staff note</span>
+        <span class="data-card__value">
+          {{ getCaseField("staffNote") }}
+        </span>
+      </div>
+    </div>
+  </div>
+</goab-accordion>
+
+<ng-template #spousePartnerHeading>
+  <goabx-badge [type]="spousePartnerBadge.type" emphasis="subtle" [content]="spousePartnerBadge.content" />
+</ng-template>
+
+<!-- 3. Spouse/Partner -->
+<goab-accordion
+  [open]="isExpanded(3)"
+  headingSize="medium"
+  heading="Spouse/Partner"
+  [headingContent]="spousePartnerHeading"
+  mb="m"
+>
+  <div>
+    <goab-text size="heading-xs" color="secondary" mb="s">
+      Personal information
+    </goab-text>
+    <goab-divider mb="xl" />
+
+    <div class="data-card data-card--3col">
+      <div class="data-card_info">
+        <span class="data-card__label">Full name</span>
+        <span class="data-card__value case-detail-header__id">
+          {{ getCaseField("spouseFullName") }}
+          @if (caseData?.["spouseFullName"]) {
+            <goab-tooltip [content]="getCopyTooltip('spouseFullName')">
+              <goab-icon-button
+                icon="copy"
+                ariaLabel="Copy spouse full name"
+                variant="dark"
+                size="small"
+                (onClick)="
+                  onCopy(getCaseField('spouseFullName'), 'spouseFullName')
+                "
+              />
+            </goab-tooltip>
+          }
+        </span>
+      </div>
+
+      <div class="data-card_info">
+        <span class="data-card__label">Relationship status</span>
+        <span class="data-card__value">
+          {{ getCaseField("relationshipStatus") }}
+        </span>
+      </div>
+
+      <div class="data-card_info">
+        <span class="data-card__label">Marriage date</span>
+        <span class="data-card__value">
+          {{ getCaseField("marriageDate") }}
+        </span>
+      </div>
+
+      <div class="data-card_info">
+        <span class="data-card__label">Contact phone</span>
+        <span class="data-card__value">
+          {{ getCaseField("spouseContactPhone") }}
+        </span>
+      </div>
+
+      <div class="data-card_info">
+        <span class="data-card__label">Email address</span>
+        <span class="data-card__value">
+          {{ getCaseField("spouseEmail") }}
+        </span>
+      </div>
+    </div>
+
+    <goab-text size="heading-xs" color="secondary" mb="s" mt="2xl">
+      ID information
+    </goab-text>
+    <goab-divider mb="xl" />
+
+    <div class="data-card data-card--2col">
+      <div class="data-card_info">
+        <span class="data-card__label">SIN</span>
+        <span class="data-card__value case-detail-header__id">
+          {{ getCaseField("spouseSIN") }}
+          @if (caseData?.["spouseSIN"]) {
+            <goab-tooltip [content]="getCopyTooltip('spouseSIN')">
+              <goab-icon-button
+                icon="copy"
+                ariaLabel="Copy spouse SIN"
+                variant="dark"
+                size="small"
+                (onClick)="onCopy(getCaseField('spouseSIN'), 'spouseSIN')"
+              />
+            </goab-tooltip>
+          }
+        </span>
+      </div>
+
+      <div class="data-card_info">
+        <span class="data-card__label">Alberta Health Number</span>
+        <span class="data-card__value">
+          {{ getCaseField("spouseAlbertaHealthNumber") }}
+          @if (caseData?.["spouseAlbertaHealthNumber"]) {
+            <goab-tooltip
+              [content]="getCopyTooltip('spouseAlbertaHealthNumber')"
+            >
+              <goab-icon-button
+                icon="copy"
+                ariaLabel="Copy spouse Alberta Health Number"
+                variant="dark"
+                size="small"
+                (onClick)="
+                  onCopy(
+                    getCaseField('spouseAlbertaHealthNumber'),
+                    'spouseAlbertaHealthNumber'
+                  )
+                "
+              />
+            </goab-tooltip>
+          }
+        </span>
+      </div>
+    </div>
+  </div>
+</goab-accordion>
+
+<ng-template #dependantHeading>
+  <goabx-badge [type]="dependantBadge.type" emphasis="subtle" [content]="dependantBadge.content" />
+</ng-template>
+
+<!-- 4. Dependant -->
+<goab-accordion
+  [open]="isExpanded(4)"
+  headingSize="medium"
+  heading="Dependant"
+  [headingContent]="dependantHeading"
+  mb="m"
+>
+  <div>
+    <goab-text size="heading-xs" color="secondary" mb="s">
+      Dependant 1
+    </goab-text>
+    <goab-divider mb="xl" />
+
+    <div class="data-card data-card--3col">
+      <div class="data-card_info">
+        <span class="data-card__label">Full name</span>
+        <span class="data-card__value">
+          {{ getCaseField("dependent1FullName") }}
+        </span>
+      </div>
+
+      <div class="data-card_info">
+        <span class="data-card__label">Relationship</span>
+        <span class="data-card__value">
+          {{ getCaseField("dependent1Relationship") }}
+        </span>
+      </div>
+
+      <div class="data-card_info">
+        <span class="data-card__label">Date of birth</span>
+        <span class="data-card__value">
+          {{ getCaseField("dependent1DateOfBirth") }}
+        </span>
+      </div>
+
+      <div class="data-card_info">
+        <span class="data-card__label">Age</span>
+        <span class="data-card__value">
+          {{ getCaseField("dependent1Age") }}
+        </span>
+      </div>
+
+      <div class="data-card_info">
+        <span class="data-card__label">Status</span>
+        <span class="data-card__value">
+          {{ getCaseField("dependent1Status") }}
+        </span>
+      </div>
+
+      <div class="data-card_info">
+        <span class="data-card__label">School/Institution</span>
+        <span class="data-card__value">
+          {{ getCaseField("dependent1School") }}
+        </span>
+      </div>
+    </div>
+
+    <goab-text size="heading-xs" color="secondary" mb="s" mt="2xl">
+      Dependant 2
+    </goab-text>
+    <goab-divider mb="xl" />
+
+    <div class="data-card data-card--3col">
+      <div class="data-card_info">
+        <span class="data-card__label">Full name</span>
+        <span class="data-card__value">
+          {{ getCaseField("dependent2FullName") }}
+        </span>
+      </div>
+
+      <div class="data-card_info">
+        <span class="data-card__label">Relationship</span>
+        <span class="data-card__value">
+          {{ getCaseField("dependent2Relationship") }}
+        </span>
+      </div>
+
+      <div class="data-card_info">
+        <span class="data-card__label">Date of birth</span>
+        <span class="data-card__value">
+          {{ getCaseField("dependent2DateOfBirth") }}
+        </span>
+      </div>
+
+      <div class="data-card_info">
+        <span class="data-card__label">Age</span>
+        <span class="data-card__value">
+          {{ getCaseField("dependent2Age") }}
+        </span>
+      </div>
+
+      <div class="data-card_info">
+        <span class="data-card__label">Status</span>
+        <span class="data-card__value">
+          {{ getCaseField("dependent2Status") }}
+        </span>
+      </div>
+
+      <div class="data-card_info">
+        <span class="data-card__label">School/Institution</span>
+        <span class="data-card__value">
+          {{ getCaseField("dependent2School") }}
+        </span>
+      </div>
+    </div>
+  </div>
+</goab-accordion>
+
+<ng-template #educationHeading>
+  <goabx-badge [type]="educationBadge.type" emphasis="subtle" [content]="educationBadge.content" />
+</ng-template>
+
+<!-- 5. Education -->
+<goab-accordion
+  [open]="isExpanded(5)"
+  headingSize="medium"
+  heading="Education"
+  [headingContent]="educationHeading"
+  mb="m"
+>
+  <div>
+    <goab-text size="heading-xs" color="secondary" mb="s">
+      Applicant education
+    </goab-text>
+    <goab-divider mb="xl" />
+
+    <div class="data-card data-card--3col">
+      <div class="data-card_info">
+        <span class="data-card__label">Highest qualification</span>
+        <span class="data-card__value">
+          {{ getCaseField("highestQualification") }}
+        </span>
+      </div>
+
+      <div class="data-card_info">
+        <span class="data-card__label">Field of study</span>
+        <span class="data-card__value">
+          {{ getCaseField("fieldOfStudy") }}
+        </span>
+      </div>
+
+      <div class="data-card_info">
+        <span class="data-card__label">Institution</span>
+        <span class="data-card__value">
+          {{ getCaseField("educationInstitution") }}
+        </span>
+      </div>
+
+      <div class="data-card_info">
+        <span class="data-card__label">Completion year</span>
+        <span class="data-card__value">
+          {{ getCaseField("educationCompletionYear") }}
+        </span>
+      </div>
+
+      <div class="data-card_info">
+        <span class="data-card__label">Currently studying</span>
+        <span class="data-card__value">
+          {{ getCaseField("currentlyStudying") }}
+        </span>
+      </div>
+
+      <div class="data-card_info">
+        <span class="data-card__label">Additional certifications</span>
+        <span class="data-card__value">
+          {{ getCaseField("additionalCertifications") }}
+        </span>
+      </div>
+    </div>
+  </div>
+</goab-accordion>
+
+<ng-template #employmentHeading>
+  <goabx-badge [type]="employmentBadge.type" emphasis="subtle" [content]="employmentBadge.content" />
+</ng-template>
+
+<!-- 6. Employment -->
+<goab-accordion
+  [open]="isExpanded(6)"
+  headingSize="medium"
+  heading="Employment"
+  [headingContent]="employmentHeading"
+  mb="m"
+>
+  <div>
+    <goab-text size="heading-xs" color="secondary" mb="s">
+      Current employment
+    </goab-text>
+    <goab-divider mb="xl" />
+
+    <div class="data-card data-card--3col">
+      <div class="data-card_info">
+        <span class="data-card__label">Employer name</span>
+        <span class="data-card__value">
+          {{ getCaseField("employerName") }}
+        </span>
+      </div>
+
+      <div class="data-card_info">
+        <span class="data-card__label">Job title</span>
+        <span class="data-card__value">
+          {{ getCaseField("jobTitle") }}
+        </span>
+      </div>
+
+      <div class="data-card_info">
+        <span class="data-card__label">Employment type</span>
+        <span class="data-card__value">
+          {{ getCaseField("employmentType") }}
+        </span>
+      </div>
+
+      <div class="data-card_info">
+        <span class="data-card__label">Start date</span>
+        <span class="data-card__value">
+          {{ getCaseField("employmentStartDate") }}
+        </span>
+      </div>
+
+      <div class="data-card_info">
+        <span class="data-card__label">Annual income</span>
+        <span class="data-card__value">
+          {{ getCaseField("annualIncome") }}
+        </span>
+      </div>
+
+      <div class="data-card_info">
+        <span class="data-card__label">Work hours per week</span>
+        <span class="data-card__value">
+          {{ getCaseField("workHoursPerWeek") }}
+        </span>
+      </div>
+    </div>
+
+    <goab-text size="heading-xs" color="secondary" mb="s" mt="2xl">
+      Employment contact
+    </goab-text>
+    <goab-divider mb="xl" />
+
+    <div class="data-card data-card--2col">
+      <div class="data-card_info">
+        <span class="data-card__label">Work phone</span>
+        <span class="data-card__value">
+          {{ getCaseField("workPhone") }}
+        </span>
+      </div>
+
+      <div class="data-card_info">
+        <span class="data-card__label">Work email</span>
+        <span class="data-card__value">
+          {{ getCaseField("workEmail") }}
+        </span>
+      </div>
+    </div>
+  </div>
+</goab-accordion>
+
+<ng-template #healthHeading>
+  <goabx-badge [type]="healthBadge.type" emphasis="subtle" [content]="healthBadge.content" />
+</ng-template>
+
+<!-- 7. Health -->
+<goab-accordion
+  [open]="isExpanded(7)"
+  headingSize="medium"
+  heading="Health"
+  [headingContent]="healthHeading"
+  mb="m"
+>
+  <div>
+    <goab-text size="heading-xs" color="secondary" mb="s">
+      Health information
+    </goab-text>
+    <goab-divider mb="xl" />
+
+    <div class="data-card data-card--3col">
+      <div class="data-card_info">
+        <span class="data-card__label">Health coverage status</span>
+        <span class="data-card__value">
+          {{ getCaseField("healthCoverageStatus") }}
+        </span>
+      </div>
+
+      <div class="data-card_info">
+        <span class="data-card__label">Current health issues</span>
+        <span class="data-card__value">
+          {{ getCaseField("currentHealthIssues") }}
+        </span>
+      </div>
+
+      <div class="data-card_info">
+        <span class="data-card__label">Disabilities</span>
+        <span class="data-card__value">
+          {{ getCaseField("disabilities") }}
+        </span>
+      </div>
+
+      <div class="data-card_info">
+        <span class="data-card__label">Medication needs</span>
+        <span class="data-card__value">
+          {{ getCaseField("medicationNeeds") }}
+        </span>
+      </div>
+
+      <div class="data-card_info">
+        <span class="data-card__label">Family doctor name</span>
+        <span class="data-card__value">
+          {{ getCaseField("familyDoctorName") }}
+        </span>
+      </div>
+
+      <div class="data-card_info">
+        <span class="data-card__label">Last health exam</span>
+        <span class="data-card__value">
+          {{ getCaseField("lastHealthExam") }}
+        </span>
+      </div>
+    </div>
+  </div>
+</goab-accordion>
+
+<ng-template #identifiedNeedsHeading>
+  <goabx-badge [type]="identifiedNeedsBadge.type" emphasis="subtle" [content]="identifiedNeedsBadge.content" />
+</ng-template>
+
+<!-- 8. Identified needs -->
+<goab-accordion
+  [open]="isExpanded(8)"
+  headingSize="medium"
+  heading="Identified needs"
+  [headingContent]="identifiedNeedsHeading"
+  mb="m"
+>
+  <div>
+    <goab-text size="heading-xs" color="secondary" mb="s">
+      Identified needs
+    </goab-text>
+    <goab-divider mb="xl" />
+
+    <div class="data-card data-card--3col">
+      <div class="data-card_info">
+        <span class="data-card__label">Primary need</span>
+        <span class="data-card__value">
+          {{ getCaseField("primaryNeed") }}
+        </span>
+      </div>
+
+      <div class="data-card_info">
+        <span class="data-card__label">Secondary need</span>
+        <span class="data-card__value">
+          {{ getCaseField("secondaryNeed") }}
+        </span>
+      </div>
+
+      <div class="data-card_info">
+        <span class="data-card__label">Child care support</span>
+        <span class="data-card__value">
+          {{ getCaseField("childCareSupport") }}
+        </span>
+      </div>
+
+      <div class="data-card_info">
+        <span class="data-card__label">Training interests</span>
+        <span class="data-card__value">
+          {{ getCaseField("trainingInterests") }}
+        </span>
+      </div>
+
+      <div class="data-card_info">
+        <span class="data-card__label">Housing stability</span>
+        <span class="data-card__value">
+          {{ getCaseField("housingStability") }}
+        </span>
+      </div>
+
+      <div class="data-card_info">
+        <span class="data-card__label">Transportation access</span>
+        <span class="data-card__value">
+          {{ getCaseField("transportationAccess") }}
+        </span>
+      </div>
+    </div>
+
+    <goab-text size="heading-xs" color="secondary" mb="s" mt="2xl">
+      Support plan
+    </goab-text>
+    <goab-divider mb="xl" />
+
+    <div class="data-card data-card--2col">
+      <div class="data-card_info">
+        <span class="data-card__label">Case manager</span>
+        <span class="data-card__value">
+          {{ getCaseField("caseManager") }}
+        </span>
+      </div>
+
+      <div class="data-card_info">
+        <span class="data-card__label">Support plan notes</span>
+        <span class="data-card__value">
+          {{ getCaseField("supportPlanNotes") }}
+        </span>
+      </div>
+    </div>
+  </div>
+</goab-accordion>
+
+<ng-template #labourMarketHeading>
+  <goabx-badge [type]="labourMarketBadge.type" emphasis="subtle" [content]="labourMarketBadge.content" />
+</ng-template>
+
+<!-- 9. Labour market -->
+<goab-accordion
+  [open]="isExpanded(9)"
+  headingSize="medium"
+  heading="Labour market"
+  [headingContent]="labourMarketHeading"
+  mb="m"
+>
+  <div>
+    <goab-text size="heading-xs" color="secondary" mb="s">
+      Labour market assessment
+    </goab-text>
+    <goab-divider mb="xl" />
+
+    <div class="data-card data-card--3col">
+      <div class="data-card_info">
+        <span class="data-card__label">Job search status</span>
+        <span class="data-card__value">
+          {{ getCaseField("jobSearchStatus") }}
+        </span>
+      </div>
+
+      <div class="data-card_info">
+        <span class="data-card__label">Career goal</span>
+        <span class="data-card__value">
+          {{ getCaseField("careerGoal") }}
+        </span>
+      </div>
+
+      <div class="data-card_info">
+        <span class="data-card__label">Industry preference</span>
+        <span class="data-card__value">
+          {{ getCaseField("industryPreference") }}
+        </span>
+      </div>
+
+      <div class="data-card_info">
+        <span class="data-card__label">Job search length</span>
+        <span class="data-card__value">
+          {{ getCaseField("jobSearchLength") }}
+        </span>
+      </div>
+
+      <div class="data-card_info">
+        <span class="data-card__label">Interview experience</span>
+        <span class="data-card__value">
+          {{ getCaseField("interviewExperience") }}
+        </span>
+      </div>
+
+      <div class="data-card_info">
+        <span class="data-card__label">Key skill gaps</span>
+        <span class="data-card__value">
+          {{ getCaseField("keySkillGaps") }}
+        </span>
+      </div>
+    </div>
+
+    <goab-text size="heading-xs" color="secondary" mb="s" mt="2xl">
+      Job targeting
+    </goab-text>
+    <goab-divider mb="xl" />
+
+    <div class="data-card data-card--3col">
+      <div class="data-card_info">
+        <span class="data-card__label">Target salary range</span>
+        <span class="data-card__value">
+          {{ getCaseField("targetSalaryRange") }}
+        </span>
+      </div>
+
+      <div class="data-card_info">
+        <span class="data-card__label">Preferred location</span>
+        <span class="data-card__value">
+          {{ getCaseField("preferredLocation") }}
+        </span>
+      </div>
+
+      <div class="data-card_info">
+        <span class="data-card__label">Remote work preference</span>
+        <span class="data-card__value">
+          {{ getCaseField("remoteWorkPreference") }}
+        </span>
+      </div>
+    </div>
+  </div>
+</goab-accordion>
+
+<ng-template #decisionHeading>
+  <goabx-badge [type]="decisionBadge.type" emphasis="subtle" [content]="decisionBadge.content" />
+</ng-template>
+
+<!-- 10. Decision -->
+<goab-accordion
+  [open]="isExpanded(10)"
+  headingSize="medium"
+  heading="Decision"
+  [headingContent]="decisionHeading"
+  mb="m"
+>
+  <div>
+    <goab-text size="heading-xs" color="secondary" mb="s">
+      Final decision
+    </goab-text>
+    <goab-divider mb="xl" />
+
+    <div class="data-card data-card--3col">
+      <div class="data-card_info">
+        <span class="data-card__label">Decision status</span>
+        <span class="data-card__value">
+          <goabx-badge
+            type="default"
+            emphasis="subtle"
+            [content]="(caseData?.['decisionStatus'] || 'Pending') + ''"
+          />
+        </span>
+      </div>
+
+      <div class="data-card_info">
+        <span class="data-card__label">Decision date</span>
+        <span class="data-card__value">
+          {{ getCaseField("decisionDate") }}
+        </span>
+      </div>
+
+      <div class="data-card_info">
+        <span class="data-card__label">Approved by</span>
+        <span class="data-card__value">
+          {{ getCaseField("approvedBy") }}
+        </span>
+      </div>
+
+      <div class="data-card_info">
+        <span class="data-card__label">Approval reference</span>
+        <span class="data-card__value">
+          {{ getCaseField("approvalReference") }}
+        </span>
+      </div>
+
+      <div class="data-card_info">
+        <span class="data-card__label">Funding approved</span>
+        <span class="data-card__value">
+          {{ getCaseField("fundingApproved") }}
+        </span>
+      </div>
+
+      <div class="data-card_info">
+        <span class="data-card__label">Approved category</span>
+        <span class="data-card__value">
+          {{ getCaseField("approvedCategory") }}
+        </span>
+      </div>
+    </div>
+
+    <goab-text size="heading-xs" color="secondary" mb="s" mt="2xl">
+      Conditions
+    </goab-text>
+    <goab-divider mb="xl" />
+
+    <div class="data-card data-card--2col">
+      <div class="data-card_info">
+        <span class="data-card__label">Number of conditions</span>
+        <span class="data-card__value">
+          {{ getCaseField("numberOfConditions") }}
+        </span>
+      </div>
+
+      <div class="data-card_info">
+        <span class="data-card__label">Decision notes</span>
+        <span class="data-card__value">
+          {{ getCaseField("decisionNotes") }}
+        </span>
+      </div>
+    </div>
+  </div>
+</goab-accordion>

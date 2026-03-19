@@ -1,0 +1,9 @@
+:host {
+  display: contents;
+}
+
+.case-detail-header__skeleton-row {
+  display: flex;
+  gap: var(--goa-space-s);
+  align-items: center;
+}

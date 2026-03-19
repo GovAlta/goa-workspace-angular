@@ -1,0 +1,85 @@
+<div class="case-detail__page_template">
+  <app-page-header [title]="caseData?.name || 'Case'" [hasToolbar]="true">
+    <ng-container actions>
+      <app-case-detail-header [isLoading]="isLoading" />
+    </ng-container>
+
+    <ng-container toolbar>
+      <goabx-menu-button
+        type="tertiary"
+        text="Assign"
+        size="compact"
+        maxWidth="100%"
+        (onAction)="handleAssignClick()"
+      >
+        <goabx-menu-action text="Assign to me" action="assign-me" />
+        <goabx-menu-action text="Assign to team" action="assign-team" />
+        <goabx-menu-action text="Unassign" action="unassign" />
+      </goabx-menu-button>
+
+      <goabx-button
+        type="tertiary"
+        size="compact"
+        (onClick)="handleCommentsClick()"
+        leadingIcon="chatbubble"
+      >
+        {{ commentsButtonText }}
+      </goabx-button>
+    </ng-container>
+  </app-page-header>
+
+  <app-comments-drawer
+    [isOpen]="isCommentsDrawerOpen"
+    [comments]="comments"
+    [caseStatus]="caseData?.statusText"
+    (close)="isCommentsDrawerOpen = false"
+    (editComment)="handleEditComment($event)"
+    (deleteComment)="handleDeleteComment($event)"
+  />
+
+  <div class="case-detail__page_content">
+    <goabx-tabs
+      [initialTab]="1"
+      [variant]="!isMobile ? 'segmented' : 'default'"
+      (onChange)="handleTabsChange($event)"
+    >
+      <goab-tab heading="Current application" />
+      <goab-tab [heading]="previousAssessmentsHeading">
+        <ng-template #previousAssessmentsHeading>
+          Previous assessments
+          <goabx-badge type="archived" emphasis="subtle" content="0" />
+        </ng-template>
+      </goab-tab>
+    </goabx-tabs>
+
+    @if (isMobile) {
+      <goab-spacer vSpacing="l" />
+    }
+
+    @if (isLoading) {
+      <div>
+        @for (item of skeletonArray; track $index) {
+          <div class="case-detail__page_skeleton">
+            <goab-skeleton type="thumbnail" mb="none" mt="none" />
+            <goab-skeleton type="text" maxWidth="150px" mb="none" mt="none" />
+            <goab-skeleton type="text" maxWidth="75px" mb="none" mt="none" />
+          </div>
+        }
+      </div>
+    } @else if (activeTabIndex === 1) {
+      <app-case-accordions
+        [expandedAll]="expandedAll"
+        [expandedList]="expandedList"
+        [primaryFormData]="primaryFormData"
+        [caseData]="caseData"
+        [copiedField]="copiedField"
+        (expandOrCollapseAll)="expandOrCollapseAll()"
+        (copyValue)="handleCopy($event)"
+      />
+    } @else {
+      <div class="case-detail__page_empty_state">
+        <goab-text size="body-s" mt="none"> No previous assessments </goab-text>
+      </div>
+    }
+  </div>
+</div>

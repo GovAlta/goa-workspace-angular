@@ -1,0 +1,193 @@
+@if (viewport.isMobile()) {
+  <app-page-header title="Overview">
+    <span actions class="dashboard-header-date">{{ shortDate }}</span>
+  </app-page-header>
+}
+<div class="dashboard-page">
+  <!-- Greeting -->
+  <div class="dashboard-greeting">
+    <div class="dashboard-greeting__content">
+      <goab-text
+        [size]="viewport.isMobile() ? 'heading-s' : 'heading-m'"
+        mt="none"
+        mb="none"
+      >
+        {{ greeting }}, Edna
+      </goab-text>
+      @if (!viewport.isMobile()) {
+        <span class="dashboard-greeting__subtitle"
+          >Here's your workload overview</span
+        >
+      }
+    </div>
+    @if (!viewport.isMobile()) {
+      <span class="dashboard-greeting__date">{{ todayFormatted }}</span>
+    }
+  </div>
+
+  <!-- Stat Cards -->
+  <ng-template #statCards>
+    <app-stat-card
+      [value]="stats.myCases"
+      label="My Active Cases"
+      icon="briefcase"
+      tint="info"
+      (onClick)="navigateToCases('assigned-to-me')"
+    />
+    <app-stat-card
+      [value]="stats.overdue"
+      label="Overdue"
+      icon="warning"
+      [tint]="stats.overdue > 0 ? 'emergency' : undefined"
+      (onClick)="navigateToCases('in-progress')"
+    />
+    <app-stat-card
+      [value]="stats.dueSoon"
+      label="Due This Week"
+      icon="calendar"
+      tint="important"
+      (onClick)="navigateToCases('in-progress')"
+    />
+    <app-stat-card
+      [value]="stats.completed"
+      label="Completed"
+      icon="checkmark-circle"
+      tint="success"
+      (onClick)="navigateToCases('complete')"
+    />
+  </ng-template>
+
+  @if (viewport.isMobile()) {
+    <div class="dashboard-stats-grid">
+      <ng-container *ngTemplateOutlet="statCards" />
+    </div>
+  } @else {
+    <goab-grid minChildWidth="180px" gap="m">
+      <ng-container *ngTemplateOutlet="statCards" />
+    </goab-grid>
+  }
+
+  <div class="dashboard-main">
+    <div class="dashboard-main__left">
+      <!-- Case Activity Chart -->
+      <ng-template #chartTitle
+        ><strong>Case Activity</strong>&nbsp;<span
+          class="dashboard-chart-subtitle"
+          >Last 7 days</span
+        ></ng-template
+      >
+      <goab-container
+        type="non-interactive"
+        accent="thick"
+        padding="compact"
+        mb="none"
+        [title]="chartTitle"
+      >
+        <div class="dashboard-chart-wrapper">
+          <div class="dashboard-chart">
+            <ngx-charts-area-chart
+              [results]="chartData"
+              [customColors]="chartColors"
+              [xAxis]="true"
+              [yAxis]="true"
+              [legend]="true"
+              [legendPosition]="legendBelow"
+              [legendTitle]="''"
+              [showXAxisLabel]="false"
+              [showYAxisLabel]="false"
+              [showGridLines]="true"
+              [autoScale]="false"
+              [yScaleMax]="8"
+              [yAxisTicks]="[0, 2, 4, 6, 8]"
+              [animations]="false"
+              [curve]="curveNatural"
+            />
+          </div>
+        </div>
+      </goab-container>
+
+      <!-- Work Queue -->
+      <ng-template #workQueueTitle>Assigned to me</ng-template>
+      <ng-template #workQueueActions
+        ><goabx-button
+          type="tertiary"
+          size="compact"
+          (onClick)="navigateToCases('assigned-to-me')"
+          >View all</goabx-button
+        ></ng-template
+      >
+      <goab-container
+        type="non-interactive"
+        accent="thick"
+        padding="compact"
+        mb="none"
+        [title]="workQueueTitle"
+        [actions]="workQueueActions"
+      >
+        <div class="dashboard-queue">
+          @if (workQueue.length === 0) {
+            <p class="dashboard-empty">No cases assigned to you</p>
+          }
+          @for (item of workQueue; track item.id) {
+            <app-work-queue-card
+              [caseItem]="item"
+              [isOverdue]="item.isOverdue"
+            />
+          }
+        </div>
+      </goab-container>
+    </div>
+
+    <div class="dashboard-main__right">
+      <!-- Coming Up -->
+      <ng-template #comingUpTitle>Coming Up</ng-template>
+      <goab-container
+        type="non-interactive"
+        accent="thick"
+        padding="compact"
+        mb="none"
+        [title]="comingUpTitle"
+      >
+        <div class="dashboard-coming-up">
+          @if (comingUp.length === 0) {
+            <p class="dashboard-empty">No upcoming deadlines</p>
+          }
+          @for (item of comingUp; track item.id) {
+            <app-coming-up-item
+              [caseItem]="item"
+              [relativeDate]="item.relativeDate"
+            />
+          }
+        </div>
+      </goab-container>
+
+      <!-- Recent Activity -->
+      <ng-template #activityTitle>Recent Activity</ng-template>
+      <ng-template #activityActions
+        ><goabx-button
+          type="tertiary"
+          size="compact"
+          routerLink="/notifications"
+          >View all</goabx-button
+        ></ng-template
+      >
+      <goab-container
+        type="non-interactive"
+        accent="thick"
+        padding="compact"
+        mb="none"
+        [title]="activityTitle"
+        [actions]="activityActions"
+      >
+        <div class="dashboard-activity">
+          @if (activity.length === 0) {
+            <p class="dashboard-empty">No recent activity</p>
+          }
+          @for (item of activity; track item.id) {
+            <app-activity-item [item]="item" />
+          }
+        </div>
+      </goab-container>
+    </div>
+  </div>
+</div>

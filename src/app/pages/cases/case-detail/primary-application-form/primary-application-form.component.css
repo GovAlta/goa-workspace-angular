@@ -1,0 +1,8 @@
+:host {
+  display: contents;
+}
+
+.primary-form__copy-field {
+  display: flex;
+  align-items: center;
+}

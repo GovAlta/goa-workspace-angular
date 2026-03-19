@@ -1,0 +1,28 @@
+@if (hasActiveFilters) {
+  <div class="chips-container">
+    <goab-icon
+      type="filter-lines"
+      size="small"
+      fillColor="var(--goa-color-text-secondary)"
+      mr="2xs"
+    />
+    @if (entityFilter !== "all") {
+      <goabx-filter-chip
+        [content]="getEntityLabel()"
+        (onClick)="entityClear.emit()"
+      />
+    }
+    @if (statusFilter !== "all") {
+      <goabx-filter-chip
+        [content]="statusFilter"
+        (onClick)="statusClear.emit()"
+      />
+    }
+    @for (chip of searchChips; track chip) {
+      <goabx-filter-chip [content]="chip" (onClick)="removeChip.emit(chip)" />
+    }
+    <a href="#" class="clear-all-link" (click)="onClearAll($event)"
+      >Clear all</a
+    >
+  </div>
+}

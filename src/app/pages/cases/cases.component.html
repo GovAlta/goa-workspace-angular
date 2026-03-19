@@ -1,0 +1,311 @@
+<!-- Page Header -->
+<app-page-header title="Cases" [hasToolbar]="true">
+  <div actions>
+    <goab-button-group gap="compact" alignment="start">
+      <goabx-button type="secondary" size="compact"> More </goabx-button>
+      <goabx-button type="primary" size="compact">
+        Add application
+      </goabx-button>
+    </goab-button-group>
+  </div>
+
+  <app-case-toolbar
+    toolbar
+    [activeTab]="activeTab"
+    [totalCount]="cases.length"
+    [unassignedCount]="unassignedCount"
+    [myCasesCount]="myCasesCount"
+    [inProgressCount]="inProgressCount"
+    [inputValue]="inputValue"
+    [inputError]="inputError"
+    [sortConfig]="sortConfig"
+    [viewSettings]="viewSettings"
+    [defaultLayout]="defaultLayout"
+    [isMobile]="isMobile"
+    [isCompactToolbar]="isCompactToolbar()"
+    (tabChange)="handleTabChange($event)"
+    (inputChange)="handleInputChange($event)"
+    (inputKeyPress)="handleInputKeyPress($event)"
+    (sortAction)="handleSortAction($event)"
+    (settingsChange)="handleSettingsChange($event)"
+    (filterOpen)="handleFilterOpen()"
+  />
+</app-page-header>
+
+<!-- Content -->
+<div class="cases-content">
+  <!-- Filter chips -->
+  <div class="content-padding">
+    <app-case-filter-chips
+      [searchChips]="typedChips"
+      [filterChips]="filterChips"
+      (removeSearchChip)="removeChip($event)"
+      (removeFilter)="handleRemoveFilter($event)"
+      (clearAll)="handleClearAll()"
+    />
+  </div>
+
+  <!-- Comments drawer -->
+  <app-comments-drawer
+    [isOpen]="isCommentsDrawerOpen"
+    [comments]="caseSpecificComments"
+    [caseStatus]="selectedCaseData?.statusText"
+    (close)="isCommentsDrawerOpen = false"
+    (editComment)="handleEditComment($event)"
+    (deleteComment)="handleDeleteComment($event)"
+  />
+
+  <!-- Column templates for table view -->
+  <ng-template #selectAllHeader>
+      <goabx-checkbox
+        name="selectAll"
+        [checked]="isAllSelected"
+        [indeterminate]="isIndeterminate"
+        (onChange)="handleSelectAll()"
+        ariaLabel="Select all cases"
+      />
+    </ng-template>
+
+    <ng-template #selectCell let-caseItem>
+      <goabx-checkbox
+        [name]="'select-' + caseItem.id"
+        [checked]="caseItem.selected"
+        (onChange)="handleSelectChange(caseItem.id, !caseItem.selected)"
+        [ariaLabel]="'Select ' + caseItem.name"
+      />
+    </ng-template>
+
+    <ng-template #nameCell let-caseItem>
+      <a [routerLink]="['/case', caseItem.id]" class="table-row-link">
+        {{ caseItem.name }}
+      </a>
+    </ng-template>
+
+    <ng-template #statusCell let-caseItem>
+      <goabx-badge
+        [type]="caseItem.status"
+        [content]="caseItem.statusText"
+        [icon]="true"
+        emphasis="subtle"
+      />
+    </ng-template>
+
+    <ng-template #staffCell let-caseItem>
+      @if (caseItem.staff) {
+        {{ caseItem.staff }}
+      } @else {
+        <goabx-link color="dark" size="medium">
+          <a href="#" (click)="$event.preventDefault(); $event.stopPropagation()">
+            Assign me
+          </a>
+        </goabx-link>
+      }
+    </ng-template>
+
+    <ng-template #dueDateCell let-caseItem>
+      {{ caseItem.dueDate || "\u2014" }}
+    </ng-template>
+
+    <ng-template #jurisdictionCell let-caseItem>
+      {{ caseItem.jurisdiction || "\u2014" }}
+    </ng-template>
+
+    <ng-template #fileNumberCell let-caseItem>
+      {{ caseItem.fileNumber || "\u2014" }}
+    </ng-template>
+
+    <ng-template #priorityCell let-caseItem>
+      @if (caseItem.priority) {
+        <goabx-badge
+          [type]="getPriorityBadgeProps(caseItem.priority).type"
+          [content]="getPriorityBadgeProps(caseItem.priority).content"
+        />
+      } @else {
+        &mdash;
+      }
+    </ng-template>
+
+    <ng-template #actionsCell let-caseItem>
+      <goabx-menu-button
+        leadingIcon="ellipsis-horizontal:filled"
+        size="compact"
+        (onAction)="onMenuActionButton($event.action, caseItem.id)"
+      >
+        <goabx-menu-action text="View case" action="view" />
+        <goabx-menu-action text="Assign to me" action="assign" />
+        <goabx-menu-action text="Delete" icon="trash" action="delete" />
+      </goabx-menu-button>
+    </ng-template>
+
+  <!-- Table view -->
+  @if (viewMode === "table") {
+    <app-case-table
+      [filteredCases]="filteredCases"
+      [groupedCases]="groupedCases"
+      [columns]="visibleCaseColumns"
+      [expandedGroups]="expandedGroups"
+      [isLoading]="isLoading"
+      [showEmptyState]="cases.length > 0"
+      [sortConfig]="sortConfig"
+      (toggleGroup)="toggleGroup($event)"
+      (multiSort)="handleMultiSort($event)"
+      (rowClick)="handleRowClick($event)"
+    >
+      <app-empty-state
+        emptyState
+        heading="No results found"
+        subline="Try adjusting your search or filters."
+      />
+    </app-case-table>
+  }
+
+  <!-- List view -->
+  @if (viewMode === "list") {
+    <app-case-list-view
+      [filteredCases]="filteredCases"
+      [groupedCases]="groupedCases"
+      [expandedGroups]="expandedGroups"
+      [isLoading]="isLoading"
+      [showEmptyState]="cases.length > 0"
+      (toggleGroup)="toggleGroup($event)"
+      (menuAction)="handleListMenuAction($event)"
+    />
+  }
+
+  <!-- Card view -->
+  @if (viewMode === "card") {
+    <div class="content-padding">
+      <goab-data-grid keyboardNav="layout" keyboardIconPosition="right">
+        @if (isLoading) {
+          <div class="card-grid">
+            @for (skeleton of skeletonArray; track $index) {
+              <div [attr.data-grid]="'row'">
+                <goab-container
+                  accent="thick"
+                  type="non-interactive"
+                  padding="compact"
+                  mb="none"
+                >
+                  <div heading>
+                    <div class="data-card__title">
+                      <goab-skeleton type="title" maxWidth="200px" />
+                      <goab-skeleton type="text" maxWidth="80px" />
+                    </div>
+                  </div>
+                  <div actions>
+                    <goab-skeleton type="text" maxWidth="40px" />
+                  </div>
+                  <div class="data-card__body">
+                    <div class="data-card__row">
+                      <goab-block direction="column" gap="2xs">
+                        <goab-skeleton type="text-small" maxWidth="60px" />
+                        <goab-skeleton type="text" maxWidth="100px" />
+                      </goab-block>
+                      <goab-block direction="column" gap="2xs">
+                        <goab-skeleton type="text-small" maxWidth="50px" />
+                        <goab-skeleton type="text" maxWidth="80px" />
+                      </goab-block>
+                    </div>
+                  </div>
+                </goab-container>
+              </div>
+            }
+          </div>
+        } @else if (filteredCases.length === 0 && cases.length > 0) {
+          <app-empty-state
+            heading="No results found"
+            subline="Try adjusting your search or filters."
+          />
+        } @else if (groupedCases) {
+          <div class="cases-grouped-view">
+            @for (group of groupedCases; track group.key) {
+              <div class="cases-group">
+                <button
+                  class="cases-group__header"
+                  (click)="toggleGroup(group.key)"
+                  [attr.aria-expanded]="expandedGroups.has(group.key)"
+                >
+                  <goab-icon
+                    [type]="
+                      expandedGroups.has(group.key)
+                        ? 'chevron-down'
+                        : 'chevron-forward'
+                    "
+                    size="small"
+                  />
+                  <span class="cases-group__label">{{ group.label }}</span>
+                  <goabx-badge
+                    type="default"
+                    [content]="'' + group.cases.length"
+                    emphasis="subtle"
+                  />
+                </button>
+                @if (expandedGroups.has(group.key)) {
+                  <div class="card-grid">
+                    @for (caseItem of group.cases; track caseItem.id) {
+                      <app-case-card
+                        [caseItem]="caseItem"
+                        [activeTab]="activeTab"
+                        [commentCount]="getCommentCount(caseItem.id)"
+                        (menuAction)="handleCardMenuAction($event)"
+                        (selectChange)="handleCardSelectChange($event)"
+                      />
+                    }
+                  </div>
+                }
+              </div>
+            }
+          </div>
+        } @else {
+          <div class="card-grid">
+            @for (caseItem of filteredCases; track caseItem.id) {
+              <app-case-card
+                [caseItem]="caseItem"
+                [activeTab]="activeTab"
+                [commentCount]="getCommentCount(caseItem.id)"
+                (menuAction)="handleCardMenuAction($event)"
+                (selectChange)="handleCardSelectChange($event)"
+              />
+            }
+          </div>
+        }
+      </goab-data-grid>
+    </div>
+  }
+
+  <!-- Delete modal -->
+  <app-case-delete-modal
+    [open]="showDeleteModal"
+    (confirm)="confirmDelete()"
+    (cancel)="showDeleteModal = false"
+  />
+
+  <!-- Filter drawer -->
+  <app-case-filter-drawer
+    [open]="filterDrawerOpen"
+    [pendingFilters]="pendingFilters"
+    [filterOptions]="filterOptions"
+    (close)="filterDrawerOpen = false"
+    (toggleFilter)="handleFilterToggle($event)"
+    (apply)="applyFilters()"
+    (clearAll)="handleFilterClearAll()"
+  />
+</div>
+
+<!-- Footer template for bulk actions -->
+<ng-template #footerTemplate>
+  <goab-button-group gap="compact" alignment="start">
+    <goabx-button type="tertiary" size="compact" (onClick)="clearSelection()">
+      Clear selection ({{ selectedCount }})
+    </goabx-button>
+    <goabx-button type="primary" size="compact"> Assign to me </goabx-button>
+    <goabx-button
+      type="primary"
+      size="compact"
+      variant="destructive"
+      (onClick)="deleteSelected()"
+    >
+      Delete selected
+    </goabx-button>
+  </goab-button-group>
+</ng-template>

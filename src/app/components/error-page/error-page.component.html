@@ -1,0 +1,10 @@
+<app-error-layout
+  [icon]="icon"
+  [label]="errorCode"
+  [heading]="heading"
+  [description]="description"
+>
+  <goabx-button type="primary" size="compact" (onClick)="navigate()">
+    {{ buttonText }}
+  </goabx-button>
+</app-error-layout>
