@@ -1,0 +1,19 @@
+<div
+  [class]="'dashboard-stat-card' + (tint ? ' dashboard-stat-card--' + tint : '') + (clickable ? ' dashboard-stat-card--clickable' : '')"
+  [attr.role]="clickable ? 'button' : null"
+  [attr.tabindex]="clickable ? 0 : null"
+  (click)="onClick.emit()"
+  (keydown.enter)="onClick.emit()"
+>
+  <div class="dashboard-stat-card__icon">
+    <goab-icon [type]="icon" size="medium" [fillColor]="iconColor"></goab-icon>
+  </div>
+  <div class="dashboard-stat-card__content">
+    <span [class]="'dashboard-stat-card__value' + (tint ? ' dashboard-stat-card__value--' + tint : '')">
+      {{ value }}
+    </span>
+    <span [class]="'dashboard-stat-card__label' + (tint ? ' dashboard-stat-card__label--' + tint : '')">
+      {{ label }}
+    </span>
+  </div>
+</div>

@@ -1,10 +1,7 @@
 import { Routes } from '@angular/router';
-import { DashboardComponent } from './pages/dashboard/dashboard.component';
-import { SearchComponent } from './pages/search/search.component';
-import { CasesComponent } from './pages/cases/cases.component';
 
 export const routes: Routes = [
-  { path: '', component: DashboardComponent },
-  { path: 'search', component: SearchComponent },
-  { path: 'cases', component: CasesComponent },
+  { path: '', loadComponent: () => import('./pages/dashboard/dashboard.component').then(m => m.DashboardComponent) },
+  { path: 'search', loadComponent: () => import('./pages/search/search.component').then(m => m.SearchComponent) },
+  { path: 'cases', loadComponent: () => import('./pages/cases/cases.component').then(m => m.CasesComponent) },
 ];

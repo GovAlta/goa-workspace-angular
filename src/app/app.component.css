@@ -3,7 +3,15 @@
   min-height: 100vh;
 }
 
+/* Mobile breakpoint — must match MOBILE_BREAKPOINT in viewport.service.ts */
+@media (max-width: 623px) {
+  .app-layout {
+    display: block;
+  }
+}
+
 .content-area {
   flex: 1;
   overflow-y: auto;
+  overflow-x: hidden;
 }

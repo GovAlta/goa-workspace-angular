@@ -1,6 +1,7 @@
-import { Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { Component, CUSTOM_ELEMENTS_SCHEMA, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { GoabxWorkSideMenu, GoabxWorkSideMenuItem } from '@abgov/angular-components';
+import { ViewportService } from './services/viewport.service';
 
 @Component({
   selector: 'app-root',
@@ -10,9 +11,5 @@ import { GoabxWorkSideMenu, GoabxWorkSideMenuItem } from '@abgov/angular-compone
   styleUrl: './app.component.css'
 })
 export class AppComponent {
-  menuOpen = true;
-
-  onMenuToggle() {
-    this.menuOpen = !this.menuOpen;
-  }
+  viewport = inject(ViewportService);
 }
