@@ -1,7 +1,7 @@
 import { Component, CUSTOM_ELEMENTS_SCHEMA, ViewEncapsulation, OnInit, inject, ElementRef, AfterViewInit, OnDestroy } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { ViewportService } from '../../services/viewport.service';
-import { GoabxButton, GoabContainer } from '@abgov/angular-components';
+import { GoabButton, GoabContainer } from '@abgov/angular-components';
 import { StatCardComponent } from './components/stat-card/stat-card.component';
 import { WorkQueueCardComponent } from './components/work-queue-card/work-queue-card.component';
 import { ComingUpItemComponent } from './components/coming-up-item/coming-up-item.component';
@@ -18,7 +18,7 @@ import mockChartData from '../../data/mockChartData.json';
 @Component({
   selector: 'app-dashboard',
   imports: [
-    RouterLink, GoabContainer, GoabxButton, NgxChartsModule,
+    RouterLink, GoabContainer, GoabButton, NgxChartsModule,
     StatCardComponent, WorkQueueCardComponent, ComingUpItemComponent, ActivityItemComponent,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],

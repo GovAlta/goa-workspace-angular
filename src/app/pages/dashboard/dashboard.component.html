@@ -61,7 +61,7 @@
 
       <!-- Work Queue -->
       <ng-template #workQueueTitle>Assigned to me</ng-template>
-      <ng-template #workQueueActions><goabx-button type="tertiary" size="compact" (onClick)="navigateToCases('assigned-to-me')">View all</goabx-button></ng-template>
+      <ng-template #workQueueActions><goab-button type="tertiary" size="compact" (onClick)="navigateToCases('assigned-to-me')">View all</goab-button></ng-template>
       <goab-container type="non-interactive" accent="thick" padding="compact" mb="none" [title]="workQueueTitle" [actions]="workQueueActions">
         <div class="dashboard-queue">
           @if (workQueue.length === 0) {
@@ -90,7 +90,7 @@
 
       <!-- Recent Activity -->
       <ng-template #activityTitle>Recent Activity</ng-template>
-      <ng-template #activityActions><goabx-button type="tertiary" size="compact" routerLink="/notifications">View all</goabx-button></ng-template>
+      <ng-template #activityActions><goab-button type="tertiary" size="compact" routerLink="/notifications">View all</goab-button></ng-template>
       <goab-container type="non-interactive" accent="thick" padding="compact" mb="none" [title]="activityTitle" [actions]="activityActions">
         <div class="dashboard-activity">
           @if (activity.length === 0) {
