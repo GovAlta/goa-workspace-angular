@@ -1,0 +1,7 @@
+@if (isVisible) {
+  <div [class]="footerClasses">
+    <div class="page-footer__content">
+      <ng-container *ngTemplateOutlet="footer.content()" />
+    </div>
+  </div>
+}

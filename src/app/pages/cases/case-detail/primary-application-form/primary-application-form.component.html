@@ -1,0 +1,113 @@
+<div>
+  <!-- Name Section -->
+  <div>
+    <goab-text size="heading-xs" mb="s" mt="l" color="secondary">
+      Name
+    </goab-text>
+
+    <goab-divider mb="xl" />
+
+    <div class="case-detail_form_double">
+      <goabx-form-item label="First name" mb="l">
+        <goabx-input
+          name="firstName"
+          [value]="localFormData.firstName"
+          size="compact"
+          (onChange)="handleInputChange('firstName', $event.value)"
+        />
+      </goabx-form-item>
+
+      <goabx-form-item label="Middle name" mb="l">
+        <goabx-input
+          name="middleName"
+          [value]="localFormData.middleName"
+          size="compact"
+          (onChange)="handleInputChange('middleName', $event.value)"
+        />
+      </goabx-form-item>
+    </div>
+
+    <goabx-form-item label="Last name" mb="l">
+      <goabx-input
+        name="lastName"
+        [value]="localFormData.lastName"
+        size="compact"
+        (onChange)="handleInputChange('lastName', $event.value)"
+      />
+    </goabx-form-item>
+  </div>
+
+  <!-- Identifiers Section -->
+  <div>
+    <goab-text size="heading-xs" mb="s" mt="3xl" color="secondary">
+      Identifiers
+    </goab-text>
+    <goab-divider mb="xl" />
+
+    <goabx-form-item label="Last name on birth certificate" mb="l">
+      <goabx-input
+        name="lastNameOnBirthCertificate"
+        [value]="localFormData.lastNameOnBirthCertificate"
+        size="compact"
+        (onChange)="
+          handleInputChange('lastNameOnBirthCertificate', $event.value)
+        "
+      />
+    </goabx-form-item>
+
+    <goabx-form-item label="Social Insurance Number (SIN)">
+      <div class="case-detail_form_double">
+        <goabx-input
+          name="sin"
+          [value]="localFormData.sin"
+          size="compact"
+          mb="l"
+          (onChange)="handleInputChange('sin', $event.value)"
+        />
+        <goab-checkbox
+          mb="l"
+          name="verification"
+          text="Verified"
+          (onChange)="handleInputChange('verification', $event.value ?? false)"
+        />
+      </div>
+    </goabx-form-item>
+
+    <div class="case-detail_form_double">
+      <goabx-form-item label="LISA file number (optional)" mb="l">
+        <goabx-input
+          name="lisaFileNumber"
+          [value]="localFormData.lisaFileNumber"
+          size="compact"
+          (onChange)="handleInputChange('lisaFileNumber', $event.value)"
+        />
+      </goabx-form-item>
+
+      <goabx-form-item label="HS ID (Mobius ID)" mb="l">
+        <div style="display: flex; align-items: center">
+          <goab-text mb="none" mt="none">
+            {{ localFormData.hsId }}
+          </goab-text>
+          <goab-tooltip [content]="getCopyTooltip('hsId')">
+            <goab-icon-button
+              icon="copy"
+              ariaLabel="Copy HS ID"
+              variant="dark"
+              size="small"
+              (onClick)="handleCopy(localFormData.hsId, 'hsId')"
+            />
+          </goab-tooltip>
+        </div>
+      </goabx-form-item>
+    </div>
+
+    <goabx-form-item label="PID" mb="l">
+      <goabx-input
+        name="pid"
+        [value]="localFormData.pid"
+        size="compact"
+        (onChange)="handleInputChange('pid', $event.value)"
+      />
+    </goabx-form-item>
+  </div>
+</div>

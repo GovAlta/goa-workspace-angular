@@ -1,0 +1,103 @@
+<div class="content-padding">
+  <goab-data-grid keyboardNav="layout" keyboardIconPosition="right">
+    @if (isLoading) {
+      <div class="card-grid">
+        @for (i of skeletons; track $index) {
+          <div data-grid="row">
+            <goab-container
+              accent="thick"
+              type="non-interactive"
+              padding="compact"
+              mb="none"
+            >
+              <div class="data-card__body">
+                <goab-skeleton type="title" maxWidth="200px" />
+                <goab-skeleton type="text" maxWidth="80px" />
+              </div>
+            </goab-container>
+          </div>
+        }
+      </div>
+    } @else if (results.length === 0 && showEmptyState) {
+      <app-empty-state
+        heading="No results found"
+        subline="Try adjusting your search or filters."
+      />
+    } @else {
+      <div class="card-grid">
+        @for (result of results; track result.id) {
+          <div data-grid="row">
+            <ng-template #cardTitle>
+              <div class="data-card__title">
+                <goab-text
+                  size="heading-xs"
+                  mt="none"
+                  mb="none"
+                  data-grid="cell-1"
+                >
+                  {{ result.name }}
+                </goab-text>
+                <goabx-badge
+                  data-grid="cell-2"
+                  [type]="result.status"
+                  [content]="result.statusText"
+                  emphasis="subtle"
+                  [icon]="true"
+                />
+              </div>
+            </ng-template>
+            <ng-template #cardActions>
+              <div data-grid="cell-3">
+                <goabx-button type="tertiary" size="compact">
+                  View
+                </goabx-button>
+              </div>
+            </ng-template>
+            <goab-container
+              accent="thick"
+              type="non-interactive"
+              padding="compact"
+              mb="none"
+              [title]="cardTitle"
+              [actions]="cardActions"
+            >
+              <div class="data-card__body">
+                <div class="data-card__section-fields">
+                  <goab-block direction="column" gap="xs" data-grid="cell-4">
+                    <span class="data-card__label">Staff</span>
+                    <span class="data-card__value">{{
+                      result.staff || "—"
+                    }}</span>
+                  </goab-block>
+                  <goab-block direction="column" gap="xs" data-grid="cell-5">
+                    <span class="data-card__label">Due date</span>
+                    <span class="data-card__value">{{
+                      result.dueDate || "—"
+                    }}</span>
+                  </goab-block>
+                  <goab-block direction="column" gap="xs" data-grid="cell-6">
+                    <span class="data-card__label">File number</span>
+                    <span class="data-card__value">{{
+                      result.fileNumber || "—"
+                    }}</span>
+                  </goab-block>
+                  <goab-block direction="column" gap="xs" data-grid="cell-7">
+                    <span class="data-card__label">Type</span>
+                    <span class="data-card__value">
+                      <goabx-badge
+                        [type]="getTypeBadge(result.type).type"
+                        [content]="getTypeBadge(result.type).content"
+                        emphasis="subtle"
+                        [icon]="true"
+                      />
+                    </span>
+                  </goab-block>
+                </div>
+              </div>
+            </goab-container>
+          </div>
+        }
+      </div>
+    }
+  </goab-data-grid>
+</div>

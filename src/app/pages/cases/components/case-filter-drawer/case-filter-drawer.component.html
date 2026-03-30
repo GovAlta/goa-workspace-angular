@@ -1,0 +1,111 @@
+<div class="push-drawer-container" [class.push-drawer-container--open]="open">
+  <div class="push-drawer-clip">
+    <goab-push-drawer
+      [open]="open"
+      heading="Filter cases"
+      (onClose)="onClose()"
+      [actions]="drawerActions"
+    >
+      <div
+        style="display: flex; flex-direction: column; gap: var(--goa-space-l)"
+      >
+        <goabx-form-item label="Status">
+          <div
+            style="
+              display: flex;
+              flex-direction: column;
+              gap: var(--goa-space-xs);
+            "
+          >
+            @for (status of filterOptions.statuses; track status) {
+              <goabx-checkbox
+                [name]="'status-' + status"
+                [text]="status"
+                [checked]="pendingFilters.status.includes(status)"
+                (onChange)="onToggleFilter('status', status)"
+              />
+            }
+          </div>
+        </goabx-form-item>
+
+        <goabx-form-item label="Priority">
+          <div
+            style="
+              display: flex;
+              flex-direction: column;
+              gap: var(--goa-space-xs);
+            "
+          >
+            @for (priority of filterOptions.priorities; track priority) {
+              <goabx-checkbox
+                [name]="'priority-' + priority"
+                [text]="capitalize(priority)"
+                [checked]="pendingFilters.priority.includes(priority)"
+                (onChange)="onToggleFilter('priority', priority)"
+              />
+            }
+          </div>
+        </goabx-form-item>
+
+        <goabx-form-item label="Assigned to">
+          <div
+            style="
+              display: flex;
+              flex-direction: column;
+              gap: var(--goa-space-xs);
+            "
+          >
+            @for (staff of filterOptions.staffMembers; track staff) {
+              <goabx-checkbox
+                [name]="'staff-' + staff"
+                [text]="staff"
+                [checked]="pendingFilters.staff.includes(staff)"
+                (onChange)="onToggleFilter('staff', staff)"
+              />
+            }
+          </div>
+        </goabx-form-item>
+
+        <goabx-form-item label="Jurisdiction">
+          <div
+            style="
+              display: flex;
+              flex-direction: column;
+              gap: var(--goa-space-xs);
+            "
+          >
+            @for (
+              jurisdiction of filterOptions.jurisdictions;
+              track jurisdiction
+            ) {
+              <goabx-checkbox
+                [name]="'jurisdiction-' + jurisdiction"
+                [text]="jurisdiction"
+                [checked]="pendingFilters.jurisdiction.includes(jurisdiction)"
+                (onChange)="onToggleFilter('jurisdiction', jurisdiction)"
+              />
+            }
+          </div>
+        </goabx-form-item>
+
+        @if (hasFilters) {
+          <goab-divider />
+          <goabx-button type="tertiary" size="compact" (onClick)="onClearAll()">
+            Clear all filters
+          </goabx-button>
+        }
+      </div>
+    </goab-push-drawer>
+  </div>
+</div>
+
+<ng-template #drawerActions>
+  <goab-button-group alignment="start" gap="compact">
+    <goabx-button type="primary" size="compact" (onClick)="onApply()">
+      Apply filters
+    </goabx-button>
+    <goabx-button type="tertiary" size="compact" (onClick)="onClose()">
+      Cancel
+    </goabx-button>
+  </goab-button-group>
+</ng-template>

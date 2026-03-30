@@ -35,9 +35,16 @@ export class ViewportService {
   }
 
   toggleMenu() {
-    this.menuOpen.update(open => !open);
+    this.menuOpen.update((open) => !open);
     if (!this.isMobile()) {
       localStorage.setItem(MENU_STATE_KEY, String(this.menuOpen()));
+    }
+  }
+
+  setMenuOpen(open: boolean) {
+    this.menuOpen.set(open);
+    if (!this.isMobile()) {
+      localStorage.setItem(MENU_STATE_KEY, String(open));
     }
   }
 }

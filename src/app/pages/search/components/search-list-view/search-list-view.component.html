@@ -1,0 +1,116 @@
+<div class="content-padding">
+  @if (isLoading) {
+    <div class="expandable-list">
+      @for (i of skeletons; track $index) {
+        <div class="expandable-list__item">
+          <div class="expandable-list__header">
+            <div class="expandable-list__toggle">
+              <goab-skeleton type="text" maxWidth="20px" />
+            </div>
+            <goab-skeleton type="title" maxWidth="200px" />
+            <goab-skeleton type="text" maxWidth="80px" />
+            <div class="expandable-list__secondary">
+              <goab-skeleton type="text" maxWidth="60px" />
+            </div>
+            <div class="expandable-list__actions">
+              <goab-skeleton type="text" maxWidth="40px" />
+            </div>
+          </div>
+        </div>
+      }
+    </div>
+  } @else if (results.length === 0 && showEmptyState) {
+    <app-empty-state
+      heading="No results found"
+      subline="Try adjusting your search or filters."
+    />
+  } @else {
+    <goab-data-grid keyboardNav="layout" keyboardIconPosition="right">
+      <div class="expandable-list">
+        @for (result of results; track result.id) {
+          <div
+            class="expandable-list__item"
+            [class.expandable-list__item--expanded]="isExpanded(result.id)"
+            data-grid="row"
+          >
+            <div class="expandable-list__header" (click)="toggle(result.id)">
+              <goab-icon-button
+                [icon]="
+                  isExpanded(result.id) ? 'chevron-down' : 'chevron-forward'
+                "
+                size="small"
+                variant="dark"
+                (onClick)="toggle(result.id)"
+                ariaLabel="Toggle details"
+              />
+              <div class="expandable-list__heading-group" data-grid="cell-1">
+                <span class="expandable-list__title">{{ result.name }}</span>
+                <goabx-badge
+                  [type]="result.status"
+                  [content]="result.statusText"
+                  emphasis="subtle"
+                  [icon]="true"
+                />
+              </div>
+              <div class="expandable-list__right-group">
+                <div class="expandable-list__secondary" data-grid="cell-2">
+                  <goabx-badge
+                    [type]="getTypeBadge(result.type).type"
+                    [content]="getTypeBadge(result.type).content"
+                    emphasis="subtle"
+                  />
+                </div>
+                <div class="expandable-list__actions" data-grid="cell-3">
+                  <goabx-button type="tertiary" size="compact">
+                    View
+                  </goabx-button>
+                </div>
+              </div>
+            </div>
+
+            @if (isExpanded(result.id)) {
+              <div class="expandable-list__content">
+                <div class="data-card__sections">
+                  <div class="data-card__section">
+                    <div class="data-card__section-heading">Details</div>
+                    <div class="data-card__section-fields">
+                      <goab-block direction="column" gap="xs">
+                        <span class="data-card__label">Staff</span>
+                        <span class="data-card__value">{{
+                          result.staff || "—"
+                        }}</span>
+                      </goab-block>
+                      <goab-block direction="column" gap="xs">
+                        <span class="data-card__label">Due date</span>
+                        <span class="data-card__value">{{
+                          result.dueDate || "—"
+                        }}</span>
+                      </goab-block>
+                      <goab-block direction="column" gap="xs">
+                        <span class="data-card__label">File number</span>
+                        <span class="data-card__value">{{
+                          result.fileNumber || "—"
+                        }}</span>
+                      </goab-block>
+                      <goab-block direction="column" gap="xs">
+                        <span class="data-card__label">Type</span>
+                        <span class="data-card__value">
+                          <goabx-badge
+                            [type]="getTypeBadge(result.type).type"
+                            [content]="getTypeBadge(result.type).content"
+                            emphasis="subtle"
+                            [icon]="true"
+                          />
+                        </span>
+                      </goab-block>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            }
+          </div>
+        }
+      </div>
+    </goab-data-grid>
+  }
+</div>

@@ -13,6 +13,14 @@ export function formatDate(date: Date): string {
   });
 }
 
+export function formatShortDate(date: Date): string {
+  return date.toLocaleDateString('en-CA', {
+    weekday: 'long',
+    month: 'short',
+    day: 'numeric',
+  });
+}
+
 export function formatDueDate(dateStr: string): string {
   const date = parseDate(dateStr);
   if (!date) return 'No date';
@@ -41,7 +49,10 @@ export function formatRelativeTime(timestamp: string): string {
   if (diffMins < 1) return 'Just now';
   if (diffMins < 60) return `${diffMins}m ago`;
   if (diffHours < 24) {
-    return date.toLocaleTimeString('en-CA', { hour: 'numeric', minute: '2-digit' });
+    return date.toLocaleTimeString('en-CA', {
+      hour: 'numeric',
+      minute: '2-digit',
+    });
   }
   if (diffDays === 1) return 'Yesterday';
   if (diffDays < 7) return `${diffDays} days ago`;

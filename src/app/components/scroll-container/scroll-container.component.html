@@ -1,0 +1,36 @@
+<div
+  #container
+  class="scroll-container"
+  [attr.data-shadow-left]="shadowLeft"
+  [attr.data-shadow-right]="shadowRight"
+>
+  <div
+    #leftShadow
+    class="scroll-container-shadow scroll-container-shadow--left"
+    aria-hidden="true"
+    [style.opacity]="shadowLeft ? 1 : 0"
+  ></div>
+  <ng-content />
+  <div
+    #rightShadow
+    class="scroll-container-shadow scroll-container-shadow--right"
+    aria-hidden="true"
+    [style.opacity]="shadowRight ? 1 : 0"
+  ></div>
+</div>
+
+@if (showScrollbar) {
+  <div
+    #scrollbar
+    class="scroll-container-scrollbar"
+    [style.position]="'fixed'"
+    [style.left.px]="scrollbarPosition.left"
+    [style.bottom.px]="scrollbarPosition.bottom"
+    [style.width.px]="scrollbarPosition.width"
+  >
+    <div
+      class="scroll-container-scrollbar-inner"
+      [style.width.px]="scrollWidth"
+    ></div>
+  </div>
+}

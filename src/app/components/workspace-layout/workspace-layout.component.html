@@ -1,0 +1,16 @@
+@if (viewport.isMobile()) {
+  <div class="mobile-content-container">
+    <router-outlet />
+    <app-page-footer />
+  </div>
+} @else {
+  <div class="card-container">
+    <div
+      class="desktop-card-container"
+      [attr.data-scroll-state]="scrollState.scrollPosition()"
+    >
+      <router-outlet />
+      <app-page-footer />
+    </div>
+  </div>
+}

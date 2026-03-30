@@ -26,6 +26,8 @@ export class StatCardComponent {
   };
 
   get iconColor(): string {
-    return this.tint ? this.tintIconColors[this.tint] : 'var(--goa-color-interactive-default)';
+    return this.tint
+      ? this.tintIconColors[this.tint]
+      : 'var(--goa-color-interactive-default)';
   }
 }

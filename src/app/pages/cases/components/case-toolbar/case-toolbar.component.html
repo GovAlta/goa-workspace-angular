@@ -1,0 +1,104 @@
+<div class="cases-toolbar-row">
+  <div class="cases-toolbar-tabs">
+    <goabx-tabs
+      [initialTab]="initialTab"
+      (onChange)="onTabChange($event)"
+      variant="segmented"
+    >
+      <goab-tab heading="All" slug="all" />
+      <goab-tab slug="unassigned" [heading]="unassignedHeading">
+        <ng-template #unassignedHeading>
+          Unassigned
+          <goabx-badge
+            type="default"
+            [content]="'' + unassignedCount"
+            emphasis="subtle"
+          />
+        </ng-template>
+      </goab-tab>
+      <goab-tab slug="assigned-to-me" [heading]="assignedHeading">
+        <ng-template #assignedHeading>
+          Assigned to me
+          <goabx-badge
+            type="information"
+            [content]="'' + myCasesCount"
+            emphasis="subtle"
+          />
+        </ng-template>
+      </goab-tab>
+      <goab-tab slug="in-progress" [heading]="inProgressHeading">
+        <ng-template #inProgressHeading>
+          In progress
+          <goabx-badge
+            type="important"
+            [content]="'' + inProgressCount"
+            emphasis="subtle"
+          />
+        </ng-template>
+      </goab-tab>
+      <goab-tab heading="Complete" slug="complete" />
+    </goabx-tabs>
+    <div class="cases-toolbar-tabs__spacer" aria-hidden="true"></div>
+  </div>
+  <div class="cases-search-row">
+    <div class="cases-search-group">
+      <goabx-form-item id="filterInput" [error]="inputError">
+        <goabx-input
+          name="filterInput"
+          [value]="inputValue"
+          leadingIcon="search"
+          width="100%"
+          size="compact"
+          placeholder="Search..."
+          (onChange)="onInputChange($event)"
+          (onKeyPress)="onInputKeyPress($event)"
+        />
+      </goabx-form-item>
+    </div>
+    <div class="cases-actions-group">
+      <goabx-menu-button
+        size="compact"
+        type="tertiary"
+        [leadingIcon]="sortLeadingIcon"
+        [text]="sortButtonText"
+        (onAction)="onSortAction($event)"
+      >
+        @for (entry of sortFieldEntries; track entry[0]) {
+          <goabx-menu-action
+            [text]="getSortMenuText(entry[0], entry[1])"
+            [action]="'sort-' + entry[0]"
+            [icon]="getSortIcon(entry[0])"
+          />
+        }
+        @if (sortConfig.primary) {
+          <goabx-menu-action text="Clear sort" action="clear-sort" />
+        }
+      </goabx-menu-button>
+      @if (isCompactToolbar) {
+        <goab-icon-button
+          icon="filter-lines"
+          size="medium"
+          variant="dark"
+          ariaLabel="Filter"
+          (onClick)="onFilterOpen()"
+        />
+      } @else {
+        <goabx-button
+          type="tertiary"
+          leadingIcon="filter-lines"
+          size="compact"
+          (onClick)="onFilterOpen()"
+        >
+          Filter
+        </goabx-button>
+      }
+      <app-display-settings
+        [settings]="viewSettings"
+        (settingsChange)="onSettingsChange($event)"
+        [defaultLayout]="defaultLayout"
+        [isMobile]="isMobile"
+        [isCompact]="isCompactToolbar"
+      />
+    </div>
+  </div>
+</div>

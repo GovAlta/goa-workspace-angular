@@ -1,0 +1,212 @@
+<app-page-header title="Search">
+  <div actions>
+    <app-search-header-filters
+      [filters]="filters"
+      [statusOptions]="statusOptions"
+      [viewMode]="viewMode"
+      [selectedView]="selectedView"
+      [isMobile]="viewport.isMobile()"
+      (filtersChange)="onFiltersChange($event)"
+      (searchKeyPress)="onSearchKeyPress($event)"
+      (viewChange)="onViewChange($event)"
+    />
+  </div>
+</app-page-header>
+
+<div style="max-width: 100%; overflow: hidden; padding-bottom: 32px">
+  <div class="content-padding">
+    <app-search-filter-chips
+      [entityFilter]="filters.entity"
+      [statusFilter]="filters.status"
+      [searchChips]="searchChips"
+      (entityClear)="onEntityClear()"
+      (statusClear)="onStatusClear()"
+      (removeChip)="onRemoveChip($event)"
+      (clearAll)="clearAllFilters()"
+    />
+  </div>
+
+  <!-- Table View -->
+  @if (viewMode === "table") {
+    <app-scroll-container>
+      <div class="table-wrapper">
+        <goab-data-grid keyboardNav="table" keyboardIconPosition="right">
+          <goabx-table
+            width="100%"
+            (onMultiSort)="onMultiSort($event)"
+            sortMode="multi"
+            variant="normal"
+            [striped]="true"
+          >
+            <thead>
+              <tr data-grid="row">
+                <th data-grid="cell">Name</th>
+                <th data-grid="cell">
+                  <goabx-table-sort-header
+                    name="status"
+                    [direction]="getColumnSortDirection('status')"
+                    [sortOrder]="getColumnSortOrder('status')"
+                  >
+                    Status
+                  </goabx-table-sort-header>
+                </th>
+                <th data-grid="cell">Staff</th>
+                <th data-grid="cell">
+                  <goabx-table-sort-header
+                    name="dueDate"
+                    [direction]="getColumnSortDirection('dueDate')"
+                    [sortOrder]="getColumnSortOrder('dueDate')"
+                  >
+                    Due date
+                  </goabx-table-sort-header>
+                </th>
+                <th data-grid="cell">File number</th>
+                <th data-grid="cell">
+                  <goabx-table-sort-header
+                    name="type"
+                    [direction]="getColumnSortDirection('type')"
+                    [sortOrder]="getColumnSortOrder('type')"
+                  >
+                    Type
+                  </goabx-table-sort-header>
+                </th>
+                <th data-grid="cell"></th>
+              </tr>
+            </thead>
+            <tbody>
+              @if (isLoading) {
+                @for (i of skeletonRows; track $index) {
+                  <tr data-grid="row">
+                    <td data-grid="cell">
+                      <goab-skeleton type="text" maxWidth="60%" />
+                    </td>
+                    <td data-grid="cell">
+                      <goab-skeleton type="text" maxWidth="80px" />
+                    </td>
+                    <td data-grid="cell">
+                      <goab-skeleton type="text" maxWidth="50%" />
+                    </td>
+                    <td data-grid="cell">
+                      <goab-skeleton type="text" maxWidth="70%" />
+                    </td>
+                    <td data-grid="cell">
+                      <goab-skeleton type="text" maxWidth="60%" />
+                    </td>
+                    <td data-grid="cell">
+                      <goab-skeleton type="text" maxWidth="80px" />
+                    </td>
+                    <td data-grid="cell">
+                      <goab-skeleton type="thumbnail" size="1" />
+                    </td>
+                  </tr>
+                }
+              } @else if (filteredResults.length === 0 && showEmptyState) {
+                <tr>
+                  <td colspan="7">
+                    <app-empty-state
+                      heading="No results found"
+                      subline="Try adjusting your search or filters."
+                    >
+                      <goabx-button
+                        type="tertiary"
+                        size="compact"
+                        (onClick)="clearAllFilters()"
+                      >
+                        Clear filters
+                      </goabx-button>
+                    </app-empty-state>
+                  </td>
+                </tr>
+              } @else {
+                @for (result of filteredResults; track result.id) {
+                  <tr data-grid="row">
+                    <td data-grid="cell" style="white-space: nowrap">
+                      <a [routerLink]="['/cases']" class="table-row-link">{{
+                        result.name
+                      }}</a>
+                    </td>
+                    <td data-grid="cell">
+                      <goabx-badge
+                        [type]="result.status"
+                        [content]="result.statusText"
+                        emphasis="subtle"
+                        [icon]="true"
+                      />
+                    </td>
+                    <td data-grid="cell" style="white-space: nowrap">
+                      {{ result.staff }}
+                    </td>
+                    <td data-grid="cell" style="white-space: nowrap">
+                      {{ result.dueDate }}
+                    </td>
+                    <td data-grid="cell" style="white-space: nowrap">
+                      {{ result.fileNumber }}
+                    </td>
+                    <td data-grid="cell">
+                      <goabx-badge
+                        [type]="getTypeBadge(result.type).type"
+                        [content]="getTypeBadge(result.type).content"
+                        emphasis="subtle"
+                      />
+                    </td>
+                    <td data-grid="cell">
+                      <goabx-link color="dark">
+                        <a [routerLink]="['/cases']">View</a>
+                      </goabx-link>
+                    </td>
+                  </tr>
+                }
+              }
+            </tbody>
+          </goabx-table>
+        </goab-data-grid>
+      </div>
+    </app-scroll-container>
+  }
+
+  <!-- Card View -->
+  @if (viewMode === "card") {
+    <app-search-card-view
+      [results]="filteredResults"
+      [isLoading]="isLoading"
+      [showEmptyState]="showEmptyState"
+    />
+  }
+
+  <!-- List View -->
+  @if (viewMode === "list") {
+    <app-search-list-view
+      [results]="filteredResults"
+      [isLoading]="isLoading"
+      [showEmptyState]="showEmptyState"
+    />
+  }
+
+  <!-- No data states -->
+  @if (!isLoading && searchResults.length === 0) {
+    <goab-block mt="l" mb="l" alignment="center">
+      <goab-text size="body-m" mt="none" mb="s"
+        >No search results available</goab-text
+      >
+      <goab-text size="body-s" mt="none" mb="none"
+        >All results have been deleted</goab-text
+      >
+    </goab-block>
+  }
+
+  @if (
+    !isLoading &&
+    searchResults.length > 0 &&
+    filteredResults.length === 0 &&
+    activeFiltersCount === 0
+  ) {
+    <goab-block mt="l" mb="l" alignment="center">
+      <goab-text size="body-m" mt="none" mb="s"
+        >Start typing to search across all records</goab-text
+      >
+      <goab-text size="body-s" mt="none" mb="none"
+        >Search cases, applications, documents, and more</goab-text
+      >
+    </goab-block>
+  }
+</div>

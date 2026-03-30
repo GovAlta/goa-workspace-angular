@@ -1,0 +1,291 @@
+@if (filteredCases.length === 0 && showEmptyState) {
+  <div class="content-padding">
+    <app-empty-state
+      [heading]="emptyStateHeading"
+      [subline]="emptyStateSubline"
+    />
+  </div>
+} @else if (groupedCases) {
+  <!-- Grouped list view -->
+  <div class="content-padding">
+    <div class="cases-grouped-view">
+      @for (group of groupedCases; track group.key) {
+        <div class="cases-group">
+          <button
+            class="cases-group__header"
+            (click)="onToggleGroup(group.key)"
+            [attr.aria-expanded]="expandedGroups.has(group.key)"
+          >
+            <goab-icon
+              [type]="
+                expandedGroups.has(group.key)
+                  ? 'chevron-down'
+                  : 'chevron-forward'
+              "
+              size="small"
+            />
+            <span class="cases-group__label">{{ group.label }}</span>
+            <goabx-badge
+              type="default"
+              [content]="'' + group.cases.length"
+              emphasis="subtle"
+            />
+          </button>
+          @if (expandedGroups.has(group.key)) {
+            <div class="cases-group__list">
+              <goab-data-grid keyboardNav="layout" keyboardIconPosition="right">
+                <div class="expandable-list">
+                  @for (caseItem of group.cases; track caseItem.id) {
+                    <div
+                      class="expandable-list__item"
+                      [class.expandable-list__item--expanded]="
+                        isExpanded(caseItem.id)
+                      "
+                      data-grid="row"
+                    >
+                      <div
+                        class="expandable-list__header"
+                        (click)="onHeaderClick($event, caseItem.id)"
+                      >
+                        <goab-icon-button
+                          data-grid="cell-1"
+                          [icon]="
+                            isExpanded(caseItem.id)
+                              ? 'chevron-down'
+                              : 'chevron-forward'
+                          "
+                          size="small"
+                          variant="dark"
+                          [ariaLabel]="
+                            isExpanded(caseItem.id)
+                              ? 'Collapse row'
+                              : 'Expand row'
+                          "
+                          (onClick)="toggleExpand(caseItem.id)"
+                        />
+                        <div class="expandable-list__heading-group">
+                          <span
+                            class="expandable-list__title"
+                            data-grid="cell-2"
+                          >
+                            <span class="expandable-list__name">{{
+                              caseItem.name
+                            }}</span>
+                          </span>
+                          <span data-grid="cell-3">
+                            <goabx-badge
+                              [type]="caseItem.status"
+                              [content]="caseItem.statusText"
+                              [icon]="true"
+                              emphasis="subtle"
+                            />
+                          </span>
+                        </div>
+                        <div class="expandable-list__right-group">
+                          <div
+                            class="expandable-list__secondary"
+                            data-grid="cell-4"
+                          >
+                            <div class="expandable-list__header-actions">
+                              @if (caseItem.comments > 0) {
+                                <goabx-link
+                                  leadingIcon="chatbox"
+                                  size="small"
+                                  color="dark"
+                                >
+                                  <a href="#">
+                                    {{ caseItem.comments }} comment{{
+                                      caseItem.comments === 1 ? "" : "s"
+                                    }}
+                                  </a>
+                                </goabx-link>
+                              }
+                            </div>
+                          </div>
+                          <div
+                            class="expandable-list__actions"
+                            data-grid="cell-5"
+                          >
+                            <goabx-button
+                              type="tertiary"
+                              size="compact"
+                              (onClick)="onMenuAction('view', caseItem.id)"
+                            >
+                              View
+                            </goabx-button>
+                          </div>
+                        </div>
+                      </div>
+                      @if (isExpanded(caseItem.id)) {
+                        <div class="expandable-list__content">
+                          <ng-container
+                            *ngTemplateOutlet="
+                              expandedContent;
+                              context: { $implicit: caseItem }
+                            "
+                          ></ng-container>
+                        </div>
+                      }
+                    </div>
+                  }
+                </div>
+              </goab-data-grid>
+            </div>
+          }
+        </div>
+      }
+    </div>
+  </div>
+} @else {
+  <!-- Flat list view -->
+  <div class="content-padding">
+    @if (isLoading) {
+      <div class="expandable-list">
+        @for (i of skeletons; track $index) {
+          <div class="expandable-list__item">
+            <div class="expandable-list__header">
+              <div class="expandable-list__toggle">
+                <goab-skeleton type="text" maxWidth="20px" />
+              </div>
+              <goab-skeleton type="title" maxWidth="200px" />
+              <goab-skeleton type="text" maxWidth="80px" />
+              <div class="expandable-list__secondary">
+                <goab-skeleton type="text" maxWidth="60px" />
+              </div>
+              <div class="expandable-list__actions">
+                <goab-skeleton type="text" maxWidth="40px" />
+              </div>
+            </div>
+          </div>
+        }
+      </div>
+    } @else {
+      <goab-data-grid keyboardNav="layout" keyboardIconPosition="right">
+        <div class="expandable-list">
+          @for (caseItem of filteredCases; track caseItem.id) {
+            <div
+              class="expandable-list__item"
+              [class.expandable-list__item--expanded]="isExpanded(caseItem.id)"
+              data-grid="row"
+            >
+              <div
+                class="expandable-list__header"
+                (click)="onHeaderClick($event, caseItem.id)"
+              >
+                <goab-icon-button
+                  data-grid="cell-1"
+                  [icon]="
+                    isExpanded(caseItem.id) ? 'chevron-down' : 'chevron-forward'
+                  "
+                  size="small"
+                  variant="dark"
+                  [ariaLabel]="
+                    isExpanded(caseItem.id) ? 'Collapse row' : 'Expand row'
+                  "
+                  (onClick)="toggleExpand(caseItem.id)"
+                />
+                <div class="expandable-list__heading-group">
+                  <span class="expandable-list__title" data-grid="cell-2">
+                    <span class="expandable-list__name">{{
+                      caseItem.name
+                    }}</span>
+                  </span>
+                  <span data-grid="cell-3">
+                    <goabx-badge
+                      [type]="caseItem.status"
+                      [content]="caseItem.statusText"
+                      [icon]="true"
+                      emphasis="subtle"
+                    />
+                  </span>
+                </div>
+                <div class="expandable-list__right-group">
+                  <div class="expandable-list__secondary" data-grid="cell-4">
+                    <div class="expandable-list__header-actions">
+                      @if (caseItem.comments > 0) {
+                        <goabx-link
+                          leadingIcon="chatbox"
+                          size="small"
+                          color="dark"
+                        >
+                          <a href="#">
+                            {{ caseItem.comments }} comment{{
+                              caseItem.comments === 1 ? "" : "s"
+                            }}
+                          </a>
+                        </goabx-link>
+                      }
+                    </div>
+                  </div>
+                  <div class="expandable-list__actions" data-grid="cell-5">
+                    <goabx-button
+                      type="tertiary"
+                      size="compact"
+                      (onClick)="onMenuAction('view', caseItem.id)"
+                    >
+                      View
+                    </goabx-button>
+                  </div>
+                </div>
+              </div>
+              @if (isExpanded(caseItem.id)) {
+                <div class="expandable-list__content">
+                  <ng-container
+                    *ngTemplateOutlet="
+                      expandedContent;
+                      context: { $implicit: caseItem }
+                    "
+                  ></ng-container>
+                </div>
+              }
+            </div>
+          }
+        </div>
+      </goab-data-grid>
+    }
+  </div>
+}
+
+<!-- Shared expanded content template -->
+<ng-template #expandedContent let-caseItem>
+  <div class="data-card__sections">
+    <div class="data-card__section">
+      <div class="data-card__section-heading">Identification</div>
+      <div class="data-card__section-fields">
+        <goab-block direction="column" gap="xs">
+          <span class="data-card__label">File number</span>
+          <span class="data-card__value">{{
+            caseItem.fileNumber || "\u2014"
+          }}</span>
+        </goab-block>
+        <goab-block direction="column" gap="xs">
+          <span class="data-card__label">Jurisdiction</span>
+          <span class="data-card__value">{{
+            caseItem.jurisdiction || "\u2014"
+          }}</span>
+        </goab-block>
+      </div>
+    </div>
+    <div class="data-card__section">
+      <div class="data-card__section-heading">Assignment</div>
+      <div class="data-card__section-fields">
+        <goab-block direction="column" gap="xs">
+          <span class="data-card__label">Assigned to</span>
+          <span class="data-card__value">{{ caseItem.staff || "\u2014" }}</span>
+        </goab-block>
+        <goab-block direction="column" gap="xs">
+          <span class="data-card__label">Due date</span>
+          <span class="data-card__value">{{
+            caseItem.dueDate || "\u2014"
+          }}</span>
+        </goab-block>
+        <goab-block direction="column" gap="xs">
+          <span class="data-card__label">Category</span>
+          <span class="data-card__value">{{
+            getCategoryLabel(caseItem.category)
+          }}</span>
+        </goab-block>
+      </div>
+    </div>
+  </div>
+</ng-template>
