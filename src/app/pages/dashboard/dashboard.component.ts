@@ -3,11 +3,11 @@ import {
   CUSTOM_ELEMENTS_SCHEMA,
   ViewEncapsulation,
   OnInit,
-  inject,
   ElementRef,
   AfterViewInit,
   OnDestroy,
 } from '@angular/core';
+import { NgTemplateOutlet } from '@angular/common';
 import { Router, RouterLink } from '@angular/router';
 import { ViewportService } from '../../services/viewport.service';
 import {
@@ -39,6 +39,7 @@ import mockChartData from '../../data/mockChartData.json';
 @Component({
   selector: 'app-dashboard',
   imports: [
+    NgTemplateOutlet,
     RouterLink,
     GoabContainer,
     GoabGrid,
@@ -91,9 +92,11 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
     { name: 'Updated', value: '#f0963e' },
   ];
 
-  viewport = inject(ViewportService);
-
-  constructor(private router: Router) {}
+  constructor(
+    public viewport: ViewportService,
+    private router: Router,
+    private el: ElementRef,
+  ) {}
 
   ngOnInit() {
     this.computeStats();
@@ -167,8 +170,6 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
         relativeDate: formatDueDate(c.dueDate),
       }));
   }
-
-  private el = inject(ElementRef);
 
   ngAfterViewInit() {
     const chartWrapper = this.el.nativeElement.querySelector(

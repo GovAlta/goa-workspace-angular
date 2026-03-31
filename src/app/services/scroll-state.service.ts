@@ -1,13 +1,9 @@
-import { Injectable, signal, computed, NgZone, inject } from '@angular/core';
-import { ViewportService } from './viewport.service';
+import { Injectable, signal } from '@angular/core';
 
 export type ScrollPosition = 'no-scroll' | 'at-top' | 'middle' | 'at-bottom';
 
 @Injectable({ providedIn: 'root' })
 export class ScrollStateService {
-  private zone = inject(NgZone);
-  private viewport = inject(ViewportService);
-
   private _scrollPosition = signal<ScrollPosition>('no-scroll');
   private _isScrollable = signal(false);
 
@@ -122,7 +118,7 @@ export class ScrollStateService {
     if (target !== prev) {
       const now = Date.now();
       if (now >= this.transitionLockUntil) {
-        this.transitionLockUntil = now; // TRANSITION_LOCK_MS is 0 in React
+        this.transitionLockUntil = now;
         this._scrollPosition.set(target);
       }
     }

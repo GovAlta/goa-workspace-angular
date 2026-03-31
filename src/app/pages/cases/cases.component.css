@@ -6,6 +6,12 @@
    Mobile breakpoint: 624px (matches the app's isMobile logic)
    ============================================================================ */
 
+.cases-content {
+  max-width: 100%;
+  overflow: hidden;
+  padding-bottom: 16px;
+}
+
 /* Content padding and card styles moved to styles.css as shared utilities */
 
 /* ============================================================================

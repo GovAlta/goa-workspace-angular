@@ -1,7 +1,6 @@
 import { Injectable, signal, computed, effect } from '@angular/core';
 import {
   LayoutType,
-  GroupByField,
   ViewSettings,
 } from '../components/display-settings/display-settings.component';
 
@@ -55,7 +54,6 @@ function saveSettings(pageKey: string, settings: StoredSettings): void {
 @Injectable()
 export class DisplaySettingsService {
   private pageKey = '';
-  private getDefaultLayout: (tab: string) => LayoutType = () => 'table';
 
   private state = signal<StoredSettings>({
     viewSettings: {
@@ -88,7 +86,6 @@ export class DisplaySettingsService {
     initialTab: string;
   }): void {
     this.pageKey = options.pageKey;
-    this.getDefaultLayout = options.getDefaultLayout;
 
     const defaultLayout = options.getDefaultLayout(options.initialTab);
     const stored = loadSettings(options.pageKey);

@@ -1,4 +1,4 @@
-import { Component, CUSTOM_ELEMENTS_SCHEMA, Input } from '@angular/core';
+import { Component, CUSTOM_ELEMENTS_SCHEMA, Input, Output, EventEmitter } from '@angular/core';
 import {
   GoabBlock,
   GoabContainer,
@@ -31,6 +31,8 @@ export class SearchCardViewComponent {
   @Input({ required: true }) results!: SearchResult[];
   @Input() isLoading = false;
   @Input() showEmptyState = false;
+
+  @Output() viewResult = new EventEmitter<string>();
 
   skeletons = Array(6);
 

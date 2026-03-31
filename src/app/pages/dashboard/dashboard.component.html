@@ -26,67 +26,44 @@
   </div>
 
   <!-- Stat Cards -->
+  <ng-template #statCards>
+    <app-stat-card
+      [value]="stats.myCases"
+      label="My Active Cases"
+      icon="briefcase"
+      tint="info"
+      (onClick)="navigateToCases('assigned-to-me')"
+    />
+    <app-stat-card
+      [value]="stats.overdue"
+      label="Overdue"
+      icon="warning"
+      [tint]="stats.overdue > 0 ? 'emergency' : undefined"
+      (onClick)="navigateToCases('in-progress')"
+    />
+    <app-stat-card
+      [value]="stats.dueSoon"
+      label="Due This Week"
+      icon="calendar"
+      tint="important"
+      (onClick)="navigateToCases('in-progress')"
+    />
+    <app-stat-card
+      [value]="stats.completed"
+      label="Completed"
+      icon="checkmark-circle"
+      tint="success"
+      (onClick)="navigateToCases('complete')"
+    />
+  </ng-template>
+
   @if (viewport.isMobile()) {
     <div class="dashboard-stats-grid">
-      <app-stat-card
-        [value]="stats.myCases"
-        label="My Active Cases"
-        icon="briefcase"
-        tint="info"
-        (onClick)="navigateToCases('assigned-to-me')"
-      />
-      <app-stat-card
-        [value]="stats.overdue"
-        label="Overdue"
-        icon="warning"
-        [tint]="stats.overdue > 0 ? 'emergency' : undefined"
-        (onClick)="navigateToCases('in-progress')"
-      />
-      <app-stat-card
-        [value]="stats.dueSoon"
-        label="Due This Week"
-        icon="calendar"
-        tint="important"
-        (onClick)="navigateToCases('in-progress')"
-      />
-      <app-stat-card
-        [value]="stats.completed"
-        label="Completed"
-        icon="checkmark-circle"
-        tint="success"
-        (onClick)="navigateToCases('complete')"
-      />
+      <ng-container *ngTemplateOutlet="statCards" />
     </div>
   } @else {
     <goab-grid minChildWidth="180px" gap="m">
-      <app-stat-card
-        [value]="stats.myCases"
-        label="My Active Cases"
-        icon="briefcase"
-        tint="info"
-        (onClick)="navigateToCases('assigned-to-me')"
-      />
-      <app-stat-card
-        [value]="stats.overdue"
-        label="Overdue"
-        icon="warning"
-        [tint]="stats.overdue > 0 ? 'emergency' : undefined"
-        (onClick)="navigateToCases('in-progress')"
-      />
-      <app-stat-card
-        [value]="stats.dueSoon"
-        label="Due This Week"
-        icon="calendar"
-        tint="important"
-        (onClick)="navigateToCases('in-progress')"
-      />
-      <app-stat-card
-        [value]="stats.completed"
-        label="Completed"
-        icon="checkmark-circle"
-        tint="success"
-        (onClick)="navigateToCases('complete')"
-      />
+      <ng-container *ngTemplateOutlet="statCards" />
     </goab-grid>
   }
 

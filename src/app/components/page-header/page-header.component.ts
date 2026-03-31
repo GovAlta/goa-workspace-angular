@@ -2,7 +2,6 @@ import {
   Component,
   CUSTOM_ELEMENTS_SCHEMA,
   Input,
-  inject,
   ViewEncapsulation,
 } from '@angular/core';
 import { GoabText, GoabIconButton } from '@abgov/angular-components';
@@ -23,8 +22,10 @@ export class PageHeaderComponent {
   @Input() hasTabs = false;
   @Input() hasToolbar = false;
 
-  viewport = inject(ViewportService);
-  scrollState = inject(ScrollStateService);
+  constructor(
+    public viewport: ViewportService,
+    public scrollState: ScrollStateService,
+  ) {}
 
   get isCollapsed(): boolean {
     const pos = this.scrollState.scrollPosition();

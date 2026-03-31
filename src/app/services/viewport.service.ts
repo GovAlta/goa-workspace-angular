@@ -22,7 +22,7 @@ export class ViewportService {
   constructor() {
     let previousWidth = window.innerWidth;
 
-    window.addEventListener('resize', () => {
+    const onResize = () => {
       const width = window.innerWidth;
       this.isMobile.set(width < MOBILE_BREAKPOINT);
 
@@ -31,7 +31,9 @@ export class ViewportService {
       }
 
       previousWidth = width;
-    });
+    };
+
+    window.addEventListener('resize', onResize);
   }
 
   toggleMenu() {

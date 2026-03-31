@@ -3,9 +3,8 @@ import {
   CUSTOM_ELEMENTS_SCHEMA,
   OnInit,
   ViewEncapsulation,
-  inject,
 } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import {
   GoabBlock,
   GoabDataGrid,
@@ -18,6 +17,8 @@ import {
   GoabxLink,
   GoabxTable,
   GoabxTableSortHeader,
+  GoabTableOnMultiSortDetail,
+  GoabInputOnKeyPressDetail,
 } from '@abgov/angular-components';
 import { SearchResult } from '../../types/search-result';
 import { filterData, sortData, SortConfig } from '../../utils/search-utils';
@@ -66,8 +67,11 @@ import mockData from '../../data/mockSearchResults.json';
   styleUrl: './search.component.css',
 })
 export class SearchComponent implements OnInit {
-  viewport = inject(ViewportService);
-  sortService = inject(MultiColumnSortService);
+  constructor(
+    private router: Router,
+    public viewport: ViewportService,
+    public sortService: MultiColumnSortService,
+  ) {}
 
   searchResults: SearchResult[] = [];
   isLoading = true;
@@ -148,10 +152,9 @@ export class SearchComponent implements OnInit {
     this.filters = filters;
   }
 
-  onSearchKeyPress(event: any) {
-    const key = event.key || event.detail?.key;
-    if (key === 'Enter') {
-      const value = (event.value || event.detail?.value || '').trim();
+  onSearchKeyPress(event: GoabInputOnKeyPressDetail) {
+    if (event.key === 'Enter') {
+      const value = event.value.trim();
       if (value && !this.searchChips.includes(value)) {
         this.searchChips = [...this.searchChips, value];
         this.filters = { ...this.filters, searchText: '' };
@@ -183,7 +186,7 @@ export class SearchComponent implements OnInit {
     this.sortService.clearSort();
   }
 
-  onMultiSort(detail: any) {
+  onMultiSort(detail: GoabTableOnMultiSortDetail) {
     this.sortService.handleMultiSort(detail);
   }
 
@@ -203,6 +206,10 @@ export class SearchComponent implements OnInit {
 
   getTypeBadge(type: SearchResult['type']) {
     return getTypeBadgeProps(type);
+  }
+
+  onViewResult(id: string) {
+    this.router.navigate(['/case', id]);
   }
 
   skeletonRows = Array(10);

@@ -1,37 +1,22 @@
 import { Injectable, signal } from '@angular/core';
+import { GoabTableOnMultiSortDetail } from '@abgov/ui-components-common';
 import { SortConfig } from '../utils/search-utils';
 
 @Injectable()
 export class MultiColumnSortService {
   sortConfig = signal<SortConfig>({ primary: null, secondary: null });
 
-  handleMultiSort(detail: { name: string; direction: string }) {
-    const { name, direction } = detail;
+  handleMultiSort(detail: GoabTableOnMultiSortDetail) {
+    const sorts = detail.sorts;
 
-    this.sortConfig.update((prev) => {
-      if (direction === 'none') {
-        if (prev.primary?.key === name) {
-          return { primary: prev.secondary, secondary: null };
-        }
-        if (prev.secondary?.key === name) {
-          return { ...prev, secondary: null };
-        }
-        return prev;
-      }
+    const primary = sorts[0]
+      ? { key: sorts[0].column, direction: sorts[0].direction as 'asc' | 'desc' }
+      : null;
+    const secondary = sorts[1]
+      ? { key: sorts[1].column, direction: sorts[1].direction as 'asc' | 'desc' }
+      : null;
 
-      const newSort = { key: name, direction: direction as 'asc' | 'desc' };
-
-      if (prev.primary?.key === name) {
-        return { ...prev, primary: newSort };
-      }
-      if (prev.secondary?.key === name) {
-        return { ...prev, secondary: newSort };
-      }
-      if (!prev.primary) {
-        return { primary: newSort, secondary: null };
-      }
-      return { primary: prev.primary, secondary: newSort };
-    });
+    this.sortConfig.set({ primary, secondary });
   }
 
   clearSort() {

@@ -1,2 +1,6 @@
+:host {
+  display: contents;
+}
+
 /* CaseCard styles - inherits shared card styles from index.css */
 /* No additional component-specific styles needed */

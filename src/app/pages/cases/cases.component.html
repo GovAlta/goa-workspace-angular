@@ -1,103 +1,3 @@
-<!-- Footer template for bulk actions -->
-<ng-template #footerTemplate>
-  <goab-button-group gap="compact" alignment="start">
-    <goabx-button type="tertiary" size="compact" (onClick)="clearSelection()">
-      Clear selection ({{ selectedCount }})
-    </goabx-button>
-    <goabx-button type="primary" size="compact"> Assign to me </goabx-button>
-    <goabx-button
-      type="primary"
-      size="compact"
-      variant="destructive"
-      (onClick)="deleteSelected()"
-    >
-      Delete selected
-    </goabx-button>
-  </goab-button-group>
-</ng-template>
-
-<!-- Column templates for table view -->
-<ng-template #selectAllHeader>
-  <goabx-checkbox
-    name="selectAll"
-    [checked]="isAllSelected"
-    [indeterminate]="isIndeterminate"
-    (onChange)="handleSelectAll()"
-    ariaLabel="Select all cases"
-  />
-</ng-template>
-
-<ng-template #selectCell let-caseItem>
-  <goabx-checkbox
-    [name]="'select-' + caseItem.id"
-    [checked]="caseItem.selected"
-    (onChange)="handleSelectChange(caseItem.id, !caseItem.selected)"
-    [ariaLabel]="'Select ' + caseItem.name"
-  />
-</ng-template>
-
-<ng-template #nameCell let-caseItem>
-  <a [routerLink]="['/case', caseItem.id]" class="table-row-link">
-    {{ caseItem.name }}
-  </a>
-</ng-template>
-
-<ng-template #statusCell let-caseItem>
-  <goabx-badge
-    [type]="caseItem.status"
-    [content]="caseItem.statusText"
-    [icon]="true"
-    emphasis="subtle"
-  />
-</ng-template>
-
-<ng-template #staffCell let-caseItem>
-  @if (caseItem.staff) {
-    {{ caseItem.staff }}
-  } @else {
-    <goabx-link color="dark" size="medium">
-      <a href="#" (click)="$event.preventDefault(); $event.stopPropagation()">
-        Assign me
-      </a>
-    </goabx-link>
-  }
-</ng-template>
-
-<ng-template #dueDateCell let-caseItem>
-  {{ caseItem.dueDate || "\u2014" }}
-</ng-template>
-
-<ng-template #jurisdictionCell let-caseItem>
-  {{ caseItem.jurisdiction || "\u2014" }}
-</ng-template>
-
-<ng-template #fileNumberCell let-caseItem>
-  {{ caseItem.fileNumber || "\u2014" }}
-</ng-template>
-
-<ng-template #priorityCell let-caseItem>
-  @if (caseItem.priority) {
-    <goabx-badge
-      [type]="getPriorityBadgeProps(caseItem.priority).type"
-      [content]="getPriorityBadgeProps(caseItem.priority).content"
-    />
-  } @else {
-    &mdash;
-  }
-</ng-template>
-
-<ng-template #actionsCell let-caseItem>
-  <goabx-menu-button
-    leadingIcon="ellipsis-horizontal:filled"
-    size="compact"
-    (onAction)="onMenuActionButton($event.action, caseItem.id)"
-  >
-    <goabx-menu-action text="View case" action="view" />
-    <goabx-menu-action text="Assign to me" action="assign" />
-    <goabx-menu-action text="Delete" icon="trash" action="delete" />
-  </goabx-menu-button>
-</ng-template>
-
 <!-- Page Header -->
 <app-page-header title="Cases" [hasToolbar]="true">
   <div actions>
@@ -133,7 +33,7 @@
 </app-page-header>
 
 <!-- Content -->
-<div style="max-width: 100%; overflow: hidden; padding-bottom: 16px">
+<div class="cases-content">
   <!-- Filter chips -->
   <div class="content-padding">
     <app-case-filter-chips
@@ -154,6 +54,88 @@
     (editComment)="handleEditComment($event)"
     (deleteComment)="handleDeleteComment($event)"
   />
+
+  <!-- Column templates for table view -->
+  <ng-template #selectAllHeader>
+      <goabx-checkbox
+        name="selectAll"
+        [checked]="isAllSelected"
+        [indeterminate]="isIndeterminate"
+        (onChange)="handleSelectAll()"
+        ariaLabel="Select all cases"
+      />
+    </ng-template>
+
+    <ng-template #selectCell let-caseItem>
+      <goabx-checkbox
+        [name]="'select-' + caseItem.id"
+        [checked]="caseItem.selected"
+        (onChange)="handleSelectChange(caseItem.id, !caseItem.selected)"
+        [ariaLabel]="'Select ' + caseItem.name"
+      />
+    </ng-template>
+
+    <ng-template #nameCell let-caseItem>
+      <a [routerLink]="['/case', caseItem.id]" class="table-row-link">
+        {{ caseItem.name }}
+      </a>
+    </ng-template>
+
+    <ng-template #statusCell let-caseItem>
+      <goabx-badge
+        [type]="caseItem.status"
+        [content]="caseItem.statusText"
+        [icon]="true"
+        emphasis="subtle"
+      />
+    </ng-template>
+
+    <ng-template #staffCell let-caseItem>
+      @if (caseItem.staff) {
+        {{ caseItem.staff }}
+      } @else {
+        <goabx-link color="dark" size="medium">
+          <a href="#" (click)="$event.preventDefault(); $event.stopPropagation()">
+            Assign me
+          </a>
+        </goabx-link>
+      }
+    </ng-template>
+
+    <ng-template #dueDateCell let-caseItem>
+      {{ caseItem.dueDate || "\u2014" }}
+    </ng-template>
+
+    <ng-template #jurisdictionCell let-caseItem>
+      {{ caseItem.jurisdiction || "\u2014" }}
+    </ng-template>
+
+    <ng-template #fileNumberCell let-caseItem>
+      {{ caseItem.fileNumber || "\u2014" }}
+    </ng-template>
+
+    <ng-template #priorityCell let-caseItem>
+      @if (caseItem.priority) {
+        <goabx-badge
+          [type]="getPriorityBadgeProps(caseItem.priority).type"
+          [content]="getPriorityBadgeProps(caseItem.priority).content"
+        />
+      } @else {
+        &mdash;
+      }
+    </ng-template>
+
+    <ng-template #actionsCell let-caseItem>
+      <goabx-menu-button
+        leadingIcon="ellipsis-horizontal:filled"
+        size="compact"
+        (onAction)="onMenuActionButton($event.action, caseItem.id)"
+      >
+        <goabx-menu-action text="View case" action="view" />
+        <goabx-menu-action text="Assign to me" action="assign" />
+        <goabx-menu-action text="Delete" icon="trash" action="delete" />
+      </goabx-menu-button>
+    </ng-template>
 
   <!-- Table view -->
   @if (viewMode === "table") {
@@ -309,3 +291,21 @@
     (clearAll)="handleFilterClearAll()"
   />
 </div>
+
+<!-- Footer template for bulk actions -->
+<ng-template #footerTemplate>
+  <goab-button-group gap="compact" alignment="start">
+    <goabx-button type="tertiary" size="compact" (onClick)="clearSelection()">
+      Clear selection ({{ selectedCount }})
+    </goabx-button>
+    <goabx-button type="primary" size="compact"> Assign to me </goabx-button>
+    <goabx-button
+      type="primary"
+      size="compact"
+      variant="destructive"
+      (onClick)="deleteSelected()"
+    >
+      Delete selected
+    </goabx-button>
+  </goab-button-group>
+</ng-template>

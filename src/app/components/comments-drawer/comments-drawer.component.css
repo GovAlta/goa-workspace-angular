@@ -1,3 +1,7 @@
+:host {
+  display: contents;
+}
+
 .page__comments .page__comments_form goa-textarea {
   --goa-text-area-border-radius: 0 0 var(--goa-border-radius-xl)
     var(--goa-border-radius-xl) !important;

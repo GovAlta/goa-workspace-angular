@@ -15,7 +15,11 @@ import {
   GoabxMenuButton,
   GoabxMenuAction,
 } from '@abgov/angular-components';
-import { GoabIconType } from '@abgov/ui-components-common';
+import {
+  GoabIconType,
+  GoabTabsOnChangeDetail,
+  GoabInputOnKeyPressDetail,
+} from '@abgov/ui-components-common';
 import { DisplaySettingsComponent } from '../../../../components/display-settings/display-settings.component';
 import {
   ViewSettings,
@@ -58,9 +62,9 @@ export class CaseToolbarComponent {
   @Input() isMobile = false;
   @Input() isCompactToolbar = false;
 
-  @Output() tabChange = new EventEmitter<any>();
+  @Output() tabChange = new EventEmitter<GoabTabsOnChangeDetail>();
   @Output() inputChange = new EventEmitter<string>();
-  @Output() inputKeyPress = new EventEmitter<any>();
+  @Output() inputKeyPress = new EventEmitter<GoabInputOnKeyPressDetail>();
   @Output() sortAction = new EventEmitter<string>();
   @Output() settingsChange = new EventEmitter<ViewSettings>();
   @Output() filterOpen = new EventEmitter<void>();

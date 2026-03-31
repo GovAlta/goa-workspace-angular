@@ -4,7 +4,6 @@ import {
   Input,
   Output,
   EventEmitter,
-  inject,
 } from '@angular/core';
 import {
   GoabButtonGroup,
@@ -56,7 +55,7 @@ export class CommentsDrawerComponent {
   @Output() editComment = new EventEmitter<{ id: number; text: string }>();
   @Output() deleteComment = new EventEmitter<number>();
 
-  private viewport = inject(ViewportService);
+  constructor(private viewport: ViewportService) {}
 
   commentText = '';
   editingCommentId: number | null = null;

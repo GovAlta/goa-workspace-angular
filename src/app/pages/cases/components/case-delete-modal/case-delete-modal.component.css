@@ -1,1 +1,5 @@
+:host {
+  display: contents;
+}
+
 /* No component-specific styles - modal uses GoA component styling */

@@ -1,4 +1,78 @@
-<goab-page-block width="content">
-  <goab-text tag="h1" size="heading-l" mb="l">Notifications</goab-text>
-  <goab-text size="body-m">Notifications page content goes here.</goab-text>
-</goab-page-block>
+<app-page-header title="All Notifications" [hasTabs]="true" [hideTitleOnScroll]="true">
+  <div actions>
+    @if (notifications.unreadCount() > 0) {
+      <goabx-button
+        type="tertiary"
+        size="compact"
+        (onClick)="onMarkAllAsRead()"
+      >
+        Mark all as read
+      </goabx-button>
+    }
+  </div>
+
+  <div tabs>
+    <ng-template #unreadHeading>
+      Unread
+      @if (notifications.unreadCount() > 0) {
+        <goabx-badge
+          type="default"
+          emphasis="subtle"
+          [content]="'' + notifications.unreadCount()"
+        />
+      }
+    </ng-template>
+
+    <ng-template #urgentHeading>
+      Urgent
+      @if (urgentCount > 0) {
+        <goabx-badge
+          type="important"
+          emphasis="subtle"
+          [content]="'' + urgentCount"
+        />
+      }
+    </ng-template>
+
+    <goabx-tabs
+      [initialTab]="tabIndex"
+      (onChange)="handleTabChange($event)"
+      variant="segmented"
+    >
+      <goab-tab slug="unread" [heading]="unreadHeading" />
+      <goab-tab slug="urgent" [heading]="urgentHeading" />
+      <goab-tab slug="all" heading="All" />
+    </goabx-tabs>
+  </div>
+</app-page-header>
+
+<div class="notifications-content">
+  @if (filteredNotifications.length === 0) {
+    <div class="notifications-empty-container">
+      <app-empty-state
+        heading="You're all caught up"
+        [subline]="emptyMessage"
+        illustration="empty-state-notifications"
+      />
+    </div>
+  } @else {
+    @for (group of groups; track group.label) {
+      <div class="notifications-group">
+        <h4 class="notifications-group__heading">{{ group.label }}</h4>
+        <div class="notifications-group__items">
+          @for (notif of group.items; track notif.id) {
+            <goabx-work-side-notification-item
+              [title]="notif.title"
+              [description]="notif.description"
+              [timestamp]="notif.timestamp"
+              [type]="notif.type"
+              readStatus="unread"
+              [priority]="notif.priority"
+              (onClick)="onNotificationClick(notif.id)"
+            />
+          }
+        </div>
+      </div>
+    }
+  }
+</div>

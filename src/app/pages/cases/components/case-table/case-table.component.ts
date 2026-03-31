@@ -17,6 +17,7 @@ import {
   GoabxTableSortHeader,
   GoabxBadge,
 } from '@abgov/angular-components';
+import { GoabTableOnMultiSortDetail } from '@abgov/ui-components-common';
 import { Case } from '../../../../types/case';
 import { SortConfig } from '../../../../utils/search-utils';
 import { GroupedCase } from '../../types';
@@ -59,7 +60,7 @@ export class CaseTableComponent {
   @Input() showEmptyState = false;
 
   @Output() toggleGroup = new EventEmitter<string>();
-  @Output() multiSort = new EventEmitter<any>();
+  @Output() multiSort = new EventEmitter<GoabTableOnMultiSortDetail>();
   @Output() rowClick = new EventEmitter<Case>();
 
   skeletonRows = Array(10);
@@ -68,7 +69,7 @@ export class CaseTableComponent {
     this.toggleGroup.emit(groupKey);
   }
 
-  onMultiSort(event: any) {
+  onMultiSort(event: GoabTableOnMultiSortDetail) {
     this.multiSort.emit(event);
   }
 

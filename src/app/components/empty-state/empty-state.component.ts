@@ -8,4 +8,5 @@ import { Component, Input } from '@angular/core';
 export class EmptyStateComponent {
   @Input({ required: true }) heading!: string;
   @Input() subline?: string;
+  @Input() illustration?: string;
 }

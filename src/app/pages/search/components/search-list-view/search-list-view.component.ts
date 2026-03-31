@@ -1,4 +1,4 @@
-import { Component, CUSTOM_ELEMENTS_SCHEMA, Input } from '@angular/core';
+import { Component, CUSTOM_ELEMENTS_SCHEMA, Input, Output, EventEmitter } from '@angular/core';
 import {
   GoabBlock,
   GoabDataGrid,
@@ -29,6 +29,8 @@ export class SearchListViewComponent {
   @Input({ required: true }) results!: SearchResult[];
   @Input() isLoading = false;
   @Input() showEmptyState = false;
+
+  @Output() viewResult = new EventEmitter<string>();
 
   expandedIds = new Set<string>();
   skeletons = Array(8);

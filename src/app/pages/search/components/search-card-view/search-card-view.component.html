@@ -48,7 +48,7 @@
             </ng-template>
             <ng-template #cardActions>
               <div data-grid="cell-3">
-                <goabx-button type="tertiary" size="compact">
+                <goabx-button type="tertiary" size="compact" (onClick)="viewResult.emit(result.id)">
                   View
                 </goabx-button>
               </div>

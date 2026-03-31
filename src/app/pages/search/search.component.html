@@ -13,7 +13,7 @@
   </div>
 </app-page-header>
 
-<div style="max-width: 100%; overflow: hidden; padding-bottom: 32px">
+<div class="search-content">
   <div class="content-padding">
     <app-search-filter-chips
       [entityFilter]="filters.entity"
@@ -120,8 +120,8 @@
               } @else {
                 @for (result of filteredResults; track result.id) {
                   <tr data-grid="row">
-                    <td data-grid="cell" style="white-space: nowrap">
-                      <a [routerLink]="['/cases']" class="table-row-link">{{
+                    <td data-grid="cell" class="cell-nowrap">
+                      <a [routerLink]="['/case', result.id]" class="table-row-link">{{
                         result.name
                       }}</a>
                     </td>
@@ -133,13 +133,13 @@
                         [icon]="true"
                       />
                     </td>
-                    <td data-grid="cell" style="white-space: nowrap">
+                    <td data-grid="cell" class="cell-nowrap">
                       {{ result.staff }}
                     </td>
-                    <td data-grid="cell" style="white-space: nowrap">
+                    <td data-grid="cell" class="cell-nowrap">
                       {{ result.dueDate }}
                     </td>
-                    <td data-grid="cell" style="white-space: nowrap">
+                    <td data-grid="cell" class="cell-nowrap">
                       {{ result.fileNumber }}
                     </td>
                     <td data-grid="cell">
@@ -151,7 +151,7 @@
                     </td>
                     <td data-grid="cell">
                       <goabx-link color="dark">
-                        <a [routerLink]="['/cases']">View</a>
+                        <a [routerLink]="['/case', result.id]">View</a>
                       </goabx-link>
                     </td>
                   </tr>
@@ -164,21 +164,21 @@
     </app-scroll-container>
   }
 
-  <!-- Card View -->
   @if (viewMode === "card") {
     <app-search-card-view
       [results]="filteredResults"
       [isLoading]="isLoading"
       [showEmptyState]="showEmptyState"
+      (viewResult)="onViewResult($event)"
     />
   }
 
-  <!-- List View -->
   @if (viewMode === "list") {
     <app-search-list-view
       [results]="filteredResults"
       [isLoading]="isLoading"
       [showEmptyState]="showEmptyState"
+      (viewResult)="onViewResult($event)"
     />
   }
 

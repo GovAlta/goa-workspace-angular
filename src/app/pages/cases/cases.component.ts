@@ -6,7 +6,6 @@ import {
   TemplateRef,
   ViewChild,
   ViewEncapsulation,
-  inject,
   signal,
 } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
@@ -17,6 +16,9 @@ import {
   GoabSkeleton,
   GoabDataGrid,
   GoabIcon,
+  GoabTabsOnChangeDetail,
+  GoabInputOnKeyPressDetail,
+  GoabTableOnMultiSortDetail,
 } from '@abgov/angular-components';
 import {
   GoabxButton,
@@ -95,11 +97,13 @@ const COMPACT_TOOLBAR_BREAKPOINT = 768;
   styleUrl: './cases.component.css',
 })
 export class CasesComponent implements OnInit, OnDestroy {
-  private router = inject(Router);
-  private viewport = inject(ViewportService);
-  private sortService = inject(MultiColumnSortService);
-  private displayService = inject(DisplaySettingsService);
-  private footerService = inject(PageFooterService);
+  constructor(
+    private router: Router,
+    private viewport: ViewportService,
+    private sortService: MultiColumnSortService,
+    private displayService: DisplaySettingsService,
+    private footerService: PageFooterService,
+  ) {}
 
   @ViewChild('footerTemplate', { static: true })
   footerTemplate!: TemplateRef<unknown>;
@@ -313,41 +317,34 @@ export class CasesComponent implements OnInit, OnDestroy {
     return chips;
   }
 
-  // Computed: selectedCount
   get selectedCount(): number {
     return this.filteredCases.filter((c) => c.selected).length;
   }
 
-  // Computed: isAllSelected
   get isAllSelected(): boolean {
     return (
       this.selectedCount > 0 && this.selectedCount === this.filteredCases.length
     );
   }
 
-  // Computed: isIndeterminate
   get isIndeterminate(): boolean {
     return (
       this.selectedCount > 0 && this.selectedCount < this.filteredCases.length
     );
   }
 
-  // Computed: myCasesCount
   get myCasesCount(): number {
     return this.cases.filter((c) => c.category === 'todo').length;
   }
 
-  // Computed: inProgressCount
   get inProgressCount(): number {
     return this.cases.filter((c) => c.category === 'progress').length;
   }
 
-  // Computed: unassignedCount
   get unassignedCount(): number {
     return this.cases.filter((c) => !c.staff || c.staff === '').length;
   }
 
-  // Computed: commentCountMap
   get commentCountMap(): Map<string, number> {
     const map = new Map<string, number>();
     this.comments.forEach((c) => {
@@ -356,7 +353,6 @@ export class CasesComponent implements OnInit, OnDestroy {
     return map;
   }
 
-  // Computed: caseSpecificComments
   get caseSpecificComments(): Comments[] {
     if (!this.selectedCaseIdForComments) return this.comments;
     return this.comments.filter(
@@ -364,7 +360,6 @@ export class CasesComponent implements OnInit, OnDestroy {
     );
   }
 
-  // Computed: selectedCaseData
   get selectedCaseData(): Case | null {
     if (!this.selectedCaseIdForComments) return null;
     return (
@@ -372,10 +367,8 @@ export class CasesComponent implements OnInit, OnDestroy {
     );
   }
 
-  // Table columns - built with template refs in ngAfterViewInit
   caseColumns: TableColumn[] = [];
 
-  // Computed: visibleCaseColumns
   get visibleCaseColumns(): TableColumn[] {
     return this.caseColumns.filter(
       (col) =>
@@ -385,8 +378,7 @@ export class CasesComponent implements OnInit, OnDestroy {
     );
   }
 
-  // Skeleton array for card loading
-  skeletonArray = Array(6);
+  readonly skeletonArray = Array(6);
 
   getDefaultLayout(tab: string): LayoutType {
     if (tab === 'complete') return 'list';
@@ -396,7 +388,6 @@ export class CasesComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    // Build table columns (templates are static, available in ngOnInit)
     this.caseColumns = [
       {
         key: 'select',
@@ -499,8 +490,8 @@ export class CasesComponent implements OnInit, OnDestroy {
 
   // --- Event handlers ---
 
-  handleTabChange(event: any): void {
-    const tabIndex = event.detail?.tab ?? event.tab;
+  handleTabChange(event: GoabTabsOnChangeDetail): void {
+    const tabIndex = event.tab;
     const tabMap = ['all', 'unassigned', 'todo', 'progress', 'complete'];
     this.activeTab = tabMap[tabIndex - 1] || 'all';
     this.cases = this.cases.map((c) => ({ ...c, selected: false }));
@@ -525,15 +516,23 @@ export class CasesComponent implements OnInit, OnDestroy {
 
   private sortByKey(key: string): void {
     const sc = this.sortConfig;
+    let newDir: 'asc' | 'desc' = 'asc';
+
     if (sc.primary?.key === key) {
-      const newDir = sc.primary.direction === 'asc' ? 'desc' : 'asc';
-      this.sortService.handleMultiSort({ name: key, direction: newDir });
+      newDir = sc.primary.direction === 'asc' ? 'desc' : 'asc';
     } else if (sc.secondary?.key === key) {
-      const newDir = sc.secondary.direction === 'asc' ? 'desc' : 'asc';
-      this.sortService.handleMultiSort({ name: key, direction: newDir });
-    } else {
-      this.sortService.handleMultiSort({ name: key, direction: 'asc' });
+      newDir = sc.secondary.direction === 'asc' ? 'desc' : 'asc';
     }
+
+    const sorts = [{ column: key, direction: newDir }];
+    if (sc.primary && sc.primary.key !== key) {
+      sorts.unshift({
+        column: sc.primary.key,
+        direction: sc.primary.direction,
+      });
+    }
+
+    this.sortService.handleMultiSort({ sorts });
   }
 
   handleSettingsChange(newSettings: ViewSettings): void {
@@ -558,7 +557,7 @@ export class CasesComponent implements OnInit, OnDestroy {
     this.inputError = '';
   }
 
-  handleInputKeyPress(event: any): void {
+  handleInputKeyPress(event: GoabInputOnKeyPressDetail): void {
     if (event.key === 'Enter') {
       const value = event.value;
       setTimeout(() => {
@@ -718,7 +717,7 @@ export class CasesComponent implements OnInit, OnDestroy {
     this.removeAppliedFilter(event.category, event.value);
   }
 
-  handleMultiSort(event: any): void {
+  handleMultiSort(event: GoabTableOnMultiSortDetail): void {
     this.sortService.handleMultiSort(event);
   }
 
@@ -748,19 +747,10 @@ export class CasesComponent implements OnInit, OnDestroy {
     this.expandedGroups = next;
   }
 
-  // When groupBy changes, expand all groups by default
-  private expandAllGroups(): void {
-    if (this.groupedCases) {
-      this.expandedGroups = new Set(this.groupedCases.map((g) => g.key));
-    }
-  }
-
-  // Helper for card grid comment count
   getCommentCount(caseId: string): number {
     return this.commentCountMap.get(caseId) || 0;
   }
 
-  // Helper for priority badge props
   getPriorityBadgeProps(priority: 'high' | 'medium' | 'low') {
     return getPriorityBadgeProps(priority);
   }

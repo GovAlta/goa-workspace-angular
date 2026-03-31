@@ -33,6 +33,11 @@ export const routes: Routes = [
       ),
   },
   {
+    path: 'documents',
+    redirectTo: 'documents/sub1',
+    pathMatch: 'full',
+  },
+  {
     path: 'documents/sub1',
     loadComponent: () =>
       import('./pages/documents/sub-menu-1.component').then(

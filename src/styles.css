@@ -1,44 +1,8 @@
 @import "@abgov/web-components/index.css";
 @import "@abgov/design-tokens/dist/tokens.css";
 
-/* ============================================================================
-   ANGULAR HOST ELEMENT FIX
-   ============================================================================
-   React components render without wrapper elements. Angular creates host
-   elements (e.g. <app-case-toolbar>) that break flex/layout chains.
-   This single rule makes ALL app-* host elements invisible to layout,
-   so the shared CSS works identically across both frameworks.
-   ============================================================================ */
-app-case-toolbar,
-app-case-filter-chips,
-app-case-filter-drawer,
-app-case-delete-modal,
-app-case-table,
-app-case-list-view,
-app-case-card,
-app-comments-drawer,
-app-search-header-filters,
-app-search-filter-chips,
-app-display-settings,
-app-empty-state,
-app-error-layout,
-app-error-page,
-app-case-detail-header,
-app-case-accordions,
-app-primary-application-form {
-  display: contents;
-}
-
-/* Components that need block layout (contain their own content area) */
-app-search-card-view,
-app-search-list-view {
-  display: block;
-  width: 100%;
-}
-
-/* GoA Angular wrapper host elements that sit between flex parents and web components.
-   In React, GoabxFormItem etc. render directly to goa-form-item. In Angular, there's
-   a wrapper host element in between. Make these wrappers behave as proper flex items. */
+/* To override styles of GoA components (goa-*, goabx-*), define CSS here in global
+   styles. Angular view encapsulation prevents component-scoped CSS from styling them. */
 .cases-search-group goabx-form-item {
   flex: 1;
   min-width: 0;
@@ -60,93 +24,6 @@ app-search-list-view {
   width: 100%;
 }
 
-/* ============================================================================
-   PUSH DRAWER - Animated side panel for filters
-   ============================================================================
-   The push drawer sits as a sibling to the main content area in the flex layout.
-   When it opens, the content area shrinks (flex: 1) to make room.
-   ============================================================================ */
-
-.push-drawer-container {
-  padding: 20px 0;
-  width: 0;
-  min-width: 0;
-  height: 100%;
-  box-sizing: border-box;
-  overflow: hidden;
-  transition:
-    width 0.25s ease-out,
-    min-width 0.25s ease-out,
-    padding 0.25s ease-out;
-  display: flex;
-  justify-content: flex-end;
-  --goa-push-drawer-border-radius: 0;
-  --goa-border-width-s: 0;
-  --goa-drawer-padding: 0;
-}
-
-.push-drawer-container--open {
-  padding: 20px 20px 20px 0;
-  width: calc(352px + 20px);
-  min-width: calc(352px + 20px);
-}
-
-.push-drawer-clip {
-  height: 100%;
-  width: 352px;
-  min-width: 352px;
-  overflow: hidden;
-  border-radius: 24px;
-  border: 1px solid var(--goa-color-greyscale-200);
-  background: var(--goa-color-greyscale-white);
-  --goa-color-greyscale-200: transparent;
-}
-
-/* Below 1024px: GoabPushDrawer switches to modal internally */
-@media (max-width: 1023px) {
-  .push-drawer-container {
-    overflow: visible;
-  }
-
-  .push-drawer-container--open {
-    width: 0;
-    min-width: 0;
-    padding: 0;
-  }
-
-  .push-drawer-clip {
-    overflow: visible;
-    border: none;
-    background: none !important;
-    border-radius: 0;
-    width: 0;
-    min-width: 0;
-  }
-}
-
-/* Mobile: Full-width overlay */
-@media (max-width: 623px) {
-  .push-drawer-container {
-    position: fixed;
-    top: 0;
-    right: 0;
-    z-index: 200;
-    padding: 0;
-    height: 100%;
-  }
-
-  .push-drawer-container--open {
-    width: 100%;
-    min-width: 100%;
-  }
-
-  .push-drawer-clip {
-    width: 100%;
-    min-width: 100%;
-    border-radius: 0;
-    border: none;
-  }
-}
 
 /* ============================================================================
    TABLE CELL UTILITIES
@@ -380,62 +257,6 @@ goa-container {
   pointer-events: none;
 }
 
-/* ============================================================================
-   SCROLL CONTAINER - Horizontal scroll shadows with gradient overlays
-   ============================================================================ */
-
-.scroll-container {
-  position: relative;
-  display: flex;
-  align-items: stretch;
-  width: 100%;
-  overflow-x: auto;
-  overflow-y: visible;
-  scrollbar-width: none;
-  -ms-overflow-style: none;
-}
-
-.scroll-container::-webkit-scrollbar {
-  display: none;
-}
-
-.scroll-container > *:not(.scroll-container-shadow) {
-  flex-grow: 1;
-  min-width: max-content;
-}
-
-.scroll-container-shadow {
-  position: sticky;
-  width: 8px;
-  min-width: 8px;
-  pointer-events: none;
-  transition: opacity 0.15s ease;
-  z-index: 10;
-  flex-shrink: 0;
-}
-
-.scroll-container-shadow--left {
-  left: 0;
-  margin-right: -8px;
-  background: linear-gradient(to right, rgba(0, 0, 0, 0.08), transparent);
-}
-
-.scroll-container-shadow--right {
-  right: 0;
-  margin-left: -8px;
-  background: linear-gradient(to left, rgba(0, 0, 0, 0.08), transparent);
-}
-
-.scroll-container-scrollbar {
-  overflow-x: auto;
-  overflow-y: hidden;
-  height: 14px;
-  z-index: 100;
-}
-
-.scroll-container-scrollbar-inner {
-  height: 1px;
-}
 
 /* ============================================================================
    ROW ACTION MENU - Fix popover in table cells
@@ -592,91 +413,7 @@ goa-container {
   }
 }
 
-/* ============================================================================
-   ERROR PAGE
-   ============================================================================ */
 
-.error-page {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100%;
-  padding: var(--goa-space-3xl) var(--goa-space-xl) 128px;
-}
-
-@media (max-width: 1024px) {
-  .error-page {
-    padding: var(--goa-space-2xl) var(--goa-space-xl) 112px;
-  }
-}
-
-@media (max-width: 623px) {
-  .error-page {
-    min-height: calc(100% - 76px);
-    padding: var(--goa-space-xl) var(--goa-space-m) 96px;
-  }
-}
-
-.error-page-content {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-}
-
-.error-page-icon-wrapper {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 120px;
-  height: 120px;
-  border-radius: 50%;
-  background-color: var(--goa-color-greyscale-100);
-}
-
-.error-page-description {
-  max-width: 500px;
-  text-align: center;
-}
-
-.error-page-underline {
-  width: 110px;
-  height: 8px;
-  background-color: var(--goa-color-brand-default);
-  margin-top: var(--goa-space-m);
-}
-
-/* ============================================================================
-   EMPTY STATE
-   ============================================================================ */
-
-.empty-state {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: var(--goa-space-3xl) var(--goa-space-m);
-  background-color: var(--goa-color-greyscale-white, #ffffff);
-  text-align: center;
-}
-
-.empty-state__illustration {
-  width: 100px;
-  height: auto;
-  margin-bottom: var(--goa-space-xl);
-}
-
-.empty-state__heading {
-  font: var(--goa-typography-heading-2xs);
-  color: var(--goa-color-text-secondary);
-  margin-bottom: 16px;
-}
-
-.empty-state__subline {
-  font: var(--goa-typography-body-s);
-  color: var(--goa-color-greyscale-500);
-  margin-bottom: var(--goa-space-xl);
-}
 
 /* ============================================================================
    EXPANDABLE LIST VIEW - Accordion-style rows with expand/collapse

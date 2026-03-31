@@ -12,7 +12,13 @@ import {
   GoabxMenuAction,
   GoabxMenuButton,
 } from '@abgov/angular-components';
-import { GoabIconType } from '@abgov/ui-components-common';
+import {
+  GoabIconType,
+  GoabInputOnChangeDetail,
+  GoabInputOnKeyPressDetail,
+  GoabDropdownOnChangeDetail,
+  GoabMenuButtonOnActionDetail,
+} from '@abgov/ui-components-common';
 
 export type ViewMode = 'table' | 'card' | 'list';
 
@@ -43,31 +49,27 @@ export class SearchHeaderFiltersComponent {
   @Input() isMobile = false;
 
   @Output() filtersChange = new EventEmitter<SearchFilters>();
-  @Output() searchKeyPress = new EventEmitter<any>();
+  @Output() searchKeyPress = new EventEmitter<GoabInputOnKeyPressDetail>();
   @Output() viewChange = new EventEmitter<string>();
 
-  onSearchChange(event: any) {
+  onSearchChange(event: GoabInputOnChangeDetail) {
     this.filtersChange.emit({ ...this.filters, searchText: event.value ?? '' });
   }
 
-  onEntityChange(event: any) {
+  onEntityChange(event: GoabDropdownOnChangeDetail) {
     this.filtersChange.emit({ ...this.filters, entity: event.value ?? 'all' });
   }
 
-  onStatusChange(event: any) {
+  onStatusChange(event: GoabDropdownOnChangeDetail) {
     this.filtersChange.emit({ ...this.filters, status: event.value ?? 'all' });
   }
 
-  onSearchKeydown(event: any) {
+  onSearchKeydown(event: GoabInputOnKeyPressDetail) {
     this.searchKeyPress.emit(event);
   }
 
-  onViewAction(event: any) {
-    // event may be { action: string } or just the action string
-    const action = typeof event === 'string' ? event : event?.action;
-    if (action) {
-      this.viewChange.emit(action);
-    }
+  onViewAction(event: GoabMenuButtonOnActionDetail) {
+    this.viewChange.emit(event.action);
   }
 
   getViewLabel(): string {

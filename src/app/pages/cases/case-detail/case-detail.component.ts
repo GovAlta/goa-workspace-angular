@@ -2,10 +2,9 @@ import {
   Component,
   CUSTOM_ELEMENTS_SCHEMA,
   OnInit,
-  inject,
   ViewEncapsulation,
 } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import {
   GoabSkeleton,
   GoabSpacer,
@@ -18,6 +17,7 @@ import {
   GoabxTabs,
   GoabxMenuButton,
   GoabxMenuAction,
+  GoabTabsOnChangeDetail,
 } from '@abgov/angular-components';
 import { PageHeaderComponent } from '../../../components/page-header/page-header.component';
 import { CommentsDrawerComponent } from '../../../components/comments-drawer/comments-drawer.component';
@@ -55,9 +55,10 @@ import mockComments from '../../../data/mockComments.json';
   styleUrl: './case-detail.component.css',
 })
 export class CaseDetailComponent implements OnInit {
-  private router = inject(Router);
-  private route = inject(ActivatedRoute);
-  viewport = inject(ViewportService);
+  constructor(
+    private route: ActivatedRoute,
+    public viewport: ViewportService,
+  ) {}
 
   isLoading = true;
   caseData: Case | null = null;
@@ -127,9 +128,8 @@ export class CaseDetailComponent implements OnInit {
     this.expandedList = this.expandedAll ? [1, 2, 3, 4, 5, 6, 7, 8, 9, 10] : [];
   }
 
-  handleTabsChange(event: any) {
-    const tabIndex = event.detail?.tab ?? event.tab;
-    this.activeTabIndex = tabIndex;
+  handleTabsChange(event: GoabTabsOnChangeDetail) {
+    this.activeTabIndex = event.tab;
   }
 
   handleAssignClick() {

@@ -1,0 +1,52 @@
+.scroll-container {
+  position: relative;
+  display: flex;
+  align-items: stretch;
+  width: 100%;
+  overflow-x: auto;
+  overflow-y: visible;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.scroll-container::-webkit-scrollbar {
+  display: none;
+}
+
+.scroll-container > *:not(.scroll-container-shadow) {
+  flex-grow: 1;
+  min-width: max-content;
+}
+
+.scroll-container-shadow {
+  position: sticky;
+  width: 8px;
+  min-width: 8px;
+  pointer-events: none;
+  transition: opacity 0.15s ease;
+  z-index: 10;
+  flex-shrink: 0;
+}
+
+.scroll-container-shadow--left {
+  left: 0;
+  margin-right: -8px;
+  background: linear-gradient(to right, rgba(0, 0, 0, 0.08), transparent);
+}
+
+.scroll-container-shadow--right {
+  right: 0;
+  margin-left: -8px;
+  background: linear-gradient(to left, rgba(0, 0, 0, 0.08), transparent);
+}
+
+.scroll-container-scrollbar {
+  overflow-x: auto;
+  overflow-y: hidden;
+  height: 14px;
+  z-index: 100;
+}
+
+.scroll-container-scrollbar-inner {
+  height: 1px;
+}

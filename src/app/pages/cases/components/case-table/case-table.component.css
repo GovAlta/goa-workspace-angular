@@ -1,3 +1,7 @@
+:host {
+  display: contents;
+}
+
 /* CaseTable styles - matches React CasesPage.css table-related styles */
 
 /* Table group row styling */

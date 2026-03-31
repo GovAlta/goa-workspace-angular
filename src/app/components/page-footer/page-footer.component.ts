@@ -1,4 +1,4 @@
-import { Component, inject, ViewEncapsulation } from '@angular/core';
+import { Component, ViewEncapsulation } from '@angular/core';
 import { NgTemplateOutlet } from '@angular/common';
 import { PageFooterService } from '../../services/page-footer.service';
 import { ScrollStateService } from '../../services/scroll-state.service';
@@ -11,8 +11,10 @@ import { ScrollStateService } from '../../services/scroll-state.service';
   styleUrl: './page-footer.component.css',
 })
 export class PageFooterComponent {
-  footer = inject(PageFooterService);
-  scrollState = inject(ScrollStateService);
+  constructor(
+    public footer: PageFooterService,
+    public scrollState: ScrollStateService,
+  ) {}
 
   get isVisible(): boolean {
     const content = this.footer.content();
