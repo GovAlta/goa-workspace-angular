@@ -1,6 +1,6 @@
 <div class="app-layout">
   <goab-work-side-menu
-    url="/"
+    [url]="base + '/'"
     heading="Workspace Demo Application"
     userName="Edna Mode"
     userSecondaryText="edna.mode@example.com"
@@ -16,13 +16,13 @@
 </div>
 
 <ng-template #primaryNav>
-  <goab-work-side-menu-item icon="grid" label="Dashboard" url="/" />
-  <goab-work-side-menu-item icon="search" label="Search" url="/search" />
-  <goab-work-side-menu-item icon="list" label="Cases" url="/cases" />
+  <goab-work-side-menu-item icon="grid" label="Dashboard" [url]="base + '/'" />
+  <goab-work-side-menu-item icon="search" label="Search" [url]="base + '/search'" />
+  <goab-work-side-menu-item icon="list" label="Cases" [url]="base + '/cases'" />
   <goab-work-side-menu-group icon="document" heading="Documents">
-    <goab-work-side-menu-item label="Sub menu item 1" url="/documents/sub1" />
-    <goab-work-side-menu-item label="Sub menu item 2" url="/documents/sub2" />
-    <goab-work-side-menu-item label="Sub menu item 3" url="/documents/sub3" />
+    <goab-work-side-menu-item label="Sub menu item 1" [url]="base + '/documents/sub1'" />
+    <goab-work-side-menu-item label="Sub menu item 2" [url]="base + '/documents/sub2'" />
+    <goab-work-side-menu-item label="Sub menu item 3" [url]="base + '/documents/sub3'" />
   </goab-work-side-menu-group>
 </ng-template>
 
@@ -63,6 +63,6 @@
 </ng-template>
 
 <ng-template #accountNav>
-  <goab-work-side-menu-item icon="settings" label="Settings" url="/settings" />
-  <goab-work-side-menu-item icon="log-out" label="Log out" url="/logout" />
+  <goab-work-side-menu-item icon="settings" label="Settings" [url]="base + '/settings'" />
+  <goab-work-side-menu-item icon="log-out" label="Log out" [url]="base + '/logout'" />
 </ng-template>

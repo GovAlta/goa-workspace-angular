@@ -10,6 +10,7 @@ import {
 import { ViewportService } from './services/viewport.service';
 import { NotificationService } from './services/notification.service';
 import { WorkspaceLayoutComponent } from './components/workspace-layout/workspace-layout.component';
+import { environment } from '../environments/environment';
 
 @Component({
   selector: 'app-root',
@@ -26,6 +27,8 @@ import { WorkspaceLayoutComponent } from './components/workspace-layout/workspac
   styleUrl: './app.component.css',
 })
 export class AppComponent {
+  base = environment.baseUrl;
+
   constructor(
     public viewport: ViewportService,
     public notifications: NotificationService,
@@ -33,7 +36,8 @@ export class AppComponent {
   ) {}
 
   onNavigate(url: string) {
-    this.router.navigateByUrl(url);
+    const route = this.base ? url.replace(this.base, '') || '/' : url;
+    this.router.navigateByUrl(route);
   }
 
   onViewAllNotifications() {
