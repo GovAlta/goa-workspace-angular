@@ -17,6 +17,7 @@ import {
   GoabxCheckbox,
   GoabxRadioGroup,
   GoabxLink,
+  GoabRadioGroupOnChangeDetail,
 } from '@abgov/angular-components';
 import { GoabIconType } from '@abgov/ui-components-common';
 
@@ -112,11 +113,10 @@ export class DisplaySettingsComponent {
     return option?.icon || 'menu';
   }
 
-  handleLayoutChange(event: any): void {
-    const value = event.value ?? event;
+  handleLayoutChange(event: GoabRadioGroupOnChangeDetail): void {
     this.settingsChange.emit({
       ...this.settings,
-      layout: value as LayoutType,
+      layout: event.value as LayoutType,
     });
   }
 
@@ -134,11 +134,10 @@ export class DisplaySettingsComponent {
     });
   }
 
-  handleGroupByChange(event: any): void {
-    const value = event.value ?? event;
+  handleGroupByChange(event: GoabRadioGroupOnChangeDetail): void {
     this.settingsChange.emit({
       ...this.settings,
-      groupBy: value === 'null' ? null : (value as GroupByField),
+      groupBy: event.value === 'null' ? null : (event.value as GroupByField),
     });
   }
 

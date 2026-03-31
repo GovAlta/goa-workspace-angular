@@ -22,7 +22,7 @@
           <tr
             class="table-group-row"
             (click)="onToggleGroup(group.key)"
-            style="cursor: pointer"
+            class="clickable-row"
           >
             <td [attr.colspan]="columns.length">
               <div class="table-group-row__content">
@@ -48,7 +48,7 @@
               <tr
                 [attr.aria-selected]="caseItem.selected ? 'true' : undefined"
                 (click)="onRowClick(caseItem, $event)"
-                style="cursor: pointer"
+                class="clickable-row"
               >
                 @for (column of columns; track column.key) {
                   <td>

@@ -14,6 +14,7 @@ import {
   GoabxMenuButton,
   GoabxMenuAction,
 } from '@abgov/angular-components';
+import { GoabMenuButtonOnActionDetail } from '@abgov/ui-components-common';
 import { Case } from '../../../../types/case';
 
 const CATEGORY_LABELS: Record<string, string> = {
@@ -54,11 +55,8 @@ export class CaseCardComponent {
     return CATEGORY_LABELS[category] || category || '\u2014';
   }
 
-  onMenuAction(event: any, caseId: string) {
-    const action = typeof event === 'string' ? event : event?.action;
-    if (action) {
-      this.menuAction.emit({ action, caseId });
-    }
+  onMenuAction(event: GoabMenuButtonOnActionDetail, caseId: string) {
+    this.menuAction.emit({ action: event.action, caseId });
   }
 
   onSelectChange() {

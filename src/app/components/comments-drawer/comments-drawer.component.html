@@ -41,7 +41,7 @@
         <goab-form-item
           helpText="Add a comment for updates related to the case."
         >
-          <goab-text-area
+          <goab-textarea
             name="comment"
             countBy="character"
             [maxCount]="200"
@@ -88,7 +88,7 @@
             @if (editingCommentId === comment.id) {
               <div class="page__comments_single_content_editing">
                 <goab-form-item>
-                  <goab-text-area
+                  <goab-textarea
                     [name]="'edit-comment-' + comment.id"
                     [value]="editingCommentText"
                     countBy="character"

@@ -6,17 +6,9 @@
       (onClose)="onClose()"
       [actions]="drawerActions"
     >
-      <div
-        style="display: flex; flex-direction: column; gap: var(--goa-space-l)"
-      >
+      <div class="filter-drawer__sections">
         <goabx-form-item label="Status">
-          <div
-            style="
-              display: flex;
-              flex-direction: column;
-              gap: var(--goa-space-xs);
-            "
-          >
+          <div class="filter-drawer__checkbox-group">
             @for (status of filterOptions.statuses; track status) {
               <goabx-checkbox
                 [name]="'status-' + status"
@@ -29,13 +21,7 @@
         </goabx-form-item>
 
         <goabx-form-item label="Priority">
-          <div
-            style="
-              display: flex;
-              flex-direction: column;
-              gap: var(--goa-space-xs);
-            "
-          >
+          <div class="filter-drawer__checkbox-group">
             @for (priority of filterOptions.priorities; track priority) {
               <goabx-checkbox
                 [name]="'priority-' + priority"
@@ -48,13 +34,7 @@
         </goabx-form-item>
 
         <goabx-form-item label="Assigned to">
-          <div
-            style="
-              display: flex;
-              flex-direction: column;
-              gap: var(--goa-space-xs);
-            "
-          >
+          <div class="filter-drawer__checkbox-group">
             @for (staff of filterOptions.staffMembers; track staff) {
               <goabx-checkbox
                 [name]="'staff-' + staff"
@@ -67,13 +47,7 @@
         </goabx-form-item>
 
         <goabx-form-item label="Jurisdiction">
-          <div
-            style="
-              display: flex;
-              flex-direction: column;
-              gap: var(--goa-space-xs);
-            "
-          >
+          <div class="filter-drawer__checkbox-group">
             @for (
               jurisdiction of filterOptions.jurisdictions;
               track jurisdiction

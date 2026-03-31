@@ -1,9 +1,7 @@
-<div>
-  <!-- Name Section -->
-  <div>
-    <goab-text size="heading-xs" mb="s" mt="l" color="secondary">
-      Name
-    </goab-text>
+<!-- Name Section -->
+<goab-text size="heading-xs" mb="s" mt="l" color="secondary">
+  Name
+</goab-text>
 
     <goab-divider mb="xl" />
 
@@ -35,11 +33,9 @@
         (onChange)="handleInputChange('lastName', $event.value)"
       />
     </goabx-form-item>
-  </div>
 
-  <!-- Identifiers Section -->
-  <div>
-    <goab-text size="heading-xs" mb="s" mt="3xl" color="secondary">
+<!-- Identifiers Section -->
+<goab-text size="heading-xs" mb="s" mt="3xl" color="secondary">
       Identifiers
     </goab-text>
     <goab-divider mb="xl" />
@@ -84,7 +80,7 @@
       </goabx-form-item>
 
       <goabx-form-item label="HS ID (Mobius ID)" mb="l">
-        <div style="display: flex; align-items: center">
+        <div class="primary-form__copy-field">
           <goab-text mb="none" mt="none">
             {{ localFormData.hsId }}
           </goab-text>
@@ -109,5 +105,3 @@
         (onChange)="handleInputChange('pid', $event.value)"
       />
     </goabx-form-item>
-  </div>
-</div>

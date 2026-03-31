@@ -60,15 +60,9 @@
       <div>
         @for (item of skeletonArray; track $index) {
           <div class="case-detail__page_skeleton">
-            <div style="min-width: 50px">
-              <goab-skeleton type="thumbnail" mb="none" mt="none" />
-            </div>
-            <div style="min-width: 150px">
-              <goab-skeleton type="text" maxWidth="150px" mb="none" mt="none" />
-            </div>
-            <div style="min-width: 75px">
-              <goab-skeleton type="text" maxWidth="75px" mb="none" mt="none" />
-            </div>
+            <goab-skeleton type="thumbnail" mb="none" mt="none" />
+            <goab-skeleton type="text" maxWidth="150px" mb="none" mt="none" />
+            <goab-skeleton type="text" maxWidth="75px" mb="none" mt="none" />
           </div>
         }
       </div>

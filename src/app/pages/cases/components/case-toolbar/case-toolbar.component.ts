@@ -18,7 +18,9 @@ import {
 import {
   GoabIconType,
   GoabTabsOnChangeDetail,
+  GoabInputOnChangeDetail,
   GoabInputOnKeyPressDetail,
+  GoabMenuButtonOnActionDetail,
 } from '@abgov/ui-components-common';
 import { DisplaySettingsComponent } from '../../../../components/display-settings/display-settings.component';
 import {
@@ -107,26 +109,23 @@ export class CaseToolbarComponent {
     return this.isCompactToolbar ? undefined : 'Sort';
   }
 
-  onInputChange(event: any) {
+  onInputChange(event: GoabInputOnChangeDetail) {
     this.inputChange.emit(event.value ?? '');
   }
 
-  onInputKeyPress(event: any) {
+  onInputKeyPress(event: GoabInputOnKeyPressDetail) {
     this.inputKeyPress.emit(event);
   }
 
-  onSortAction(event: any) {
-    const action = typeof event === 'string' ? event : event?.action;
-    if (action) {
-      this.sortAction.emit(action);
-    }
+  onSortAction(event: GoabMenuButtonOnActionDetail) {
+    this.sortAction.emit(event.action);
   }
 
   onFilterOpen() {
     this.filterOpen.emit();
   }
 
-  onTabChange(event: any) {
+  onTabChange(event: GoabTabsOnChangeDetail) {
     this.tabChange.emit(event);
   }
 

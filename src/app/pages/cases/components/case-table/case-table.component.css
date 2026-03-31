@@ -26,3 +26,7 @@
   font-weight: 600;
   color: var(--goa-color-text-default);
 }
+
+.clickable-row {
+  cursor: pointer;
+}

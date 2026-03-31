@@ -13,20 +13,13 @@ import {
   GoabIconButton,
   GoabTooltip,
 } from '@abgov/angular-components';
-import { GoabxBadge } from '@abgov/angular-components';
+import { GoabxBadge, GoabxBadgeType } from '@abgov/angular-components';
 import { PrimaryApplicationFormComponent } from '../primary-application-form/primary-application-form.component';
 import { Case } from '../../../../types/case';
 import { PrimaryFormData } from '../../../../types/primary-form-data';
 
-type BadgeType =
-  | 'success'
-  | 'important'
-  | 'information'
-  | 'emergency'
-  | 'default';
-
 interface BadgeConfig {
-  type: BadgeType;
+  type: GoabxBadgeType;
   content: string;
 }
 

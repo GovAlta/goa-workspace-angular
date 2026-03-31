@@ -82,3 +82,15 @@
     border: none;
   }
 }
+
+.filter-drawer__sections {
+  display: flex;
+  flex-direction: column;
+  gap: var(--goa-space-l);
+}
+
+.filter-drawer__checkbox-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--goa-space-xs);
+}

@@ -1,3 +1,11 @@
 :host {
   display: contents;
 }
+
+.data-card--3col {
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+.data-card--2col {
+  grid-template-columns: 1fr 2fr 0fr;
+}

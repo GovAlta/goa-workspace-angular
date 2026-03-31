@@ -1,84 +1,3 @@
-<!-- Heading content templates for each accordion -->
-<ng-template #primaryApplicantHeading>
-  <goabx-badge
-    [type]="primaryApplicantBadge.type"
-    emphasis="subtle"
-    [content]="primaryApplicantBadge.content"
-  />
-</ng-template>
-
-<ng-template #personalHeading>
-  <goabx-badge
-    [type]="personalBadge.type"
-    emphasis="subtle"
-    [content]="personalBadge.content"
-  />
-</ng-template>
-
-<ng-template #spousePartnerHeading>
-  <goabx-badge
-    [type]="spousePartnerBadge.type"
-    emphasis="subtle"
-    [content]="spousePartnerBadge.content"
-  />
-</ng-template>
-
-<ng-template #dependantHeading>
-  <goabx-badge
-    [type]="dependantBadge.type"
-    emphasis="subtle"
-    [content]="dependantBadge.content"
-  />
-</ng-template>
-
-<ng-template #educationHeading>
-  <goabx-badge
-    [type]="educationBadge.type"
-    emphasis="subtle"
-    [content]="educationBadge.content"
-  />
-</ng-template>
-
-<ng-template #employmentHeading>
-  <goabx-badge
-    [type]="employmentBadge.type"
-    emphasis="subtle"
-    [content]="employmentBadge.content"
-  />
-</ng-template>
-
-<ng-template #healthHeading>
-  <goabx-badge
-    [type]="healthBadge.type"
-    emphasis="subtle"
-    [content]="healthBadge.content"
-  />
-</ng-template>
-
-<ng-template #identifiedNeedsHeading>
-  <goabx-badge
-    [type]="identifiedNeedsBadge.type"
-    emphasis="subtle"
-    [content]="identifiedNeedsBadge.content"
-  />
-</ng-template>
-
-<ng-template #labourMarketHeading>
-  <goabx-badge
-    [type]="labourMarketBadge.type"
-    emphasis="subtle"
-    [content]="labourMarketBadge.content"
-  />
-</ng-template>
-
-<ng-template #decisionHeading>
-  <goabx-badge
-    [type]="decisionBadge.type"
-    emphasis="subtle"
-    [content]="decisionBadge.content"
-  />
-</ng-template>
-
 <goab-button
   type="tertiary"
   size="compact"
@@ -87,6 +6,10 @@
 >
   {{ expandedAll ? "Hide all sections" : "Show all sections" }}
 </goab-button>
+
+<ng-template #primaryApplicantHeading>
+  <goabx-badge [type]="primaryApplicantBadge.type" emphasis="subtle" [content]="primaryApplicantBadge.content" />
+</ng-template>
 
 <!-- 1. Primary applicant -->
 <goab-accordion
@@ -102,6 +25,10 @@
   />
 </goab-accordion>
 
+<ng-template #personalHeading>
+  <goabx-badge [type]="personalBadge.type" emphasis="subtle" [content]="personalBadge.content" />
+</ng-template>
+
 <!-- 2. Personal -->
 <goab-accordion
   [open]="isExpanded(2)"
@@ -116,7 +43,7 @@
     </goab-text>
     <goab-divider mb="xl" />
 
-    <div class="data-card" style="grid-template-columns: 1fr 1fr 1fr">
+    <div class="data-card data-card--3col">
       <div class="data-card_info">
         <span class="data-card__label">HS ID (Mobius ID)</span>
         <span class="data-card__value case-detail-header__id">
@@ -197,7 +124,7 @@
     </goab-text>
     <goab-divider mb="xl" />
 
-    <div class="data-card" style="grid-template-columns: 1fr 2fr 0fr">
+    <div class="data-card data-card--2col">
       <div class="data-card_info">
         <span class="data-card__label">Municipality</span>
         <span class="data-card__value">
@@ -215,6 +142,10 @@
   </div>
 </goab-accordion>
 
+<ng-template #spousePartnerHeading>
+  <goabx-badge [type]="spousePartnerBadge.type" emphasis="subtle" [content]="spousePartnerBadge.content" />
+</ng-template>
+
 <!-- 3. Spouse/Partner -->
 <goab-accordion
   [open]="isExpanded(3)"
@@ -229,7 +160,7 @@
     </goab-text>
     <goab-divider mb="xl" />
 
-    <div class="data-card" style="grid-template-columns: 1fr 1fr 1fr">
+    <div class="data-card data-card--3col">
       <div class="data-card_info">
         <span class="data-card__label">Full name</span>
         <span class="data-card__value case-detail-header__id">
@@ -284,7 +215,7 @@
     </goab-text>
     <goab-divider mb="xl" />
 
-    <div class="data-card" style="grid-template-columns: 1fr 2fr 0fr">
+    <div class="data-card data-card--2col">
       <div class="data-card_info">
         <span class="data-card__label">SIN</span>
         <span class="data-card__value case-detail-header__id">
@@ -331,6 +262,10 @@
   </div>
 </goab-accordion>
 
+<ng-template #dependantHeading>
+  <goabx-badge [type]="dependantBadge.type" emphasis="subtle" [content]="dependantBadge.content" />
+</ng-template>
+
 <!-- 4. Dependant -->
 <goab-accordion
   [open]="isExpanded(4)"
@@ -345,7 +280,7 @@
     </goab-text>
     <goab-divider mb="xl" />
 
-    <div class="data-card" style="grid-template-columns: 1fr 1fr 1fr">
+    <div class="data-card data-card--3col">
       <div class="data-card_info">
         <span class="data-card__label">Full name</span>
         <span class="data-card__value">
@@ -394,7 +329,7 @@
     </goab-text>
     <goab-divider mb="xl" />
 
-    <div class="data-card" style="grid-template-columns: 1fr 1fr 1fr">
+    <div class="data-card data-card--3col">
       <div class="data-card_info">
         <span class="data-card__label">Full name</span>
         <span class="data-card__value">
@@ -440,6 +375,10 @@
   </div>
 </goab-accordion>
 
+<ng-template #educationHeading>
+  <goabx-badge [type]="educationBadge.type" emphasis="subtle" [content]="educationBadge.content" />
+</ng-template>
+
 <!-- 5. Education -->
 <goab-accordion
   [open]="isExpanded(5)"
@@ -454,7 +393,7 @@
     </goab-text>
     <goab-divider mb="xl" />
 
-    <div class="data-card" style="grid-template-columns: 1fr 1fr 1fr">
+    <div class="data-card data-card--3col">
       <div class="data-card_info">
         <span class="data-card__label">Highest qualification</span>
         <span class="data-card__value">
@@ -500,6 +439,10 @@
   </div>
 </goab-accordion>
 
+<ng-template #employmentHeading>
+  <goabx-badge [type]="employmentBadge.type" emphasis="subtle" [content]="employmentBadge.content" />
+</ng-template>
+
 <!-- 6. Employment -->
 <goab-accordion
   [open]="isExpanded(6)"
@@ -514,7 +457,7 @@
     </goab-text>
     <goab-divider mb="xl" />
 
-    <div class="data-card" style="grid-template-columns: 1fr 1fr 1fr">
+    <div class="data-card data-card--3col">
       <div class="data-card_info">
         <span class="data-card__label">Employer name</span>
         <span class="data-card__value">
@@ -563,7 +506,7 @@
     </goab-text>
     <goab-divider mb="xl" />
 
-    <div class="data-card" style="grid-template-columns: 1fr 2fr 0fr">
+    <div class="data-card data-card--2col">
       <div class="data-card_info">
         <span class="data-card__label">Work phone</span>
         <span class="data-card__value">
@@ -581,6 +524,10 @@
   </div>
 </goab-accordion>
 
+<ng-template #healthHeading>
+  <goabx-badge [type]="healthBadge.type" emphasis="subtle" [content]="healthBadge.content" />
+</ng-template>
+
 <!-- 7. Health -->
 <goab-accordion
   [open]="isExpanded(7)"
@@ -595,7 +542,7 @@
     </goab-text>
     <goab-divider mb="xl" />
 
-    <div class="data-card" style="grid-template-columns: 1fr 1fr 1fr">
+    <div class="data-card data-card--3col">
       <div class="data-card_info">
         <span class="data-card__label">Health coverage status</span>
         <span class="data-card__value">
@@ -641,6 +588,10 @@
   </div>
 </goab-accordion>
 
+<ng-template #identifiedNeedsHeading>
+  <goabx-badge [type]="identifiedNeedsBadge.type" emphasis="subtle" [content]="identifiedNeedsBadge.content" />
+</ng-template>
+
 <!-- 8. Identified needs -->
 <goab-accordion
   [open]="isExpanded(8)"
@@ -655,7 +606,7 @@
     </goab-text>
     <goab-divider mb="xl" />
 
-    <div class="data-card" style="grid-template-columns: 1fr 1fr 1fr">
+    <div class="data-card data-card--3col">
       <div class="data-card_info">
         <span class="data-card__label">Primary need</span>
         <span class="data-card__value">
@@ -704,7 +655,7 @@
     </goab-text>
     <goab-divider mb="xl" />
 
-    <div class="data-card" style="grid-template-columns: 1fr 2fr 0fr">
+    <div class="data-card data-card--2col">
       <div class="data-card_info">
         <span class="data-card__label">Case manager</span>
         <span class="data-card__value">
@@ -722,6 +673,10 @@
   </div>
 </goab-accordion>
 
+<ng-template #labourMarketHeading>
+  <goabx-badge [type]="labourMarketBadge.type" emphasis="subtle" [content]="labourMarketBadge.content" />
+</ng-template>
+
 <!-- 9. Labour market -->
 <goab-accordion
   [open]="isExpanded(9)"
@@ -736,7 +691,7 @@
     </goab-text>
     <goab-divider mb="xl" />
 
-    <div class="data-card" style="grid-template-columns: 1fr 1fr 1fr">
+    <div class="data-card data-card--3col">
       <div class="data-card_info">
         <span class="data-card__label">Job search status</span>
         <span class="data-card__value">
@@ -785,7 +740,7 @@
     </goab-text>
     <goab-divider mb="xl" />
 
-    <div class="data-card" style="grid-template-columns: 1fr 1fr 1fr">
+    <div class="data-card data-card--3col">
       <div class="data-card_info">
         <span class="data-card__label">Target salary range</span>
         <span class="data-card__value">
@@ -810,6 +765,10 @@
   </div>
 </goab-accordion>
 
+<ng-template #decisionHeading>
+  <goabx-badge [type]="decisionBadge.type" emphasis="subtle" [content]="decisionBadge.content" />
+</ng-template>
+
 <!-- 10. Decision -->
 <goab-accordion
   [open]="isExpanded(10)"
@@ -824,7 +783,7 @@
     </goab-text>
     <goab-divider mb="xl" />
 
-    <div class="data-card" style="grid-template-columns: 1fr 1fr 1fr">
+    <div class="data-card data-card--3col">
       <div class="data-card_info">
         <span class="data-card__label">Decision status</span>
         <span class="data-card__value">
@@ -877,7 +836,7 @@
     </goab-text>
     <goab-divider mb="xl" />
 
-    <div class="data-card" style="grid-template-columns: 1fr 2fr 0fr">
+    <div class="data-card data-card--2col">
       <div class="data-card_info">
         <span class="data-card__label">Number of conditions</span>
         <span class="data-card__value">

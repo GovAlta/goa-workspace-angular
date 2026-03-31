@@ -1,6 +1,5 @@
 import { Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { Router, NavigationEnd } from '@angular/router';
-import { filter } from 'rxjs';
+import { Router } from '@angular/router';
 import {
   GoabxWorkSideMenu,
   GoabxWorkSideMenuGroup,
@@ -27,19 +26,11 @@ import { WorkspaceLayoutComponent } from './components/workspace-layout/workspac
   styleUrl: './app.component.css',
 })
 export class AppComponent {
-  isNotificationsPage = false;
-
   constructor(
     public viewport: ViewportService,
     public notifications: NotificationService,
     private router: Router,
-  ) {
-    this.router.events
-      .pipe(filter((e): e is NavigationEnd => e instanceof NavigationEnd))
-      .subscribe((e) => {
-        this.isNotificationsPage = e.urlAfterRedirects.startsWith('/notifications');
-      });
-  }
+  ) {}
 
   onNavigate(url: string) {
     this.router.navigateByUrl(url);

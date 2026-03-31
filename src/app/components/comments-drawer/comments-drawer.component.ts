@@ -18,6 +18,10 @@ import {
   GoabxMenuAction,
   GoabxMenuButton,
 } from '@abgov/angular-components';
+import {
+  GoabTextAreaOnChangeDetail,
+  GoabMenuButtonOnActionDetail,
+} from '@abgov/ui-components-common';
 import { ViewportService } from '../../services/viewport.service';
 import { parseDate } from '../../utils/date-utils';
 
@@ -113,7 +117,7 @@ export class CommentsDrawerComponent {
     this.handleClearComment();
   }
 
-  onCommentChange(event: any) {
+  onCommentChange(event: GoabTextAreaOnChangeDetail) {
     this.commentText = event.value ?? '';
   }
 
@@ -141,7 +145,7 @@ export class CommentsDrawerComponent {
     this.editingCommentText = '';
   }
 
-  onEditCommentChange(event: any) {
+  onEditCommentChange(event: GoabTextAreaOnChangeDetail) {
     this.editingCommentText = event.value ?? '';
   }
 
@@ -163,8 +167,8 @@ export class CommentsDrawerComponent {
     this.deleteCommentId = null;
   }
 
-  onCommentMenuAction(event: any, commentId: number) {
-    const action = typeof event === 'string' ? event : event?.action;
+  onCommentMenuAction(event: GoabMenuButtonOnActionDetail, commentId: number) {
+    const action = event.action;
     if (action === 'edit') {
       this.handleEditComment(commentId);
     } else if (action === 'delete') {

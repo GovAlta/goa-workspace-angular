@@ -2,13 +2,9 @@
   <!-- Status Badges -->
   <div class="case-detail-header__badges">
     @if (isLoading) {
-      <div style="display: flex; gap: var(--goa-space-s); align-items: center">
-        <div style="min-width: 70px">
-          <goab-skeleton type="text" maxWidth="70px" />
-        </div>
-        <div style="min-width: 70px">
-          <goab-skeleton type="text" maxWidth="70px" />
-        </div>
+      <div class="case-detail-header__skeleton-row">
+        <goab-skeleton type="text" maxWidth="70px" />
+        <goab-skeleton type="text" maxWidth="70px" />
       </div>
     } @else {
       @for (status of statuses; track $index) {
@@ -24,9 +20,7 @@
   <!-- Phone Number Section -->
   <div class="case-detail-header__id">
     @if (isLoading) {
-      <div style="min-width: 140px">
-        <goab-skeleton type="text" maxWidth="140px" />
-      </div>
+      <goab-skeleton type="text" maxWidth="140px" />
     } @else {
       <goab-text mb="none" mt="none">
         {{ phoneNumber }}
