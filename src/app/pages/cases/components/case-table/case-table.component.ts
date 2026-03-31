@@ -1,6 +1,5 @@
 import {
   Component,
-  CUSTOM_ELEMENTS_SCHEMA,
   Input,
   Output,
   EventEmitter,
@@ -11,11 +10,9 @@ import {
   GoabIcon,
   GoabDataGrid,
   GoabSkeleton,
-} from '@abgov/angular-components';
-import {
-  GoabxTable,
-  GoabxTableSortHeader,
-  GoabxBadge,
+  GoabTable,
+  GoabTableSortHeader,
+  GoabBadge,
 } from '@abgov/angular-components';
 import { GoabTableOnMultiSortDetail } from '@abgov/ui-components-common';
 import { Case } from '../../../../types/case';
@@ -41,12 +38,11 @@ export interface TableColumn {
     GoabIcon,
     GoabDataGrid,
     GoabSkeleton,
-    GoabxTable,
-    GoabxTableSortHeader,
-    GoabxBadge,
+    GoabTable,
+    GoabTableSortHeader,
+    GoabBadge,
     ScrollContainerComponent,
   ],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA],
   templateUrl: './case-table.component.html',
   styleUrl: './case-table.component.css',
 })

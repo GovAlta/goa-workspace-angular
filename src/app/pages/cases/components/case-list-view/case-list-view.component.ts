@@ -1,10 +1,4 @@
-import {
-  Component,
-  CUSTOM_ELEMENTS_SCHEMA,
-  Input,
-  Output,
-  EventEmitter,
-} from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { NgTemplateOutlet } from '@angular/common';
 import {
   GoabIcon,
@@ -12,8 +6,10 @@ import {
   GoabDataGrid,
   GoabIconButton,
   GoabSkeleton,
+  GoabBadge,
+  GoabLink,
+  GoabButton,
 } from '@abgov/angular-components';
-import { GoabxBadge, GoabxLink, GoabxButton } from '@abgov/angular-components';
 import { Case } from '../../../../types/case';
 import { GroupedCase } from '../../types';
 import { EmptyStateComponent } from '../../../../components/empty-state/empty-state.component';
@@ -27,12 +23,11 @@ import { EmptyStateComponent } from '../../../../components/empty-state/empty-st
     GoabDataGrid,
     GoabIconButton,
     GoabSkeleton,
-    GoabxBadge,
-    GoabxLink,
-    GoabxButton,
+    GoabBadge,
+    GoabLink,
+    GoabButton,
     EmptyStateComponent,
   ],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA],
   templateUrl: './case-list-view.component.html',
   styleUrl: './case-list-view.component.css',
 })

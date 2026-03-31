@@ -1,9 +1,4 @@
-import {
-  Component,
-  CUSTOM_ELEMENTS_SCHEMA,
-  OnInit,
-  ViewEncapsulation,
-} from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import {
   GoabBlock,
@@ -12,11 +7,11 @@ import {
   GoabText,
 } from '@abgov/angular-components';
 import {
-  GoabxBadge,
-  GoabxButton,
-  GoabxLink,
-  GoabxTable,
-  GoabxTableSortHeader,
+  GoabBadge,
+  GoabButton,
+  GoabLink,
+  GoabTable,
+  GoabTableSortHeader,
   GoabTableOnMultiSortDetail,
   GoabInputOnKeyPressDetail,
 } from '@abgov/angular-components';
@@ -47,11 +42,11 @@ import mockData from '../../data/mockSearchResults.json';
     GoabDataGrid,
     GoabSkeleton,
     GoabText,
-    GoabxBadge,
-    GoabxButton,
-    GoabxLink,
-    GoabxTable,
-    GoabxTableSortHeader,
+    GoabBadge,
+    GoabButton,
+    GoabLink,
+    GoabTable,
+    GoabTableSortHeader,
     PageHeaderComponent,
     SearchHeaderFiltersComponent,
     SearchFilterChipsComponent,
@@ -61,7 +56,6 @@ import mockData from '../../data/mockSearchResults.json';
     EmptyStateComponent,
   ],
   providers: [MultiColumnSortService],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA],
   encapsulation: ViewEncapsulation.None,
   templateUrl: './search.component.html',
   styleUrl: './search.component.css',
@@ -71,7 +65,7 @@ export class SearchComponent implements OnInit {
     private router: Router,
     public viewport: ViewportService,
     public sortService: MultiColumnSortService,
-  ) {}
+  ) { }
 
   searchResults: SearchResult[] = [];
   isLoading = true;

@@ -1,7 +1,7 @@
 @if (groupedCases) {
   <!-- Grouped table view -->
   <div class="table-wrapper">
-    <goabx-table width="100%" variant="normal" [striped]="true">
+    <goab-table width="100%" variant="normal" [striped]="true">
       <thead>
         <tr>
           @for (column of columns; track column.key) {
@@ -35,7 +35,7 @@
                   size="small"
                 />
                 <span class="table-group-row__label">{{ group.label }}</span>
-                <goabx-badge
+                <goab-badge
                   type="default"
                   [content]="'' + group.cases.length"
                   emphasis="subtle"
@@ -68,14 +68,14 @@
           }
         </tbody>
       }
-    </goabx-table>
+    </goab-table>
   </div>
 } @else {
   <!-- Flat table view with DataTable-like layout -->
   <app-scroll-container>
     <div class="table-wrapper">
       <goab-data-grid keyboardNav="table" keyboardIconPosition="right">
-        <goabx-table
+        <goab-table
           width="100%"
           (onMultiSort)="onMultiSort($event)"
           sortMode="multi"
@@ -91,13 +91,13 @@
                       [ngTemplateOutlet]="column.headerTemplate"
                     ></ng-container>
                   } @else if (column.sortable && column.header && sortConfig) {
-                    <goabx-table-sort-header
+                    <goab-table-sort-header
                       [name]="column.key"
                       [direction]="getColumnSortDirection(column.key)"
                       [sortOrder]="getColumnSortOrder(column.key)"
                     >
                       {{ column.header }}
-                    </goabx-table-sort-header>
+                    </goab-table-sort-header>
                   } @else if (column.header) {
                     {{ column.header }}
                   }
@@ -172,7 +172,7 @@
               }
             }
           </tbody>
-        </goabx-table>
+        </goab-table>
       </goab-data-grid>
     </div>
   </app-scroll-container>

@@ -11,12 +11,10 @@ import {
   GoabIconButton,
   GoabRadioItem,
   GoabIcon,
-} from '@abgov/angular-components';
-import {
-  GoabxButton,
-  GoabxCheckbox,
-  GoabxRadioGroup,
-  GoabxLink,
+  GoabButton,
+  GoabCheckbox,
+  GoabRadioGroup,
+  GoabLink,
   GoabRadioGroupOnChangeDetail,
 } from '@abgov/angular-components';
 import { GoabIconType } from '@abgov/ui-components-common';
@@ -72,10 +70,10 @@ const LAYOUT_OPTIONS: {
     GoabIconButton,
     GoabRadioItem,
     GoabIcon,
-    GoabxButton,
-    GoabxCheckbox,
-    GoabxRadioGroup,
-    GoabxLink,
+    GoabButton,
+    GoabCheckbox,
+    GoabRadioGroup,
+    GoabLink,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   encapsulation: ViewEncapsulation.None,

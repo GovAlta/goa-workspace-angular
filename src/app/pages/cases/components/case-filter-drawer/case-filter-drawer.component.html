@@ -7,10 +7,10 @@
       [actions]="drawerActions"
     >
       <div class="filter-drawer__sections">
-        <goabx-form-item label="Status">
+        <goab-form-item label="Status">
           <div class="filter-drawer__checkbox-group">
             @for (status of filterOptions.statuses; track status) {
-              <goabx-checkbox
+              <goab-checkbox
                 [name]="'status-' + status"
                 [text]="status"
                 [checked]="pendingFilters.status.includes(status)"
@@ -18,12 +18,12 @@
               />
             }
           </div>
-        </goabx-form-item>
+        </goab-form-item>
 
-        <goabx-form-item label="Priority">
+        <goab-form-item label="Priority">
           <div class="filter-drawer__checkbox-group">
             @for (priority of filterOptions.priorities; track priority) {
-              <goabx-checkbox
+              <goab-checkbox
                 [name]="'priority-' + priority"
                 [text]="capitalize(priority)"
                 [checked]="pendingFilters.priority.includes(priority)"
@@ -31,12 +31,12 @@
               />
             }
           </div>
-        </goabx-form-item>
+        </goab-form-item>
 
-        <goabx-form-item label="Assigned to">
+        <goab-form-item label="Assigned to">
           <div class="filter-drawer__checkbox-group">
             @for (staff of filterOptions.staffMembers; track staff) {
-              <goabx-checkbox
+              <goab-checkbox
                 [name]="'staff-' + staff"
                 [text]="staff"
                 [checked]="pendingFilters.staff.includes(staff)"
@@ -44,15 +44,15 @@
               />
             }
           </div>
-        </goabx-form-item>
+        </goab-form-item>
 
-        <goabx-form-item label="Jurisdiction">
+        <goab-form-item label="Jurisdiction">
           <div class="filter-drawer__checkbox-group">
             @for (
               jurisdiction of filterOptions.jurisdictions;
               track jurisdiction
             ) {
-              <goabx-checkbox
+              <goab-checkbox
                 [name]="'jurisdiction-' + jurisdiction"
                 [text]="jurisdiction"
                 [checked]="pendingFilters.jurisdiction.includes(jurisdiction)"
@@ -60,13 +60,13 @@
               />
             }
           </div>
-        </goabx-form-item>
+        </goab-form-item>
 
         @if (hasFilters) {
           <goab-divider />
-          <goabx-button type="tertiary" size="compact" (onClick)="onClearAll()">
+          <goab-button type="tertiary" size="compact" (onClick)="onClearAll()">
             Clear all filters
-          </goabx-button>
+          </goab-button>
         }
       </div>
     </goab-push-drawer>
@@ -75,11 +75,11 @@
 
 <ng-template #drawerActions>
   <goab-button-group alignment="start" gap="compact">
-    <goabx-button type="primary" size="compact" (onClick)="onApply()">
+    <goab-button type="primary" size="compact" (onClick)="onApply()">
       Apply filters
-    </goabx-button>
-    <goabx-button type="tertiary" size="compact" (onClick)="onClose()">
+    </goab-button>
+    <goab-button type="tertiary" size="compact" (onClick)="onClose()">
       Cancel
-    </goabx-button>
+    </goab-button>
   </goab-button-group>
 </ng-template>

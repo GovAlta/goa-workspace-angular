@@ -1,4 +1,4 @@
-import { Component, CUSTOM_ELEMENTS_SCHEMA, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import {
   GoabBlock,
   GoabContainer,
@@ -6,7 +6,7 @@ import {
   GoabSkeleton,
   GoabText,
 } from '@abgov/angular-components';
-import { GoabxBadge, GoabxButton } from '@abgov/angular-components';
+import { GoabBadge, GoabButton } from '@abgov/angular-components';
 import { SearchResult } from '../../../../types/search-result';
 import { getTypeBadgeProps } from '../../../../utils/badge-utils';
 import { EmptyStateComponent } from '../../../../components/empty-state/empty-state.component';
@@ -19,11 +19,10 @@ import { EmptyStateComponent } from '../../../../components/empty-state/empty-st
     GoabDataGrid,
     GoabSkeleton,
     GoabText,
-    GoabxBadge,
-    GoabxButton,
+    GoabBadge,
+    GoabButton,
     EmptyStateComponent,
   ],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA],
   templateUrl: './search-card-view.component.html',
   styleUrl: './search-card-view.component.css',
 })

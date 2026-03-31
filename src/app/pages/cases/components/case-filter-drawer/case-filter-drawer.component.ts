@@ -1,19 +1,11 @@
-import {
-  Component,
-  CUSTOM_ELEMENTS_SCHEMA,
-  Input,
-  Output,
-  EventEmitter,
-} from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import {
   GoabButtonGroup,
   GoabDivider,
   GoabPushDrawer,
-} from '@abgov/angular-components';
-import {
-  GoabxButton,
-  GoabxFormItem,
-  GoabxCheckbox,
+  GoabButton,
+  GoabFormItem,
+  GoabCheckbox,
 } from '@abgov/angular-components';
 import { FilterState, FilterOptions } from '../../types';
 
@@ -23,11 +15,10 @@ import { FilterState, FilterOptions } from '../../types';
     GoabButtonGroup,
     GoabDivider,
     GoabPushDrawer,
-    GoabxButton,
-    GoabxFormItem,
-    GoabxCheckbox,
+    GoabButton,
+    GoabFormItem,
+    GoabCheckbox,
   ],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA],
   templateUrl: './case-filter-drawer.component.html',
   styleUrl: './case-filter-drawer.component.css',
 })

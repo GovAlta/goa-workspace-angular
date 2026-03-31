@@ -25,7 +25,7 @@
               size="small"
             />
             <span class="cases-group__label">{{ group.label }}</span>
-            <goabx-badge
+            <goab-badge
               type="default"
               [content]="'' + group.cases.length"
               emphasis="subtle"
@@ -73,7 +73,7 @@
                             }}</span>
                           </span>
                           <span data-grid="cell-3">
-                            <goabx-badge
+                            <goab-badge
                               [type]="caseItem.status"
                               [content]="caseItem.statusText"
                               [icon]="true"
@@ -88,7 +88,7 @@
                           >
                             <div class="expandable-list__header-actions">
                               @if (caseItem.comments > 0) {
-                                <goabx-link
+                                <goab-link
                                   leadingIcon="chatbox"
                                   size="small"
                                   color="dark"
@@ -98,7 +98,7 @@
                                       caseItem.comments === 1 ? "" : "s"
                                     }}
                                   </a>
-                                </goabx-link>
+                                </goab-link>
                               }
                             </div>
                           </div>
@@ -106,13 +106,13 @@
                             class="expandable-list__actions"
                             data-grid="cell-5"
                           >
-                            <goabx-button
+                            <goab-button
                               type="tertiary"
                               size="compact"
                               (onClick)="onMenuAction('view', caseItem.id)"
                             >
                               View
-                            </goabx-button>
+                            </goab-button>
                           </div>
                         </div>
                       </div>
@@ -191,7 +191,7 @@
                     }}</span>
                   </span>
                   <span data-grid="cell-3">
-                    <goabx-badge
+                    <goab-badge
                       [type]="caseItem.status"
                       [content]="caseItem.statusText"
                       [icon]="true"
@@ -203,7 +203,7 @@
                   <div class="expandable-list__secondary" data-grid="cell-4">
                     <div class="expandable-list__header-actions">
                       @if (caseItem.comments > 0) {
-                        <goabx-link
+                        <goab-link
                           leadingIcon="chatbox"
                           size="small"
                           color="dark"
@@ -213,18 +213,18 @@
                               caseItem.comments === 1 ? "" : "s"
                             }}
                           </a>
-                        </goabx-link>
+                        </goab-link>
                       }
                     </div>
                   </div>
                   <div class="expandable-list__actions" data-grid="cell-5">
-                    <goabx-button
+                    <goab-button
                       type="tertiary"
                       size="compact"
                       (onClick)="onMenuAction('view', caseItem.id)"
                     >
                       View
-                    </goabx-button>
+                    </goab-button>
                   </div>
                 </div>
               </div>

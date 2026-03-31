@@ -31,7 +31,7 @@
     <app-scroll-container>
       <div class="table-wrapper">
         <goab-data-grid keyboardNav="table" keyboardIconPosition="right">
-          <goabx-table
+          <goab-table
             width="100%"
             (onMultiSort)="onMultiSort($event)"
             sortMode="multi"
@@ -42,33 +42,33 @@
               <tr data-grid="row">
                 <th data-grid="cell">Name</th>
                 <th data-grid="cell">
-                  <goabx-table-sort-header
+                  <goab-table-sort-header
                     name="status"
                     [direction]="getColumnSortDirection('status')"
                     [sortOrder]="getColumnSortOrder('status')"
                   >
                     Status
-                  </goabx-table-sort-header>
+                  </goab-table-sort-header>
                 </th>
                 <th data-grid="cell">Staff</th>
                 <th data-grid="cell">
-                  <goabx-table-sort-header
+                  <goab-table-sort-header
                     name="dueDate"
                     [direction]="getColumnSortDirection('dueDate')"
                     [sortOrder]="getColumnSortOrder('dueDate')"
                   >
                     Due date
-                  </goabx-table-sort-header>
+                  </goab-table-sort-header>
                 </th>
                 <th data-grid="cell">File number</th>
                 <th data-grid="cell">
-                  <goabx-table-sort-header
+                  <goab-table-sort-header
                     name="type"
                     [direction]="getColumnSortDirection('type')"
                     [sortOrder]="getColumnSortOrder('type')"
                   >
                     Type
-                  </goabx-table-sort-header>
+                  </goab-table-sort-header>
                 </th>
                 <th data-grid="cell"></th>
               </tr>
@@ -107,13 +107,13 @@
                       heading="No results found"
                       subline="Try adjusting your search or filters."
                     >
-                      <goabx-button
+                      <goab-button
                         type="tertiary"
                         size="compact"
                         (onClick)="clearAllFilters()"
                       >
                         Clear filters
-                      </goabx-button>
+                      </goab-button>
                     </app-empty-state>
                   </td>
                 </tr>
@@ -126,7 +126,7 @@
                       }}</a>
                     </td>
                     <td data-grid="cell">
-                      <goabx-badge
+                      <goab-badge
                         [type]="result.status"
                         [content]="result.statusText"
                         emphasis="subtle"
@@ -143,22 +143,22 @@
                       {{ result.fileNumber }}
                     </td>
                     <td data-grid="cell">
-                      <goabx-badge
+                      <goab-badge
                         [type]="getTypeBadge(result.type).type"
                         [content]="getTypeBadge(result.type).content"
                         emphasis="subtle"
                       />
                     </td>
                     <td data-grid="cell">
-                      <goabx-link color="dark">
+                      <goab-link color="dark">
                         <a [routerLink]="['/case', result.id]">View</a>
-                      </goabx-link>
+                      </goab-link>
                     </td>
                   </tr>
                 }
               }
             </tbody>
-          </goabx-table>
+          </goab-table>
         </goab-data-grid>
       </div>
     </app-scroll-container>

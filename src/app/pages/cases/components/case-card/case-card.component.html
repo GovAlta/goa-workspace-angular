@@ -1,62 +1,3 @@
-<ng-template #cardTitle>
-  <div class="data-card__title">
-    @if (activeTab === "all") {
-      <goabx-checkbox
-        [name]="'select-card-' + caseItem.id"
-        [checked]="caseItem.selected"
-        (onChange)="onSelectChange()"
-        [ariaLabel]="'Select ' + caseItem.name"
-      />
-    }
-    <goab-text size="heading-xs" mt="none" mb="none" data-grid="cell-1">
-      {{ caseItem.name }}
-    </goab-text>
-    <goabx-badge
-      data-grid="cell-2"
-      [type]="caseItem.status"
-      [content]="caseItem.statusText"
-      [icon]="true"
-      emphasis="subtle"
-    />
-  </div>
-</ng-template>
-
-<ng-template #cardActions>
-  <div data-grid="cell-3" class="data-card__actions">
-    @if (commentCount > 0) {
-      <goabx-link leadingIcon="chatbox" size="small" color="dark">
-        <button class="link-button" (click)="onCommentClick()">
-          {{ commentCount }} comment{{ commentCount === 1 ? "" : "s" }}
-        </button>
-      </goabx-link>
-    }
-    @if (activeTab === "all") {
-      <goabx-menu-button
-        leadingIcon="ellipsis-horizontal:filled"
-        size="compact"
-        (onAction)="onMenuAction($event, caseItem.id)"
-      >
-        <goabx-menu-action text="View" action="view" />
-        <goabx-menu-action text="Assign me" action="assign" />
-      </goabx-menu-button>
-    } @else if (activeTab === "todo") {
-      <goabx-button type="tertiary" size="compact" (onClick)="onStartClick()">
-        Start
-      </goabx-button>
-    } @else {
-      <goabx-menu-button
-        leadingIcon="ellipsis-horizontal:filled"
-        size="compact"
-        (onAction)="onMenuAction($event, caseItem.id)"
-      >
-        <goabx-menu-action text="Continue" action="continue" />
-        <goabx-menu-action text="Unassign me" action="unassign" />
-        <goabx-menu-action text="Mark as complete" action="complete" />
-      </goabx-menu-button>
-    }
-  </div>
-</ng-template>
-
 <goab-container
   accent="thick"
   type="non-interactive"
@@ -111,3 +52,62 @@
     </div>
   </div>
 </goab-container>
+
+<ng-template #cardTitle>
+  <div class="data-card__title">
+    @if (activeTab === "all") {
+      <goab-checkbox
+        [name]="'select-card-' + caseItem.id"
+        [checked]="caseItem.selected"
+        (onChange)="onSelectChange()"
+        [ariaLabel]="'Select ' + caseItem.name"
+      />
+    }
+    <goab-text size="heading-xs" mt="none" mb="none" data-grid="cell-1">
+      {{ caseItem.name }}
+    </goab-text>
+    <goab-badge
+      data-grid="cell-2"
+      [type]="caseItem.status"
+      [content]="caseItem.statusText"
+      [icon]="true"
+      emphasis="subtle"
+    />
+  </div>
+</ng-template>
+
+<ng-template #cardActions>
+  <div data-grid="cell-3" class="data-card__actions">
+    @if (commentCount > 0) {
+      <goab-link leadingIcon="chatbox" size="small" color="dark">
+        <button class="link-button" (click)="onCommentClick()">
+          {{ commentCount }} comment{{ commentCount === 1 ? "" : "s" }}
+        </button>
+      </goab-link>
+    }
+    @if (activeTab === "all") {
+      <goab-menu-button
+        leadingIcon="ellipsis-horizontal:filled"
+        size="compact"
+        (onAction)="onMenuAction($event, caseItem.id)"
+      >
+        <goab-menu-action text="View" action="view" />
+        <goab-menu-action text="Assign me" action="assign" />
+      </goab-menu-button>
+    } @else if (activeTab === "todo") {
+      <goab-button type="tertiary" size="compact" (onClick)="onStartClick()">
+        Start
+      </goab-button>
+    } @else {
+      <goab-menu-button
+        leadingIcon="ellipsis-horizontal:filled"
+        size="compact"
+        (onAction)="onMenuAction($event, caseItem.id)"
+      >
+        <goab-menu-action text="Continue" action="continue" />
+        <goab-menu-action text="Unassign me" action="unassign" />
+        <goab-menu-action text="Mark as complete" action="complete" />
+      </goab-menu-button>
+    }
+  </div>
+</ng-template>

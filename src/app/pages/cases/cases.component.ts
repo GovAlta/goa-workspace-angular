@@ -1,6 +1,5 @@
 import {
   Component,
-  CUSTOM_ELEMENTS_SCHEMA,
   OnInit,
   OnDestroy,
   TemplateRef,
@@ -19,14 +18,12 @@ import {
   GoabTabsOnChangeDetail,
   GoabInputOnKeyPressDetail,
   GoabTableOnMultiSortDetail,
-} from '@abgov/angular-components';
-import {
-  GoabxButton,
-  GoabxCheckbox,
-  GoabxBadge,
-  GoabxMenuButton,
-  GoabxMenuAction,
-  GoabxLink,
+  GoabButton,
+  GoabCheckbox,
+  GoabBadge,
+  GoabMenuButton,
+  GoabMenuAction,
+  GoabLink,
 } from '@abgov/angular-components';
 import { Case } from '../../types/case';
 import { Comments } from '../../types/comments';
@@ -73,12 +70,12 @@ const COMPACT_TOOLBAR_BREAKPOINT = 768;
     GoabSkeleton,
     GoabDataGrid,
     GoabIcon,
-    GoabxButton,
-    GoabxCheckbox,
-    GoabxBadge,
-    GoabxMenuButton,
-    GoabxMenuAction,
-    GoabxLink,
+    GoabButton,
+    GoabCheckbox,
+    GoabBadge,
+    GoabMenuButton,
+    GoabMenuAction,
+    GoabLink,
     PageHeaderComponent,
     EmptyStateComponent,
     CommentsDrawerComponent,
@@ -91,7 +88,6 @@ const COMPACT_TOOLBAR_BREAKPOINT = 768;
     CaseFilterDrawerComponent,
   ],
   providers: [MultiColumnSortService, DisplaySettingsService],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA],
   encapsulation: ViewEncapsulation.None,
   templateUrl: './cases.component.html',
   styleUrl: './cases.component.css',
@@ -103,7 +99,7 @@ export class CasesComponent implements OnInit, OnDestroy {
     private sortService: MultiColumnSortService,
     private displayService: DisplaySettingsService,
     private footerService: PageFooterService,
-  ) {}
+  ) { }
 
   @ViewChild('footerTemplate', { static: true })
   footerTemplate!: TemplateRef<unknown>;

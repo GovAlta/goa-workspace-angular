@@ -1,16 +1,10 @@
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import {
-  Component,
-  CUSTOM_ELEMENTS_SCHEMA,
-  Input,
-  Output,
-  EventEmitter,
-} from '@angular/core';
-import {
-  GoabxInput,
-  GoabxDropdown,
-  GoabxDropdownItem,
-  GoabxMenuAction,
-  GoabxMenuButton,
+  GoabInput,
+  GoabDropdown,
+  GoabDropdownItem,
+  GoabMenuAction,
+  GoabMenuButton,
 } from '@abgov/angular-components';
 import {
   GoabIconType,
@@ -31,13 +25,12 @@ export interface SearchFilters {
 @Component({
   selector: 'app-search-header-filters',
   imports: [
-    GoabxInput,
-    GoabxDropdown,
-    GoabxDropdownItem,
-    GoabxMenuAction,
-    GoabxMenuButton,
+    GoabInput,
+    GoabDropdown,
+    GoabDropdownItem,
+    GoabMenuAction,
+    GoabMenuButton,
   ],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA],
   templateUrl: './search-header-filters.component.html',
   styleUrl: './search-header-filters.component.css',
 })

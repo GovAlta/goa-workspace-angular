@@ -1,19 +1,14 @@
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import {
-  Component,
-  CUSTOM_ELEMENTS_SCHEMA,
-  Input,
-  Output,
-  EventEmitter,
-} from '@angular/core';
-import { GoabIconButton, GoabTab } from '@abgov/angular-components';
-import {
-  GoabxTabs,
-  GoabxBadge,
-  GoabxFormItem,
-  GoabxInput,
-  GoabxButton,
-  GoabxMenuButton,
-  GoabxMenuAction,
+  GoabIconButton,
+  GoabTab,
+  GoabTabs,
+  GoabBadge,
+  GoabFormItem,
+  GoabInput,
+  GoabButton,
+  GoabMenuButton,
+  GoabMenuAction,
 } from '@abgov/angular-components';
 import {
   GoabIconType,
@@ -37,16 +32,15 @@ const VALID_TABS = ['all', 'unassigned', 'todo', 'progress', 'complete'];
   imports: [
     GoabIconButton,
     GoabTab,
-    GoabxTabs,
-    GoabxBadge,
-    GoabxFormItem,
-    GoabxInput,
-    GoabxButton,
-    GoabxMenuButton,
-    GoabxMenuAction,
+    GoabTabs,
+    GoabBadge,
+    GoabFormItem,
+    GoabInput,
+    GoabButton,
+    GoabMenuButton,
+    GoabMenuAction,
     DisplaySettingsComponent,
   ],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA],
   templateUrl: './case-toolbar.component.html',
   styleUrl: './case-toolbar.component.css',
 })

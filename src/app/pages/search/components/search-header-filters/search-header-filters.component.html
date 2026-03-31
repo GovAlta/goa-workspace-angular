@@ -1,6 +1,6 @@
 <div class="search-header-filters">
   <div class="search-header-filters__search">
-    <goabx-input
+    <goab-input
       name="searchText"
       [value]="filters.searchText"
       (onChange)="onSearchChange($event)"
@@ -15,21 +15,21 @@
   </div>
 
   <div class="search-header-filters__dropdowns">
-    <goabx-dropdown
+    <goab-dropdown
       [value]="filters.entity"
       (onChange)="onEntityChange($event)"
       placeholder="All types"
       size="compact"
       width="120px"
     >
-      <goabx-dropdown-item value="all" label="All types" />
-      <goabx-dropdown-item value="client" label="Clients" />
-      <goabx-dropdown-item value="case" label="Cases" />
-      <goabx-dropdown-item value="application" label="Applications" />
-      <goabx-dropdown-item value="document" label="Documents" />
-    </goabx-dropdown>
+      <goab-dropdown-item value="all" label="All types" />
+      <goab-dropdown-item value="client" label="Clients" />
+      <goab-dropdown-item value="case" label="Cases" />
+      <goab-dropdown-item value="application" label="Applications" />
+      <goab-dropdown-item value="document" label="Documents" />
+    </goab-dropdown>
 
-    <goabx-dropdown
+    <goab-dropdown
       [value]="filters.status"
       (onChange)="onStatusChange($event)"
       placeholder="All statuses"
@@ -37,34 +37,34 @@
       width="150px"
       maxHeight="70vh"
     >
-      <goabx-dropdown-item value="all" label="All statuses" />
+      <goab-dropdown-item value="all" label="All statuses" />
       @for (status of statusOptions; track status) {
-        <goabx-dropdown-item [value]="status" [label]="status" />
+        <goab-dropdown-item [value]="status" [label]="status" />
       }
-    </goabx-dropdown>
+    </goab-dropdown>
 
-    <goabx-menu-button
+    <goab-menu-button
       size="compact"
       type="tertiary"
       [leadingIcon]="getViewIcon()"
       [text]="getViewLabel()"
       (onAction)="onViewAction($event)"
     >
-      <goabx-menu-action
+      <goab-menu-action
         text="Table"
         action="table"
         [icon]="selectedView === 'table' ? 'checkmark' : undefined"
       />
-      <goabx-menu-action
+      <goab-menu-action
         text="Card"
         action="card"
         [icon]="selectedView === 'card' ? 'checkmark' : undefined"
       />
-      <goabx-menu-action
+      <goab-menu-action
         text="List"
         action="list"
         [icon]="selectedView === 'list' ? 'checkmark' : undefined"
       />
-    </goabx-menu-button>
+    </goab-menu-button>
   </div>
 </div>

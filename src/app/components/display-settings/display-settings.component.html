@@ -8,9 +8,9 @@
       ariaLabel="Settings"
     />
   } @else {
-    <goabx-button type="tertiary" size="compact" trailingIcon="chevron-down">
+    <goab-button type="tertiary" size="compact" trailingIcon="chevron-down">
       Settings
-    </goabx-button>
+    </goab-button>
   }
 </ng-template>
 
@@ -42,7 +42,7 @@
           </div>
 
           <div class="settings-popover__options">
-            <goabx-radio-group
+            <goab-radio-group
               name="layout"
               [value]="settings.layout"
               (onChange)="handleLayoutChange($event)"
@@ -53,7 +53,7 @@
                   [label]="getLayoutRadioLabel(option)"
                 />
               }
-            </goabx-radio-group>
+            </goab-radio-group>
           </div>
         </div>
       }
@@ -76,7 +76,7 @@
 
           <div class="settings-popover__options">
             @for (column of columnOptions; track column.key) {
-              <goabx-checkbox
+              <goab-checkbox
                 [name]="'column-' + column.key"
                 [text]="column.label"
                 [checked]="isColumnChecked(column.key)"
@@ -105,7 +105,7 @@
           </div>
 
           <div class="settings-popover__options">
-            <goabx-radio-group
+            <goab-radio-group
               name="groupBy"
               [value]="getRadioGroupValue()"
               (onChange)="handleGroupByChange($event)"
@@ -119,7 +119,7 @@
                   [label]="option.label"
                 />
               }
-            </goabx-radio-group>
+            </goab-radio-group>
           </div>
         </div>
       }
@@ -179,9 +179,9 @@
           </div>
 
           <div class="settings-popover__reset">
-            <goabx-link color="dark">
+            <goab-link color="dark">
               <a href="#" (click)="onResetClick($event)">Reset</a>
-            </goabx-link>
+            </goab-link>
           </div>
         </div>
       }

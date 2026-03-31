@@ -1,11 +1,11 @@
 import { Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { Router } from '@angular/router';
 import {
-  GoabxWorkSideMenu,
-  GoabxWorkSideMenuGroup,
-  GoabxWorkSideMenuItem,
-  GoabxWorkSideNotificationPanel,
-  GoabxWorkSideNotificationItem,
+  GoabWorkSideMenu,
+  GoabWorkSideMenuGroup,
+  GoabWorkSideMenuItem,
+  GoabWorkSideNotificationPanel,
+  GoabWorkSideNotificationItem,
 } from '@abgov/angular-components';
 import { ViewportService } from './services/viewport.service';
 import { NotificationService } from './services/notification.service';
@@ -14,11 +14,11 @@ import { WorkspaceLayoutComponent } from './components/workspace-layout/workspac
 @Component({
   selector: 'app-root',
   imports: [
-    GoabxWorkSideMenu,
-    GoabxWorkSideMenuGroup,
-    GoabxWorkSideMenuItem,
-    GoabxWorkSideNotificationPanel,
-    GoabxWorkSideNotificationItem,
+    GoabWorkSideMenu,
+    GoabWorkSideMenuGroup,
+    GoabWorkSideMenuItem,
+    GoabWorkSideNotificationPanel,
+    GoabWorkSideNotificationItem,
     WorkspaceLayoutComponent,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],

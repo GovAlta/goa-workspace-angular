@@ -2,10 +2,10 @@
 <app-page-header title="Cases" [hasToolbar]="true">
   <div actions>
     <goab-button-group gap="compact" alignment="start">
-      <goabx-button type="secondary" size="compact"> More </goabx-button>
-      <goabx-button type="primary" size="compact">
+      <goab-button type="secondary" size="compact"> More </goab-button>
+      <goab-button type="primary" size="compact">
         Add application
-      </goabx-button>
+      </goab-button>
     </goab-button-group>
   </div>
 
@@ -57,7 +57,7 @@
 
   <!-- Column templates for table view -->
   <ng-template #selectAllHeader>
-      <goabx-checkbox
+      <goab-checkbox
         name="selectAll"
         [checked]="isAllSelected"
         [indeterminate]="isIndeterminate"
@@ -67,7 +67,7 @@
     </ng-template>
 
     <ng-template #selectCell let-caseItem>
-      <goabx-checkbox
+      <goab-checkbox
         [name]="'select-' + caseItem.id"
         [checked]="caseItem.selected"
         (onChange)="handleSelectChange(caseItem.id, !caseItem.selected)"
@@ -82,7 +82,7 @@
     </ng-template>
 
     <ng-template #statusCell let-caseItem>
-      <goabx-badge
+      <goab-badge
         [type]="caseItem.status"
         [content]="caseItem.statusText"
         [icon]="true"
@@ -94,11 +94,11 @@
       @if (caseItem.staff) {
         {{ caseItem.staff }}
       } @else {
-        <goabx-link color="dark" size="medium">
+        <goab-link color="dark" size="medium">
           <a href="#" (click)="$event.preventDefault(); $event.stopPropagation()">
             Assign me
           </a>
-        </goabx-link>
+        </goab-link>
       }
     </ng-template>
 
@@ -116,7 +116,7 @@
 
     <ng-template #priorityCell let-caseItem>
       @if (caseItem.priority) {
-        <goabx-badge
+        <goab-badge
           [type]="getPriorityBadgeProps(caseItem.priority).type"
           [content]="getPriorityBadgeProps(caseItem.priority).content"
         />
@@ -126,15 +126,15 @@
     </ng-template>
 
     <ng-template #actionsCell let-caseItem>
-      <goabx-menu-button
+      <goab-menu-button
         leadingIcon="ellipsis-horizontal:filled"
         size="compact"
         (onAction)="onMenuActionButton($event.action, caseItem.id)"
       >
-        <goabx-menu-action text="View case" action="view" />
-        <goabx-menu-action text="Assign to me" action="assign" />
-        <goabx-menu-action text="Delete" icon="trash" action="delete" />
-      </goabx-menu-button>
+        <goab-menu-action text="View case" action="view" />
+        <goab-menu-action text="Assign to me" action="assign" />
+        <goab-menu-action text="Delete" icon="trash" action="delete" />
+      </goab-menu-button>
     </ng-template>
 
   <!-- Table view -->
@@ -234,7 +234,7 @@
                     size="small"
                   />
                   <span class="cases-group__label">{{ group.label }}</span>
-                  <goabx-badge
+                  <goab-badge
                     type="default"
                     [content]="'' + group.cases.length"
                     emphasis="subtle"
@@ -295,17 +295,17 @@
 <!-- Footer template for bulk actions -->
 <ng-template #footerTemplate>
   <goab-button-group gap="compact" alignment="start">
-    <goabx-button type="tertiary" size="compact" (onClick)="clearSelection()">
+    <goab-button type="tertiary" size="compact" (onClick)="clearSelection()">
       Clear selection ({{ selectedCount }})
-    </goabx-button>
-    <goabx-button type="primary" size="compact"> Assign to me </goabx-button>
-    <goabx-button
+    </goab-button>
+    <goab-button type="primary" size="compact"> Assign to me </goab-button>
+    <goab-button
       type="primary"
       size="compact"
       variant="destructive"
       (onClick)="deleteSelected()"
     >
       Delete selected
-    </goabx-button>
+    </goab-button>
   </goab-button-group>
 </ng-template>

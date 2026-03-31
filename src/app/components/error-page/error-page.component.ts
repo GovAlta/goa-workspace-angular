@@ -1,13 +1,12 @@
-import { Component, CUSTOM_ELEMENTS_SCHEMA, Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
-import { GoabxButton } from '@abgov/angular-components';
+import { GoabButton } from '@abgov/angular-components';
 import { GoabIconType } from '@abgov/ui-components-common';
 import { ErrorLayoutComponent } from '../error-layout/error-layout.component';
 
 @Component({
   selector: 'app-error-page',
-  imports: [GoabxButton, ErrorLayoutComponent],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  imports: [GoabButton, ErrorLayoutComponent],
   templateUrl: './error-page.component.html',
   styleUrl: './error-page.component.css',
 })

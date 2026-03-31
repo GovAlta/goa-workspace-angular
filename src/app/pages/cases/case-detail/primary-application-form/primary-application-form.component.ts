@@ -1,6 +1,5 @@
 import {
   Component,
-  CUSTOM_ELEMENTS_SCHEMA,
   Input,
   Output,
   EventEmitter,
@@ -13,8 +12,9 @@ import {
   GoabIconButton,
   GoabText,
   GoabTooltip,
+  GoabFormItem,
+  GoabInput,
 } from '@abgov/angular-components';
-import { GoabxFormItem, GoabxInput } from '@abgov/angular-components';
 import { PrimaryFormData } from '../../../../types/primary-form-data';
 
 @Component({
@@ -25,10 +25,9 @@ import { PrimaryFormData } from '../../../../types/primary-form-data';
     GoabIconButton,
     GoabText,
     GoabTooltip,
-    GoabxFormItem,
-    GoabxInput,
+    GoabFormItem,
+    GoabInput,
   ],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA],
   templateUrl: './primary-application-form.component.html',
   styleUrl: './primary-application-form.component.css',
 })

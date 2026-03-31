@@ -1,18 +1,10 @@
-import {
-  Component,
-  CUSTOM_ELEMENTS_SCHEMA,
-  Input,
-  Output,
-  EventEmitter,
-} from '@angular/core';
-import { GoabIcon } from '@abgov/angular-components';
-import { GoabxFilterChip, GoabxLink } from '@abgov/angular-components';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { GoabIcon, GoabFilterChip, GoabLink } from '@abgov/angular-components';
 import { FilterChip } from '../../types';
 
 @Component({
   selector: 'app-case-filter-chips',
-  imports: [GoabIcon, GoabxFilterChip, GoabxLink],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  imports: [GoabIcon, GoabFilterChip, GoabLink],
   templateUrl: './case-filter-chips.component.html',
   styleUrl: './case-filter-chips.component.css',
 })

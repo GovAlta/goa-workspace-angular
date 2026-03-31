@@ -13,12 +13,12 @@
     </div>
     <div class="dashboard-queue-card__badges">
       @if (caseItem.priority) {
-        <goabx-badge
+        <goab-badge
           [type]="caseItem.priority | priorityBadgeType"
           [content]="caseItem.priority | titlecase"
         />
       }
-      <goabx-badge
+      <goab-badge
         [type]="caseItem.status"
         [content]="caseItem.statusText"
         emphasis="subtle"

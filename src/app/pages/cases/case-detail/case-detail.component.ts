@@ -1,22 +1,15 @@
-import {
-  Component,
-  CUSTOM_ELEMENTS_SCHEMA,
-  OnInit,
-  ViewEncapsulation,
-} from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import {
   GoabSkeleton,
   GoabSpacer,
   GoabTab,
   GoabText,
-} from '@abgov/angular-components';
-import {
-  GoabxBadge,
-  GoabxButton,
-  GoabxTabs,
-  GoabxMenuButton,
-  GoabxMenuAction,
+  GoabBadge,
+  GoabButton,
+  GoabTabs,
+  GoabMenuButton,
+  GoabMenuAction,
   GoabTabsOnChangeDetail,
 } from '@abgov/angular-components';
 import { PageHeaderComponent } from '../../../components/page-header/page-header.component';
@@ -39,17 +32,16 @@ import mockComments from '../../../data/mockComments.json';
     GoabSpacer,
     GoabTab,
     GoabText,
-    GoabxBadge,
-    GoabxButton,
-    GoabxTabs,
-    GoabxMenuButton,
-    GoabxMenuAction,
+    GoabBadge,
+    GoabButton,
+    GoabTabs,
+    GoabMenuButton,
+    GoabMenuAction,
     PageHeaderComponent,
     CommentsDrawerComponent,
     CaseDetailHeaderComponent,
     CaseAccordionsComponent,
   ],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA],
   encapsulation: ViewEncapsulation.None,
   templateUrl: './case-detail.component.html',
   styleUrl: './case-detail.component.css',
@@ -58,7 +50,7 @@ export class CaseDetailComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     public viewport: ViewportService,
-  ) {}
+  ) { }
 
   isLoading = true;
   caseData: Case | null = null;

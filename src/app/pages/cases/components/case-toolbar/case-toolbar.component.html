@@ -1,6 +1,6 @@
 <div class="cases-toolbar-row">
   <div class="cases-toolbar-tabs">
-    <goabx-tabs
+    <goab-tabs
       [initialTab]="initialTab"
       (onChange)="onTabChange($event)"
       variant="segmented"
@@ -9,7 +9,7 @@
       <goab-tab slug="unassigned" [heading]="unassignedHeading">
         <ng-template #unassignedHeading>
           Unassigned
-          <goabx-badge
+          <goab-badge
             type="default"
             [content]="'' + unassignedCount"
             emphasis="subtle"
@@ -19,7 +19,7 @@
       <goab-tab slug="assigned-to-me" [heading]="assignedHeading">
         <ng-template #assignedHeading>
           Assigned to me
-          <goabx-badge
+          <goab-badge
             type="information"
             [content]="'' + myCasesCount"
             emphasis="subtle"
@@ -29,7 +29,7 @@
       <goab-tab slug="in-progress" [heading]="inProgressHeading">
         <ng-template #inProgressHeading>
           In progress
-          <goabx-badge
+          <goab-badge
             type="important"
             [content]="'' + inProgressCount"
             emphasis="subtle"
@@ -37,13 +37,13 @@
         </ng-template>
       </goab-tab>
       <goab-tab heading="Complete" slug="complete" />
-    </goabx-tabs>
+    </goab-tabs>
     <div class="cases-toolbar-tabs__spacer" aria-hidden="true"></div>
   </div>
   <div class="cases-search-row">
     <div class="cases-search-group">
-      <goabx-form-item id="filterInput" [error]="inputError">
-        <goabx-input
+      <goab-form-item id="filterInput" [error]="inputError">
+        <goab-input
           name="filterInput"
           [value]="inputValue"
           leadingIcon="search"
@@ -53,10 +53,10 @@
           (onChange)="onInputChange($event)"
           (onKeyPress)="onInputKeyPress($event)"
         />
-      </goabx-form-item>
+      </goab-form-item>
     </div>
     <div class="cases-actions-group">
-      <goabx-menu-button
+      <goab-menu-button
         size="compact"
         type="tertiary"
         [leadingIcon]="sortLeadingIcon"
@@ -64,16 +64,16 @@
         (onAction)="onSortAction($event)"
       >
         @for (entry of sortFieldEntries; track entry[0]) {
-          <goabx-menu-action
+          <goab-menu-action
             [text]="getSortMenuText(entry[0], entry[1])"
             [action]="'sort-' + entry[0]"
             [icon]="getSortIcon(entry[0])"
           />
         }
         @if (sortConfig.primary) {
-          <goabx-menu-action text="Clear sort" action="clear-sort" />
+          <goab-menu-action text="Clear sort" action="clear-sort" />
         }
-      </goabx-menu-button>
+      </goab-menu-button>
       @if (isCompactToolbar) {
         <goab-icon-button
           icon="filter-lines"
@@ -83,14 +83,14 @@
           (onClick)="onFilterOpen()"
         />
       } @else {
-        <goabx-button
+        <goab-button
           type="tertiary"
           leadingIcon="filter-lines"
           size="compact"
           (onClick)="onFilterOpen()"
         >
           Filter
-        </goabx-button>
+        </goab-button>
       }
       <app-display-settings
         [settings]="viewSettings"

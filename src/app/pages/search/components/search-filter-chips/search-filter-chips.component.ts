@@ -1,17 +1,9 @@
-import {
-  Component,
-  CUSTOM_ELEMENTS_SCHEMA,
-  Input,
-  Output,
-  EventEmitter,
-} from '@angular/core';
-import { GoabIcon } from '@abgov/angular-components';
-import { GoabxFilterChip, GoabxLink } from '@abgov/angular-components';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { GoabIcon, GoabFilterChip } from '@abgov/angular-components';
 
 @Component({
   selector: 'app-search-filter-chips',
-  imports: [GoabIcon, GoabxFilterChip, GoabxLink],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  imports: [GoabIcon, GoabFilterChip],
   templateUrl: './search-filter-chips.component.html',
   styleUrl: './search-filter-chips.component.css',
 })

@@ -1,18 +1,14 @@
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import {
-  Component,
-  CUSTOM_ELEMENTS_SCHEMA,
-  Input,
-  Output,
-  EventEmitter,
-} from '@angular/core';
-import { GoabContainer, GoabText, GoabBlock } from '@abgov/angular-components';
-import {
-  GoabxCheckbox,
-  GoabxBadge,
-  GoabxLink,
-  GoabxButton,
-  GoabxMenuButton,
-  GoabxMenuAction,
+  GoabContainer,
+  GoabText,
+  GoabBlock,
+  GoabCheckbox,
+  GoabBadge,
+  GoabLink,
+  GoabButton,
+  GoabMenuButton,
+  GoabMenuAction,
 } from '@abgov/angular-components';
 import { GoabMenuButtonOnActionDetail } from '@abgov/ui-components-common';
 import { Case } from '../../../../types/case';
@@ -29,14 +25,13 @@ const CATEGORY_LABELS: Record<string, string> = {
     GoabContainer,
     GoabText,
     GoabBlock,
-    GoabxCheckbox,
-    GoabxBadge,
-    GoabxLink,
-    GoabxButton,
-    GoabxMenuButton,
-    GoabxMenuAction,
+    GoabCheckbox,
+    GoabBadge,
+    GoabLink,
+    GoabButton,
+    GoabMenuButton,
+    GoabMenuAction,
   ],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA],
   templateUrl: './case-card.component.html',
   styleUrl: './case-card.component.css',
 })

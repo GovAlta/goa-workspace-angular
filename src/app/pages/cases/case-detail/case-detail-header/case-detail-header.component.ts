@@ -1,23 +1,22 @@
-import { Component, CUSTOM_ELEMENTS_SCHEMA, Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import {
   GoabIconButton,
   GoabText,
   GoabSkeleton,
   GoabTooltip,
 } from '@abgov/angular-components';
-import { GoabxBadge } from '@abgov/angular-components';
-import { GoabxBadgeType, GoabBadgeEmphasis } from '@abgov/ui-components-common';
+import { GoabBadge } from '@abgov/angular-components';
+import { GoabBadgeType, GoabBadgeEmphasis } from '@abgov/ui-components-common';
 
 interface StatusItem {
   label: string;
-  type?: GoabxBadgeType;
+  type?: GoabBadgeType;
   emphasis?: GoabBadgeEmphasis;
 }
 
 @Component({
   selector: 'app-case-detail-header',
-  imports: [GoabIconButton, GoabText, GoabSkeleton, GoabTooltip, GoabxBadge],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  imports: [GoabIconButton, GoabText, GoabSkeleton, GoabTooltip, GoabBadge],
   templateUrl: './case-detail-header.component.html',
   styleUrl: './case-detail-header.component.css',
 })

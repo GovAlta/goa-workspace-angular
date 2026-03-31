@@ -1,10 +1,10 @@
-import { Component, CUSTOM_ELEMENTS_SCHEMA, ChangeDetectorRef } from '@angular/core';
-import { GoabTab, GoabText } from '@abgov/angular-components';
+import { Component, ChangeDetectorRef } from '@angular/core';
 import {
-  GoabxTabs,
-  GoabxBadge,
-  GoabxButton,
-  GoabxWorkSideNotificationItem,
+  GoabTab,
+  GoabTabs,
+  GoabBadge,
+  GoabButton,
+  GoabWorkSideNotificationItem,
   GoabTabsOnChangeDetail,
 } from '@abgov/angular-components';
 import { PageHeaderComponent } from '../../components/page-header/page-header.component';
@@ -64,15 +64,13 @@ function groupByDate(items: AppNotification[]): NotificationGroup[] {
   selector: 'app-notifications',
   imports: [
     GoabTab,
-    GoabText,
-    GoabxTabs,
-    GoabxBadge,
-    GoabxButton,
-    GoabxWorkSideNotificationItem,
+    GoabTabs,
+    GoabBadge,
+    GoabButton,
+    GoabWorkSideNotificationItem,
     PageHeaderComponent,
     EmptyStateComponent,
   ],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA],
   templateUrl: './notifications.component.html',
   styleUrl: './notifications.component.css',
 })
@@ -80,7 +78,7 @@ export class NotificationsComponent {
   constructor(
     public notifications: NotificationService,
     private cdr: ChangeDetectorRef,
-  ) {}
+  ) { }
 
   activeTab: TabSlug = 'unread';
 

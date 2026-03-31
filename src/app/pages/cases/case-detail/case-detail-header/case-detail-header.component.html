@@ -8,7 +8,7 @@
       </div>
     } @else {
       @for (status of statuses; track $index) {
-        <goabx-badge
+        <goab-badge
           [content]="status.label"
           [type]="status.type"
           [emphasis]="status.emphasis"

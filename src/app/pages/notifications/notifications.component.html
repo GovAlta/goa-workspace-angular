@@ -1,13 +1,13 @@
 <app-page-header title="All Notifications" [hasTabs]="true" [hideTitleOnScroll]="true">
   <div actions>
     @if (notifications.unreadCount() > 0) {
-      <goabx-button
+      <goab-button
         type="tertiary"
         size="compact"
         (onClick)="onMarkAllAsRead()"
       >
         Mark all as read
-      </goabx-button>
+      </goab-button>
     }
   </div>
 
@@ -15,7 +15,7 @@
     <ng-template #unreadHeading>
       Unread
       @if (notifications.unreadCount() > 0) {
-        <goabx-badge
+        <goab-badge
           type="default"
           emphasis="subtle"
           [content]="'' + notifications.unreadCount()"
@@ -26,7 +26,7 @@
     <ng-template #urgentHeading>
       Urgent
       @if (urgentCount > 0) {
-        <goabx-badge
+        <goab-badge
           type="important"
           emphasis="subtle"
           [content]="'' + urgentCount"
@@ -34,7 +34,7 @@
       }
     </ng-template>
 
-    <goabx-tabs
+    <goab-tabs
       [initialTab]="tabIndex"
       (onChange)="handleTabChange($event)"
       variant="segmented"
@@ -42,7 +42,7 @@
       <goab-tab slug="unread" [heading]="unreadHeading" />
       <goab-tab slug="urgent" [heading]="urgentHeading" />
       <goab-tab slug="all" heading="All" />
-    </goabx-tabs>
+    </goab-tabs>
   </div>
 </app-page-header>
 
@@ -61,7 +61,7 @@
         <h4 class="notifications-group__heading">{{ group.label }}</h4>
         <div class="notifications-group__items">
           @for (notif of group.items; track notif.id) {
-            <goabx-work-side-notification-item
+            <goab-work-side-notification-item
               [title]="notif.title"
               [description]="notif.description"
               [timestamp]="notif.timestamp"

@@ -1,6 +1,5 @@
 import {
   Component,
-  CUSTOM_ELEMENTS_SCHEMA,
   ViewEncapsulation,
   OnInit,
   ElementRef,
@@ -13,7 +12,7 @@ import { ViewportService } from '../../services/viewport.service';
 import {
   GoabGrid,
   GoabText,
-  GoabxButton,
+  GoabButton,
   GoabContainer,
 } from '@abgov/angular-components';
 import { StatCardComponent } from './components/stat-card/stat-card.component';
@@ -44,7 +43,7 @@ import mockChartData from '../../data/mockChartData.json';
     GoabContainer,
     GoabGrid,
     GoabText,
-    GoabxButton,
+    GoabButton,
     NgxChartsModule,
     StatCardComponent,
     WorkQueueCardComponent,
@@ -52,7 +51,6 @@ import mockChartData from '../../data/mockChartData.json';
     ActivityItemComponent,
     PageHeaderComponent,
   ],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA],
   encapsulation: ViewEncapsulation.None,
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css',
@@ -96,7 +94,7 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
     public viewport: ViewportService,
     private router: Router,
     private el: ElementRef,
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.computeStats();

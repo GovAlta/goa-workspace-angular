@@ -5,26 +5,26 @@
     </ng-container>
 
     <ng-container toolbar>
-      <goabx-menu-button
+      <goab-menu-button
         type="tertiary"
         text="Assign"
         size="compact"
         maxWidth="100%"
         (onAction)="handleAssignClick()"
       >
-        <goabx-menu-action text="Assign to me" action="assign-me" />
-        <goabx-menu-action text="Assign to team" action="assign-team" />
-        <goabx-menu-action text="Unassign" action="unassign" />
-      </goabx-menu-button>
+        <goab-menu-action text="Assign to me" action="assign-me" />
+        <goab-menu-action text="Assign to team" action="assign-team" />
+        <goab-menu-action text="Unassign" action="unassign" />
+      </goab-menu-button>
 
-      <goabx-button
+      <goab-button
         type="tertiary"
         size="compact"
         (onClick)="handleCommentsClick()"
         leadingIcon="chatbubble"
       >
         {{ commentsButtonText }}
-      </goabx-button>
+      </goab-button>
     </ng-container>
   </app-page-header>
 
@@ -38,7 +38,7 @@
   />
 
   <div class="case-detail__page_content">
-    <goabx-tabs
+    <goab-tabs
       [initialTab]="1"
       [variant]="!isMobile ? 'segmented' : 'default'"
       (onChange)="handleTabsChange($event)"
@@ -47,10 +47,10 @@
       <goab-tab [heading]="previousAssessmentsHeading">
         <ng-template #previousAssessmentsHeading>
           Previous assessments
-          <goabx-badge type="archived" emphasis="subtle" content="0" />
+          <goab-badge type="archived" emphasis="subtle" content="0" />
         </ng-template>
       </goab-tab>
-    </goabx-tabs>
+    </goab-tabs>
 
     @if (isMobile) {
       <goab-spacer vSpacing="l" />
