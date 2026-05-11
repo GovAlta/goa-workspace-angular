@@ -1,7 +1,8 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 import { NgTemplateOutlet } from '@angular/common';
+import { GoabWorkspaceLayoutScrollStateService } from '@abgov/angular-components';
+import { GoabWorkspaceLayoutScrollState } from '@abgov/ui-components-common';
 import { PageFooterService } from '../../services/page-footer.service';
-import { ScrollStateService } from '../../services/scroll-state.service';
 
 @Component({
   selector: 'app-page-footer',
@@ -13,7 +14,7 @@ import { ScrollStateService } from '../../services/scroll-state.service';
 export class PageFooterComponent {
   constructor(
     public footer: PageFooterService,
-    public scrollState: ScrollStateService,
+    public scrollState: GoabWorkspaceLayoutScrollStateService,
   ) {}
 
   get isVisible(): boolean {
@@ -27,8 +28,8 @@ export class PageFooterComponent {
       const pos = this.scrollState.scrollPosition();
       return (
         this.scrollState.isScrollable() &&
-        pos !== 'at-top' &&
-        pos !== 'no-scroll'
+        pos !== GoabWorkspaceLayoutScrollState.AT_TOP &&
+        pos !== GoabWorkspaceLayoutScrollState.NO_SCROLL
       );
     }
     return true; // 'always', true, or default

@@ -4,9 +4,13 @@ import {
   Input,
   ViewEncapsulation,
 } from '@angular/core';
-import { GoabText, GoabIconButton } from '@abgov/angular-components';
+import {
+  GoabText,
+  GoabIconButton,
+  GoabWorkspaceLayoutScrollStateService,
+} from '@abgov/angular-components';
+import { GoabWorkspaceLayoutScrollState } from '@abgov/ui-components-common';
 import { ViewportService } from '../../services/viewport.service';
-import { ScrollStateService } from '../../services/scroll-state.service';
 
 @Component({
   selector: 'app-page-header',
@@ -24,12 +28,15 @@ export class PageHeaderComponent {
 
   constructor(
     public viewport: ViewportService,
-    public scrollState: ScrollStateService,
+    public scrollState: GoabWorkspaceLayoutScrollStateService,
   ) {}
 
   get isCollapsed(): boolean {
     const pos = this.scrollState.scrollPosition();
-    return pos === 'middle' || pos === 'at-bottom';
+    return (
+      pos === GoabWorkspaceLayoutScrollState.MIDDLE ||
+      pos === GoabWorkspaceLayoutScrollState.AT_BOTTOM
+    );
   }
 
   get headerClasses(): string {

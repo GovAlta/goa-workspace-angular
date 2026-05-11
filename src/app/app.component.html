@@ -1,4 +1,4 @@
-<div class="app-layout">
+<ng-template #sideMenuTpl>
   <goab-work-side-menu
     [url]="base + '/'"
     heading="Workspace Demo Application"
@@ -11,9 +11,12 @@
     [secondaryContent]="secondaryNav"
     [accountContent]="accountNav"
   />
+</ng-template>
 
-  <app-workspace-layout />
-</div>
+<goab-workspace-layout [sideMenu]="sideMenuTpl">
+  <router-outlet />
+  <app-page-footer />
+</goab-workspace-layout>
 
 <ng-template #primaryNav>
   <goab-work-side-menu-item icon="grid" label="Dashboard" [url]="base + '/'" />

@@ -1,29 +1,19 @@
 @import "@abgov/web-components/index.css";
 @import "@abgov/design-tokens/dist/tokens.css";
 
-/* To override styles of GoA components (goa-*, goabx-*), define CSS here in global
+/* To override styles of GoA components (goa-*, goab-*), define CSS here in global
    styles. Angular view encapsulation prevents component-scoped CSS from styling them. */
-.cases-search-group goabx-form-item {
+
+.cases-search-group goab-form-item {
   flex: 1;
   min-width: 0;
   display: block;
 }
 
-.cases-search-group goabx-form-item goa-form-item {
-  display: block;
-  width: 100%;
-}
-
-.cases-toolbar-tabs goabx-tabs {
+.cases-toolbar-tabs goab-tabs {
   flex-shrink: 0;
   display: block;
 }
-
-/* Ensure goa-input inside form-item takes full width */
-.cases-search-group goa-input {
-  width: 100%;
-}
-
 
 /* ============================================================================
    TABLE CELL UTILITIES
@@ -257,7 +247,6 @@ goa-container {
   pointer-events: none;
 }
 
-
 /* ============================================================================
    ROW ACTION MENU - Fix popover in table cells
    ============================================================================ */
@@ -412,8 +401,6 @@ goa-container {
     border-left: none;
   }
 }
-
-
 
 /* ============================================================================
    EXPANDABLE LIST VIEW - Accordion-style rows with expand/collapse
