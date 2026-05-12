@@ -5,8 +5,8 @@ import {
   GoabBadge,
   GoabButton,
   GoabWorkSideNotificationItem,
-  GoabTabsOnChangeDetail,
 } from '@abgov/angular-components';
+import { GoabTabsOnChangeDetail } from '@abgov/ui-components-common';
 import { PageHeaderComponent } from '../../components/page-header/page-header.component';
 import { EmptyStateComponent } from '../../components/empty-state/empty-state.component';
 import {

@@ -1,26 +1,30 @@
 import { Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { Router } from '@angular/router';
+import { RouterOutlet } from '@angular/router';
 import {
   GoabWorkSideMenu,
   GoabWorkSideMenuGroup,
   GoabWorkSideMenuItem,
   GoabWorkSideNotificationPanel,
   GoabWorkSideNotificationItem,
+  GoabWorkspaceLayout,
 } from '@abgov/angular-components';
 import { ViewportService } from './services/viewport.service';
 import { NotificationService } from './services/notification.service';
-import { WorkspaceLayoutComponent } from './components/workspace-layout/workspace-layout.component';
+import { PageFooterComponent } from './components/page-footer/page-footer.component';
 import { environment } from '../environments/environment';
 
 @Component({
   selector: 'app-root',
   imports: [
+    RouterOutlet,
     GoabWorkSideMenu,
     GoabWorkSideMenuGroup,
     GoabWorkSideMenuItem,
     GoabWorkSideNotificationPanel,
     GoabWorkSideNotificationItem,
-    WorkspaceLayoutComponent,
+    GoabWorkspaceLayout,
+    PageFooterComponent,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   templateUrl: './app.component.html',
