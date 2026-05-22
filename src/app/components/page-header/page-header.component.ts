@@ -6,7 +6,6 @@ import {
 } from '@angular/core';
 import {
   GoabText,
-  GoabIconButton,
   GoabWorkspaceLayoutScrollStateService,
 } from '@abgov/angular-components';
 import { GoabWorkspaceLayoutScrollState } from '@abgov/ui-components-common';
@@ -14,7 +13,7 @@ import { ViewportService } from '../../services/viewport.service';
 
 @Component({
   selector: 'app-page-header',
-  imports: [GoabText, GoabIconButton],
+  imports: [GoabText],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   encapsulation: ViewEncapsulation.None,
   templateUrl: './page-header.component.html',
@@ -54,7 +53,4 @@ export class PageHeaderComponent {
       .join(' ');
   }
 
-  openMenu() {
-    this.viewport.setMenuOpen(true);
-  }
 }

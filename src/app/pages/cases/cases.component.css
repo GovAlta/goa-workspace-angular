@@ -63,7 +63,14 @@
 
 /* ============================================================================
    TOOLBAR
+   ============================================================================
+   Note on 1200px breakpoint (used below in both .cases-toolbar-row and
+   .cases-toolbar-tabs): below 1200px the Cases toolbar (search + tabs +
+   filter + actions) no longer fits horizontally and must wrap/stack. Higher
+   than the DS TABLET_BP (1024px) due to Cases-specific content density.
    ============================================================================ */
+
+/* ---------- .cases-toolbar-row (parent layout) ---------- */
 
 .cases-toolbar-row {
   display: flex;
@@ -71,6 +78,21 @@
   gap: var(--goa-space-l);
   width: 100%;
 }
+
+.cases-toolbar-row .cases-search-row {
+  flex: 1;
+  min-width: 0;
+}
+
+@media (max-width: 1200px) {
+  .cases-toolbar-row {
+    flex-direction: column;
+    align-items: stretch;
+    gap: var(--goa-space-m);
+  }
+}
+
+/* ---------- .cases-toolbar-tabs ---------- */
 
 .cases-toolbar-tabs {
   display: flex;
@@ -89,6 +111,11 @@
 .cases-toolbar-tabs goa-tabs {
   flex-shrink: 0;
   --goa-tabs-margin-bottom: 0;
+}
+
+.cases-toolbar-tabs goab-tabs {
+  flex-shrink: 0;
+  display: block;
 }
 
 .cases-toolbar-tabs__spacer {
@@ -112,7 +139,6 @@
 /* Note: React has a border-left fix for segmented tabs on mobile, but the
    Angular web-components version (1.41.0-dev.25) already renders the border
    correctly, so the override is omitted to avoid a duplicate border artifact. */
-
 @media (min-width: 624px) and (max-width: 1200px) {
   .cases-toolbar-tabs {
     margin-left: -2rem;
@@ -125,16 +151,13 @@
   }
 }
 
-.cases-toolbar-row .cases-search-row {
-  flex: 1;
-  min-width: 0;
-}
-
-@media (max-width: 1200px) {
-  .cases-toolbar-row {
-    flex-direction: column;
-    align-items: stretch;
-    gap: var(--goa-space-m);
+/* Mobile: let segmented tabs shrink and wrap so they fit the viewport instead
+   of overflowing horizontally past the right edge. */
+@media (max-width: 623px) {
+  .cases-toolbar-tabs goab-tabs {
+    flex-shrink: 1;
+    width: 100%;
+    min-width: 0;
   }
 }
 
@@ -156,6 +179,12 @@
 .cases-search-group goa-form-item {
   flex: 1;
   min-width: 0;
+}
+
+.cases-search-group goab-form-item {
+  flex: 1;
+  min-width: 0;
+  display: block;
 }
 
 .cases-actions-group {

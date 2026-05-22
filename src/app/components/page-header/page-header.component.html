@@ -1,15 +1,6 @@
 <div [class]="headerClasses">
   <div class="page-header__content">
     <div class="page-header__title-container">
-      @if (viewport.isMobile()) {
-        <goab-icon-button
-          icon="menu"
-          size="medium"
-          variant="dark"
-          (onClick)="openMenu()"
-          ariaLabel="Open menu"
-        />
-      }
       @if (title) {
         <goab-text
           tag="h1"

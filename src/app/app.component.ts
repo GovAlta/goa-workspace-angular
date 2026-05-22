@@ -9,7 +9,7 @@ import {
   GoabWorkSideNotificationItem,
   GoabWorkspaceLayout,
 } from '@abgov/angular-components';
-import { ViewportService } from './services/viewport.service';
+import { MenuStateService } from './services/menu-state.service';
 import { NotificationService } from './services/notification.service';
 import { PageFooterComponent } from './components/page-footer/page-footer.component';
 import { environment } from '../environments/environment';
@@ -34,7 +34,7 @@ export class AppComponent {
   base = environment.baseUrl;
 
   constructor(
-    public viewport: ViewportService,
+    public menuState: MenuStateService,
     public notifications: NotificationService,
     private router: Router,
   ) {}
