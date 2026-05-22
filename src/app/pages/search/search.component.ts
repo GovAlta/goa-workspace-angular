@@ -12,9 +12,11 @@ import {
   GoabLink,
   GoabTable,
   GoabTableSortHeader,
+} from '@abgov/angular-components';
+import {
   GoabTableOnMultiSortDetail,
   GoabInputOnKeyPressDetail,
-} from '@abgov/angular-components';
+} from '@abgov/ui-components-common';
 import { SearchResult } from '../../types/search-result';
 import { filterData, sortData, SortConfig } from '../../utils/search-utils';
 import { getTypeBadgeProps } from '../../utils/badge-utils';

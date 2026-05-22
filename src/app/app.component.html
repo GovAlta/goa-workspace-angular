@@ -1,19 +1,22 @@
-<div class="app-layout">
+<ng-template #sideMenuTpl>
   <goab-work-side-menu
     [url]="base + '/'"
     heading="Workspace Demo Application"
     userName="Edna Mode"
     userSecondaryText="edna.mode@example.com"
-    [open]="viewport.menuOpen()"
-    (onToggle)="viewport.toggleMenu()"
+    [open]="menuState.menuOpen()"
+    (onToggle)="menuState.toggleMenu()"
     (onNavigate)="onNavigate($event)"
     [primaryContent]="primaryNav"
     [secondaryContent]="secondaryNav"
     [accountContent]="accountNav"
   />
+</ng-template>
 
-  <app-workspace-layout />
-</div>
+<goab-workspace-layout [sideMenu]="sideMenuTpl">
+  <router-outlet />
+  <app-page-footer />
+</goab-workspace-layout>
 
 <ng-template #primaryNav>
   <goab-work-side-menu-item icon="grid" label="Dashboard" [url]="base + '/'" />

@@ -1,29 +1,15 @@
 @import "@abgov/web-components/index.css";
 @import "@abgov/design-tokens/dist/tokens.css";
 
-/* To override styles of GoA components (goa-*, goabx-*), define CSS here in global
-   styles. Angular view encapsulation prevents component-scoped CSS from styling them. */
-.cases-search-group goabx-form-item {
-  flex: 1;
-  min-width: 0;
-  display: block;
+/* Mobile: override library default (24px) to align hamburger center with
+   the h1's vertical center.
+   h1 center = padding-top (16px) + h1 line-height (36px) / 2 = 34px.
+   Hamburger height = 32px → top = 34 - 16 = 18px. */
+@media (max-width: 623px) {
+  goa-workspace-layout {
+    --goa-workspace-layout-mobile-toggle-top: 18px;
+  }
 }
-
-.cases-search-group goabx-form-item goa-form-item {
-  display: block;
-  width: 100%;
-}
-
-.cases-toolbar-tabs goabx-tabs {
-  flex-shrink: 0;
-  display: block;
-}
-
-/* Ensure goa-input inside form-item takes full width */
-.cases-search-group goa-input {
-  width: 100%;
-}
-
 
 /* ============================================================================
    TABLE CELL UTILITIES
@@ -257,7 +243,6 @@ goa-container {
   pointer-events: none;
 }
 
-
 /* ============================================================================
    ROW ACTION MENU - Fix popover in table cells
    ============================================================================ */
@@ -412,8 +397,6 @@ goa-container {
     border-left: none;
   }
 }
-
-
 
 /* ============================================================================
    EXPANDABLE LIST VIEW - Accordion-style rows with expand/collapse

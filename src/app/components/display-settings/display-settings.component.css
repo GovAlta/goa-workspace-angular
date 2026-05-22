@@ -6,11 +6,6 @@
    DISPLAY SETTINGS - Cascading menu for view settings
    ============================================================================ */
 
-/* TODO: Remove when #3643 (popover alignment prop) is resolved */
-.settings-popover-align goa-popover {
-  --offset-left: -150px;
-}
-
 .settings-popover__content {
   display: flex;
   flex-direction: column;
